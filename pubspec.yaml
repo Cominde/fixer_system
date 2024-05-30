@@ -1,0 +1,53 @@
+name: fixer_system
+description: A new Flutter project.
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutterflow_ui_pro:
+    path: flutterflow_ui_pro
+  adaptive_theme: ^3.6.0
+  shared_preferences: 2.2.2
+  badges: ^3.1.2
+  bloc: ^8.1.3
+  flutter_bloc: ^8.1.4
+  http: ^1.2.1
+  conditional_builder_null_safety: ^0.0.6
+  bot_toast: ^4.1.3
+  material_floating_search_bar_2: ^0.5.0
+  icons_launcher: ^2.1.7
+  url_launcher: ^6.2.6
+  fluttertoast: ^8.2.5
+  pager: ^0.0.6
+  searchfield: ^1.0.2
+
+
+#dependency_overrides:
+#  rive_common: 0.0.6
+#  rive: 0.12.4
+
+
+
+dev_dependencies:
+  flutter_launcher_icons: 0.13.1
+  flutter_lints: ^3.0.2
+  image: ^4.1.7
+  lints: 3.0.0
+
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+
+icons_launcher:
+  image_path: "assets/images/51.png"
+  platforms:
+    windows:
+      enable: true
+      image_path: "assets/images/51.png"
