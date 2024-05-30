@@ -1,9 +1,9 @@
-
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../components/custom/box_decoration.dart';
 import '../../cubit/cubit.dart';
@@ -108,6 +108,58 @@ Future addConstantsScreen(context ,year,month) {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Expanded(
+                          child: FlutterFlowDropDown(
+                            initialOption: list.keys.first,
+                            options: list.keys.toList(),
+                            onChanged: (String? value) {
+                              setState(() {
+                                typeController.text = value!;
+                              });
+                            },
+                            width: 150,
+                            height: 56,
+                            textStyle:
+                            FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                              fontFamily:
+                              FlutterFlowTheme.of(
+                                  context)
+                                  .bodyMediumFamily,
+                              letterSpacing: 0,
+                              useGoogleFonts: GoogleFonts
+                                  .asMap()
+                                  .containsKey(
+                                  FlutterFlowTheme.of(
+                                      context)
+                                      .bodyMediumFamily),
+                            ),
+                            hintText: 'Select type',
+                            icon: Icon(
+                              Icons
+                                  .keyboard_arrow_down_rounded,
+                              color: FlutterFlowTheme.of(
+                                  context)
+                                  .secondaryText,
+                              size: 24,
+                            ),
+                            fillColor:
+                            FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            elevation: 2,
+                            borderColor:
+                            FlutterFlowTheme.of(context)
+                                .secondaryText,
+                            borderWidth: 2,
+                            borderRadius: 8,
+                            margin:
+                            const EdgeInsetsDirectional
+                                .fromSTEB(16, 4, 16, 4),
+                            hidesUnderline: true,
+                          ),
+                        ),
+                        /*Expanded(
+
                           child: DropdownMenu<String>(
                             initialSelection: list.keys.first,
                             onSelected: (String? value) {
@@ -119,7 +171,7 @@ Future addConstantsScreen(context ,year,month) {
                               return DropdownMenuEntry<String>(value: value, label: value);
                             }).toList(),
                           ),
-                        ),
+                        ),*/
 
                         const SizedBox(
                           width: 10,
@@ -135,7 +187,7 @@ Future addConstantsScreen(context ,year,month) {
                                 .override(
                               fontFamily: 'Outfit',
                               color:
-                              FlutterFlowTheme.of(context).tertiary,
+                              FlutterFlowTheme.of(context).primaryText,
                             ),
                             validator: (value) {
                               if (value!.isEmpty) {

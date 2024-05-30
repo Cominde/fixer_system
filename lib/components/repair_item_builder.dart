@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 
 import '../cubit/cubit.dart';
 import '../models/get_specific_car_model.dart';
@@ -27,13 +28,33 @@ Widget repairItemBuilder(context, RepairData? model) {
           children: [
              Visibility(
               visible: (model?.complete)??true,
-              replacement:const Padding(
+              replacement:Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Text('Processing',style: TextStyle(color: Colors.red),),
+                child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Processing',style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+                    ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    border: Border.all(color: Colors.red,width: 1)
+                  ),
+                ),
               ) ,
-              child: const Padding(
+              child: Padding(
               padding: EdgeInsets.all(8.0),
-              child: Text('Completed',style: TextStyle(color: Colors.green),),
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Completed',style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
+                ),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    border: Border.all(color: Colors.green,width: 1)
+                ),
+              ),
               ),
             ),
             const Text(
@@ -51,56 +72,56 @@ Widget repairItemBuilder(context, RepairData? model) {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('Client'),
-                      Text('${model?.client}'),
+                      Text('${model?.client}',style: TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('Brand'),
-                      Text('${model?.brand}'),
+                      Text('${model?.brand}',style: TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('Category'),
-                      Text('${model?.category}'),
+                      Text('${model?.category}',style: TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('Model'),
-                      Text('${model?.model}'),
+                      Text('${model?.model}',style: TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('Discount'),
-                      Text('${model?.discount}%'),
+                      Text('${model?.discount}%',style: TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('Total Price'),
-                      Text('${model?.totalPrice} EGP'),
+                      Text('${model?.totalPrice} EGP',style: TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('Car Number'),
-                      Text('${model?.carNumber}'),
+                      Text('${model?.carNumber}',style: TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('Type'),
-                      Text('${model?.type}'),
+                      Text('${model?.type}',style: TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                   Row(
@@ -108,7 +129,7 @@ Widget repairItemBuilder(context, RepairData? model) {
                     children: [
                       const Text('Expected Date'),
                       Text(
-                          '${(model?.expectedDate?.day) ?? '-'}/${(model?.expectedDate?.month) ?? '-'}/${(model?.expectedDate?.year) ?? '-'}'),
+                          '${(model?.expectedDate?.day) ?? '-'}/${(model?.expectedDate?.month) ?? '-'}/${(model?.expectedDate?.year) ?? '-'}',style: TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                 ],
@@ -129,14 +150,14 @@ Widget repairItemBuilder(context, RepairData? model) {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('Complete'),
-                      Text('${model?.complete.toString()}'),
+                      Text('${model?.complete.toString()}',style: TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('Completed Services Ratio'),
-                      Text('${(model?.completedServicesRatio)}'),
+                      Text('${(model?.completedServicesRatio)}',style: TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                   Row(
@@ -144,7 +165,7 @@ Widget repairItemBuilder(context, RepairData? model) {
                     children: [
                       const Text('Created At'),
                       Text(
-                          '${(model?.createdAt?.day) ?? '-'}/${(model?.createdAt?.month) ?? '-'}/${(model?.createdAt?.year) ?? '-'}'),
+                          '${(model?.createdAt?.day) ?? '-'}/${(model?.createdAt?.month) ?? '-'}/${(model?.createdAt?.year) ?? '-'}',style: TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                   Row(
@@ -152,7 +173,7 @@ Widget repairItemBuilder(context, RepairData? model) {
                     children: [
                       const Text('Updated At'),
                       Text(
-                          '${(model?.updatedAt?.day) ?? '-'}/${(model?.updatedAt?.month) ?? '-'}/${(model?.updatedAt?.year) ?? '-'}'),
+                          '${(model?.updatedAt?.day) ?? '-'}/${(model?.updatedAt?.month) ?? '-'}/${(model?.updatedAt?.year) ?? '-'}',style: TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                 ],
@@ -185,6 +206,7 @@ Widget repairItemBuilder(context, RepairData? model) {
                                   state: 'completed',
                                 );
                                 value.state='completed';
+                                model.complete=true;
 
                               },
                               icon:  const Icon(Icons.check_box_outline_blank,color: Colors.red,)),
@@ -206,7 +228,7 @@ Widget repairItemBuilder(context, RepairData? model) {
                               icon: const Icon(Icons.check_box,color: Colors.green,)),
                         ),
                         Expanded(child: Text('${value.name}')),
-                        Text('${value.price} EGP'),
+                        Text('${value.price} EGP',style: TextStyle(fontWeight: FontWeight.bold),),
                       ],
                     ),
                   );
@@ -229,7 +251,7 @@ Widget repairItemBuilder(context, RepairData? model) {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('${value.name}'),
-                          Text('${value.price} EGP'),
+                          Text('${value.price} EGP',style: TextStyle(fontWeight: FontWeight.bold),),
                         ],
                       ),
                     )),
@@ -251,7 +273,7 @@ Widget repairItemBuilder(context, RepairData? model) {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('${value.name}'),
-                          Text('${value.price} EGP'),
+                          Text('${value.price} EGP',style: TextStyle(fontWeight: FontWeight.bold),),
                         ],
                       ),
                     )),

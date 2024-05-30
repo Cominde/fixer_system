@@ -135,7 +135,7 @@ Widget addNewWorkerPage(context) {
                                     .override(
                                       fontFamily: 'Outfit',
                                       color:
-                                          FlutterFlowTheme.of(context).tertiary,
+                                          FlutterFlowTheme.of(context).primaryText,
                                     ),
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -156,7 +156,7 @@ Widget addNewWorkerPage(context) {
                                     .override(
                                       fontFamily: 'Outfit',
                                       color:
-                                          FlutterFlowTheme.of(context).tertiary,
+                                          FlutterFlowTheme.of(context).primaryText,
                                     ),
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -179,7 +179,7 @@ Widget addNewWorkerPage(context) {
                                     .override(
                                   fontFamily: 'Outfit',
                                   color:
-                                  FlutterFlowTheme.of(context).tertiary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -203,7 +203,7 @@ Widget addNewWorkerPage(context) {
                                     .override(
                                   fontFamily: 'Outfit',
                                   color:
-                                  FlutterFlowTheme.of(context).tertiary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -227,7 +227,7 @@ Widget addNewWorkerPage(context) {
                                     .override(
                                   fontFamily: 'Outfit',
                                   color:
-                                  FlutterFlowTheme.of(context).tertiary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
                                 validator: (value) {
                                   if (value!.isEmpty) {

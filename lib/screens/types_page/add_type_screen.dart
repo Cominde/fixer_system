@@ -1,4 +1,3 @@
-
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,36 +6,27 @@ import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 import '../../components/custom/box_decoration.dart';
 import '../../cubit/cubit.dart';
 import '../../cubit/states.dart';
-import '../../models/get_workers_model.dart';
 
-Widget updateWorkerPage(context,Worker model) {
 
-  final formKey = GlobalKey<FormState>();
+final _formKey = GlobalKey<FormState>();
 
-  var nameController = TextEditingController();
+var nameController = TextEditingController();
 
-  var phoneNumberController = TextEditingController();
+var keyController = TextEditingController();
 
-  var idNumberController = TextEditingController();
+Widget addNewTypePage(context) {
 
-  var jobTitleController=TextEditingController();
 
-  var salaryController=TextEditingController();
-
-  nameController=TextEditingController(text: model.name);
-  phoneNumberController=TextEditingController(text: model.phoneNumber.toString());
-  idNumberController=TextEditingController(text: model.IDNumber.toString());
-  jobTitleController=TextEditingController(text: model.jobTitle.toString());
-  salaryController=TextEditingController(text:model.salary.toString());
   return BlocConsumer<AppCubit, AppCubitStates>(
     listener: (context, state) {},
     builder: (context, state) {
       return AlertDialog(
-        alignment: Alignment.topCenter,
+
+        alignment: Alignment.topRight,
         surfaceTintColor: FlutterFlowTheme.of(context).primaryBackground,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        title:const Text(
-          'Update Worker',
+        title: const Text(
+          'Add Type',
           style: TextStyle(
             fontSize: 25,
           ),
@@ -44,6 +34,11 @@ Widget updateWorkerPage(context,Worker model) {
         icon: IconButton(
           onPressed: () {
             Navigator.of(context).pop();
+
+            nameController = TextEditingController();
+
+            keyController = TextEditingController();
+
           },
           icon: Icon(Icons.close,color: FlutterFlowTheme.of(context).error,),
           hoverColor: Colors.transparent,
@@ -52,27 +47,28 @@ Widget updateWorkerPage(context,Worker model) {
         ),
         actions: [
           ConditionalBuilder(
-            condition: state is AppUpdateWorkerLoadingState,
+            condition: state is AppAddWorkerLoadingState,
             builder: (context) => const  Center(
               child: Padding(padding: EdgeInsets.all(40.0),
-                 child: CircularProgressIndicator(),
-                                            ),),
-            
-                                        
+                child: CircularProgressIndicator(),
+              ),),
+
+
             fallback: (context) => FFButtonWidget(
               onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  AppCubit.get(context).updateWorker(context,
+                if (_formKey.currentState!.validate()) {
+
+                  /*AppCubit.get(context).addWorker(
+                    context,
                     name: nameController.text,
-                    IDNumber: idNumberController.text,
-                    jobTitle: jobTitleController.text,
                     phoneNumber: phoneNumberController.text,
+                    jobTitle: jobTitleController.text,
                     salary: salaryController.text,
-                    id:model.id!,
-                  );
+                    IDNumber: idNumberController.text,
+                  );*/
                 }
               },
-              text: 'Update Worker',
+              text: 'Add Type',
               options: FFButtonOptions(
                 width: MediaQuery.sizeOf(context).width * 0.20,
                 height: MediaQuery.sizeOf(context).height * 0.065,
@@ -98,11 +94,12 @@ Widget updateWorkerPage(context,Worker model) {
         content: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Form(
-            key: formKey,
+            key: _formKey,
             child: SingleChildScrollView(
               child: Container(
                 padding: const EdgeInsets.all(30),
                 child: Column(
+
                   children: [
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -110,7 +107,7 @@ Widget updateWorkerPage(context,Worker model) {
                       children: [
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
-                          width: MediaQuery.sizeOf(context).width * 0.45,
+                          width: MediaQuery.sizeOf(context).width * 0.70,
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -119,7 +116,7 @@ Widget updateWorkerPage(context,Worker model) {
                                 controller: nameController,
                                 obscureText: false,
                                 decoration: CustomInputDecoration.customInputDecoration(context,'name'),
-                                   
+
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -138,9 +135,9 @@ Widget updateWorkerPage(context,Worker model) {
                                 height: 10,
                               ),
                               TextFormField(
-                                controller: phoneNumberController,
+                                controller: keyController,
                                 obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'quantity'),
+                                decoration: CustomInputDecoration.customInputDecoration(context,'key'),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -150,77 +147,11 @@ Widget updateWorkerPage(context,Worker model) {
                                 ),
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'please enter the quantity';
+                                    return 'please enter the key';
                                   }
                                   return null;
                                 },
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              TextFormField(
-                                controller: idNumberController,
-                                obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'price'),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                  fontFamily: 'Outfit',
-                                  color:
-                                  FlutterFlowTheme.of(context).primaryText,
-                                ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'please enter the price';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              TextFormField(
-                                controller: jobTitleController,
-                                obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'job title'),
-                                   
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                  fontFamily: 'Outfit',
-                                  color:
-                                  FlutterFlowTheme.of(context).primaryText,
-                                ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'please enter the quantity';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              TextFormField(
-                                controller: salaryController,
-                                obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'salary'),
-                                   
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                  fontFamily: 'Outfit',
-                                  color:
-                                  FlutterFlowTheme.of(context).primaryText,
-                                ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'please enter the price';
-                                  }
-                                  return null;
-                                },
-                              ),
-
                             ],
                           ),
                         ),

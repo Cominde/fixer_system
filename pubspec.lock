@@ -193,14 +193,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
-  dropdown_search:
-    dependency: "direct main"
-    description:
-      name: dropdown_search
-      sha256: "55106e8290acaa97ed15bea1fdad82c3cf0c248dd410e651f5a8ac6870f783ab"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.0.6"
   emoji_flag_converter:
     dependency: transitive
     description:
@@ -209,14 +201,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
-  endless:
-    dependency: transitive
-    description:
-      name: endless
-      sha256: "2016ce4df3cb44ac8ea505207b8954f46a3400ce8ba8026a914607499cae3bb2"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.6.3"
   equatable:
     dependency: transitive
     description:
@@ -334,14 +318,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.2"
-  flutter_spinkit:
-    dependency: "direct main"
-    description:
-      name: flutter_spinkit
-      sha256: d2696eed13732831414595b98863260e33e8882fc069ee80ec35d4ac9ddb0472
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.2.1"
   flutter_staggered_grid_view:
     dependency: transitive
     description:
@@ -583,14 +559,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
-  paginated_search_bar:
+  pager:
     dependency: "direct main"
     description:
-      name: paginated_search_bar
-      sha256: "61ad88426b55586e688b7f650a57f560b04ea8f89fd57fbb52aafa62b007dd97"
+      name: pager
+      sha256: "49a6c5d98ca1d3f63947db5075d860fbc50b8aa9bb753251378f0e42721635df"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.2"
+    version: "0.0.6"
   path:
     dependency: transitive
     description:
@@ -735,6 +711,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
+  searchfield:
+    dependency: "direct main"
+    description:
+      name: searchfield
+      sha256: "891b6c9fc6415777293e4bfde45094c31f876e50eafd941f7a916d130235a645"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -852,14 +836,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.1"
-  state_property:
-    dependency: transitive
-    description:
-      name: state_property
-      sha256: "9762a86f4f0c30c264734069cc10899a211ab4869a392289ac4eddb8f3dbf6dc"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.1"
   stream_channel:
     dependency: transitive
     description:

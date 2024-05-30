@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pager/pager.dart';
 
 
 import '../../components/custom/box_decoration.dart';
@@ -76,6 +77,7 @@ class _CarsInGaragePageState extends State<CarsInGaragePage> {
                           navFive: FlutterFlowTheme.of(context).secondaryText,
                           navSix: FlutterFlowTheme.of(context).secondaryText,
                           navSeven: FlutterFlowTheme.of(context).secondaryText,
+                          navEight: FlutterFlowTheme.of(context).secondaryText,
                         ),
                       ),
                     Expanded(
@@ -478,6 +480,19 @@ class _CarsInGaragePageState extends State<CarsInGaragePage> {
                                       ],
                                     ),
                                   ),
+                                  Center(
+                                    child: Pager(
+                                      currentPage: AppCubit.get(context).getRepairingCarsModel!.current,
+                                      totalPages: AppCubit.get(context).getRepairingCarsModel!.pages,
+                                      onPageChanged: (page) {
+                                        setState(() {
+                                          AppCubit.get(context).getRepairingCarsModel!.current = page;
+                                          AppCubit.get(context).getRepairingCars(page: page);
+                                        });
+                                      },
+                                      numberButtonSelectedColor: Color(0xffF68B1E),
+                                    ),
+                                  )
                                 ],
                               ),
                             ),

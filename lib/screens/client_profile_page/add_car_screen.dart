@@ -152,6 +152,7 @@ Widget addNewCarScreen(context, String userId,) {
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -160,20 +161,27 @@ Widget addNewCarScreen(context, String userId,) {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
+                              Text('Required Car Info',style: TextStyle(fontWeight: FontWeight.bold),),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
                               TextFormField(
                                 controller: carNumberController,
                                 obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'Car number'),
+                                decoration:CustomInputDecoration.customInputDecoration(context, 'Car Number'),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                   fontFamily: 'Outfit',
                                   color:
-                                  FlutterFlowTheme.of(context).tertiary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'please enter the car number';
+                                    return 'please enter the Car number';
                                   }
                                   return null;
                                 },
@@ -184,13 +192,13 @@ Widget addNewCarScreen(context, String userId,) {
                               TextFormField(
                                 controller: chassisNumberController,
                                 obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'chassis number'),
+                                decoration:CustomInputDecoration.customInputDecoration(context, 'Chassis Number'),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                   fontFamily: 'Outfit',
                                   color:
-                                  FlutterFlowTheme.of(context).tertiary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -203,19 +211,40 @@ Widget addNewCarScreen(context, String userId,) {
                                 height: 10,
                               ),
                               TextFormField(
-                                controller: colorController,
+                                controller: motorNumberController,
                                 obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'color'),
+                                decoration:CustomInputDecoration.customInputDecoration(context, 'Motor Number'),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                   fontFamily: 'Outfit',
                                   color:
-                                  FlutterFlowTheme.of(context).tertiary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'please enter the car color';
+                                    return 'please enter the motor number';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              TextFormField(
+                                controller: colorController,
+                                obscureText: false,
+                                decoration:CustomInputDecoration.customInputDecoration(context, 'Color'),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                  fontFamily: 'Outfit',
+                                  color:
+                                  FlutterFlowTheme.of(context).primaryText,
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter the color';
                                   }
                                   return null;
                                 },
@@ -226,17 +255,17 @@ Widget addNewCarScreen(context, String userId,) {
                               TextFormField(
                                 controller: brandController,
                                 obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'brand'),
+                                decoration:CustomInputDecoration.customInputDecoration(context, 'Brand'),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                   fontFamily: 'Outfit',
                                   color:
-                                  FlutterFlowTheme.of(context).tertiary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'please enter car brand';
+                                    return 'please enter the brand';
                                   }
                                   return null;
                                 },
@@ -247,25 +276,37 @@ Widget addNewCarScreen(context, String userId,) {
                               TextFormField(
                                 controller: categoryController,
                                 obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'category'),
+                                decoration:CustomInputDecoration.customInputDecoration(context, 'Category'),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                   fontFamily: 'Outfit',
                                   color:
-                                  FlutterFlowTheme.of(context).tertiary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'please enter car category';
+                                    return 'please enter the category';
                                   }
                                   return null;
                                 },
                               ),
                               const SizedBox(
-                                height: 70,
+                                height: 10,
                               ),
-
+                              Container(
+                                alignment: Alignment.centerRight,
+                                height: MediaQuery.sizeOf(context).height * 0.2,
+                                width: 350,
+                                child: YearPicker(
+                                  firstDate: DateTime(1970),
+                                  lastDate: DateTime.now(),
+                                  selectedDate: AppCubit.get(context).time,
+                                  onChanged: (value) {
+                                    AppCubit.get(context).changDatePicker(value);
+                                  },
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -276,30 +317,46 @@ Widget addNewCarScreen(context, String userId,) {
                             mainAxisAlignment: MainAxisAlignment.start,
                             mainAxisSize: MainAxisSize.max,
                             children: [
+                              Text('Optional Car Info',style: TextStyle(fontWeight: FontWeight.bold),),
+                              const SizedBox(
+                                height: 10,
+                              ),
                               TextFormField(
-                                controller: nextRepairDateController,
-
+                                controller: distanceController,
                                 obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'Next Repair date'),
+                                decoration:CustomInputDecoration.customInputDecoration(context, 'Distance'),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                   fontFamily: 'Outfit',
                                   color:
-                                  FlutterFlowTheme.of(context).tertiary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
-
-                                onTap:() {
-                                    showDatePicker(
-                                    context: context,
-                                    firstDate: DateTime.now(),
-                                    lastDate: DateTime(2999),
-                                    initialDate: DateTime.now(),
-                                    ).then((value) {
-                                    nextRepairDateController.text =
-                                    DateFormat.yMEd().format(value!);
-                                    });
+                                validator: (value) {
+                                  /*if (value!.isEmpty) {
+                                    return 'please enter the distance';
+                                  }*/
+                                  return null;
                                 },
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text('For Old Clients',style: TextStyle(fontWeight: FontWeight.bold),),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              TextFormField(
+                                controller: nextRepairDateController,
+                                obscureText: false,
+                                decoration:CustomInputDecoration.customInputDecoration(context, 'Next Repair Date'),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                  fontFamily: 'Outfit',
+                                  color:
+                                  FlutterFlowTheme.of(context).primaryText,
+                                ),
                               ),
                               const SizedBox(
                                 height: 10,
@@ -307,18 +364,14 @@ Widget addNewCarScreen(context, String userId,) {
                               TextFormField(
                                 controller: lastRepairDateController,
                                 obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'last Repair date'),
-                                onTap:() {
-                                  showDatePicker(
-                                    context: context,
-                                    firstDate: DateTime.now(),
-                                    lastDate: DateTime(2999),
-                                    initialDate: DateTime.now(),
-                                  ).then((value) {
-                                    lastRepairDateController.text =
-                                        DateFormat.yMEd().format(value!);
-                                  });
-                                },
+                                decoration:CustomInputDecoration.customInputDecoration(context, 'Last Repair Date'),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                  fontFamily: 'Outfit',
+                                  color:
+                                  FlutterFlowTheme.of(context).primaryText,
+                                ),
                               ),
                               const SizedBox(
                                 height: 10,
@@ -326,16 +379,14 @@ Widget addNewCarScreen(context, String userId,) {
                               TextFormField(
                                 controller: periodicRepairsController,
                                 obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'periodic repairs'),
-                                   
+                                decoration:CustomInputDecoration.customInputDecoration(context, 'Periodic Repairs'),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                   fontFamily: 'Outfit',
                                   color:
-                                  FlutterFlowTheme.of(context).tertiary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
-
                               ),
                               const SizedBox(
                                 height: 10,
@@ -343,82 +394,19 @@ Widget addNewCarScreen(context, String userId,) {
                               TextFormField(
                                 controller: nonPeriodicRepairsController,
                                 obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'non periodic repairs'),
-
-
+                                decoration:CustomInputDecoration.customInputDecoration(context, 'Non Periodic Repairs'),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                   fontFamily: 'Outfit',
                                   color:
-                                  FlutterFlowTheme.of(context).tertiary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
-
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              TextFormField(
-                                controller: distanceController,
-                                obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'distance'),
-
-                                   
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                  fontFamily: 'Outfit',
-                                  color:
-                                  FlutterFlowTheme.of(context).tertiary,
-                                ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'please enter the distance';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              TextFormField(
-                                controller: motorNumberController,
-                                obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'motor number'),
-
-
-                                   
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                  fontFamily: 'Outfit',
-                                  color:
-                                  FlutterFlowTheme.of(context).tertiary,
-                                ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'please enter the motor number';
-                                  }
-                                  return null;
-                                },
                               ),
                             ],
                           ),
                         ),
                       ],
-                    ),
-                    Container(
-                      alignment: Alignment.centerRight,
-                      height: MediaQuery.sizeOf(context).height * 0.2,
-                      width: 350,
-                      child: YearPicker(
-                        firstDate: DateTime(1970),
-                        lastDate: DateTime.now(),
-                        selectedDate: AppCubit.get(context).time,
-                        onChanged: (value) {
-                          AppCubit.get(context).changDatePicker(value);
-                        },
-                      ),
                     ),
                   ],
                 ),

@@ -2,6 +2,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:fixer_system/cubit/cubit.dart';
 import 'package:fixer_system/cubit/states.dart';
+import 'package:fixer_system/screens/login/login.dart';
 import 'package:fixer_system/screens/reset_password_page/reset_password_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
@@ -198,6 +199,21 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                               ),
                         ),
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Back to '),
+                          TextButton(onPressed: (){
+                            Navigator.push(context,  PageTransition(
+                              type: PageTransitionType.fade,
+                              duration: const Duration(milliseconds: 0),
+                              reverseDuration: const Duration(milliseconds: 0),
+                              child:Login(),
+                            ),);
+                          }, child: Text('Login page',style: TextStyle(color: Colors.orange),))
+
+                        ],
+                      )
                     ],
                   ),
                 ),

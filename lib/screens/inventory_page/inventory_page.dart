@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pager/pager.dart';
 
 import 'add_component_screen.dart';
 import 'inventory_page_model.dart';
@@ -72,6 +73,7 @@ class _InventoryPageState extends State<InventoryPage> {
                        navFive: FlutterFlowTheme.of(context).secondaryText,
                        navSix: FlutterFlowTheme.of(context).secondaryText,
                        navSeven: const Color(0xFFF68B1E),
+                       navEight: FlutterFlowTheme.of(context).secondaryText,
                      ),
                    ),
                  Expanded(
@@ -410,6 +412,19 @@ class _InventoryPageState extends State<InventoryPage> {
                                    ],
                                  ),
                                ),
+                               Center(
+                                 child: Pager(
+                                   currentPage: AppCubit.get(context).getListOfInventoryComponentsModel!.current,
+                                   totalPages: AppCubit.get(context).getListOfInventoryComponentsModel!.pages,
+                                   onPageChanged: (page) {
+                                     setState(() {
+                                       AppCubit.get(context).getListOfInventoryComponentsModel!.current = page;
+                                       AppCubit.get(context).getListOfComponents(page: page);
+                                     });
+                                   },
+                                   numberButtonSelectedColor: Color(0xffF68B1E),
+                                 ),
+                               )
                              ],
                            ),
                          ),

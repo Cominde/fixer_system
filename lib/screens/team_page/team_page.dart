@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pager/pager.dart';
 
 import '../../components/custom/box_decoration.dart';
 import '../../components/team_member_builder.dart';
@@ -71,6 +72,7 @@ class _TeamPageState extends State<TeamPage> {
                       navFive: const Color(0xFFF68B1E),
                       navSix: FlutterFlowTheme.of(context).secondaryText,
                       navSeven: FlutterFlowTheme.of(context).secondaryText,
+                      navEight: FlutterFlowTheme.of(context).secondaryText,
                     ),
                   ),
                 Expanded(
@@ -556,6 +558,19 @@ class _TeamPageState extends State<TeamPage> {
                                   ],
                                 ),
                               ),
+                              Center(
+                                child: Pager(
+                                  currentPage: AppCubit.get(context).getWorkersModel!.current,
+                                  totalPages: AppCubit.get(context).getWorkersModel!.pages,
+                                  onPageChanged: (page) {
+                                    setState(() {
+                                      AppCubit.get(context).getWorkersModel!.current = page;
+                                      AppCubit.get(context).getWorkers(page: page);
+                                    });
+                                  },
+                                  numberButtonSelectedColor: Color(0xffF68B1E),
+                                ),
+                              )
                             ],
                           ),
                         ),

@@ -3,8 +3,11 @@ class GetUsersModel{
   GetUsersModel();
   int? results=null;
   List<User>users=[];
+  int pages = 1;
+  int current = 1;
   GetUsersModel.fromJson(Map<String,dynamic>?json){
     results=json?['results'];
+    pages=json?['paginationResult']['numberOfPages'];
     json?['data'].forEach((element) {
       users.add(User.fromJson(element));
     });

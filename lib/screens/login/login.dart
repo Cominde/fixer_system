@@ -186,6 +186,7 @@ class _LoginState extends State<Login> {
                                   fontFamily: FlutterFlowTheme
                                       .of(context)
                                       .labelMediumFamily,
+                                  color: Color(0xFFF68B1E),
                                   letterSpacing: 0,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme

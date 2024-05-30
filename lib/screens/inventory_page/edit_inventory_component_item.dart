@@ -115,7 +115,7 @@ var priceController = TextEditingController();
                                     .override(
                                   fontFamily: 'Outfit',
                                   color:
-                                  FlutterFlowTheme.of(context).tertiary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -136,7 +136,7 @@ var priceController = TextEditingController();
                                     .override(
                                   fontFamily: 'Outfit',
                                   color:
-                                  FlutterFlowTheme.of(context).tertiary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -157,7 +157,7 @@ var priceController = TextEditingController();
                                     .override(
                                   fontFamily: 'Outfit',
                                   color:
-                                  FlutterFlowTheme.of(context).tertiary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
                                 validator: (value) {
                                   if (value!.isEmpty) {

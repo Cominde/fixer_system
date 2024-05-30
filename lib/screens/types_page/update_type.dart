@@ -9,25 +9,17 @@ import '../../cubit/cubit.dart';
 import '../../cubit/states.dart';
 import '../../models/get_workers_model.dart';
 
-Widget updateWorkerPage(context,Worker model) {
+Widget updateTypePage(context,Worker model) {
 
   final formKey = GlobalKey<FormState>();
 
   var nameController = TextEditingController();
 
-  var phoneNumberController = TextEditingController();
-
-  var idNumberController = TextEditingController();
-
-  var jobTitleController=TextEditingController();
-
-  var salaryController=TextEditingController();
+  var keyController = TextEditingController();
 
   nameController=TextEditingController(text: model.name);
-  phoneNumberController=TextEditingController(text: model.phoneNumber.toString());
-  idNumberController=TextEditingController(text: model.IDNumber.toString());
-  jobTitleController=TextEditingController(text: model.jobTitle.toString());
-  salaryController=TextEditingController(text:model.salary.toString());
+  keyController=TextEditingController(text: model.phoneNumber.toString());
+
   return BlocConsumer<AppCubit, AppCubitStates>(
     listener: (context, state) {},
     builder: (context, state) {
@@ -36,7 +28,7 @@ Widget updateWorkerPage(context,Worker model) {
         surfaceTintColor: FlutterFlowTheme.of(context).primaryBackground,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         title:const Text(
-          'Update Worker',
+          'Update Type',
           style: TextStyle(
             fontSize: 25,
           ),
@@ -55,24 +47,24 @@ Widget updateWorkerPage(context,Worker model) {
             condition: state is AppUpdateWorkerLoadingState,
             builder: (context) => const  Center(
               child: Padding(padding: EdgeInsets.all(40.0),
-                 child: CircularProgressIndicator(),
-                                            ),),
-            
-                                        
+                child: CircularProgressIndicator(),
+              ),),
+
+
             fallback: (context) => FFButtonWidget(
               onPressed: () {
                 if (formKey.currentState!.validate()) {
-                  AppCubit.get(context).updateWorker(context,
+                  /*AppCubit.get(context).updateWorker(context,
                     name: nameController.text,
                     IDNumber: idNumberController.text,
                     jobTitle: jobTitleController.text,
                     phoneNumber: phoneNumberController.text,
                     salary: salaryController.text,
                     id:model.id!,
-                  );
+                  );*/
                 }
               },
-              text: 'Update Worker',
+              text: 'Update Type',
               options: FFButtonOptions(
                 width: MediaQuery.sizeOf(context).width * 0.20,
                 height: MediaQuery.sizeOf(context).height * 0.065,
@@ -119,7 +111,7 @@ Widget updateWorkerPage(context,Worker model) {
                                 controller: nameController,
                                 obscureText: false,
                                 decoration: CustomInputDecoration.customInputDecoration(context,'name'),
-                                   
+
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -138,8 +130,9 @@ Widget updateWorkerPage(context,Worker model) {
                                 height: 10,
                               ),
                               TextFormField(
-                                controller: phoneNumberController,
+                                controller: keyController,
                                 obscureText: false,
+                                enabled: false,
                                 decoration: CustomInputDecoration.customInputDecoration(context,'quantity'),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
@@ -150,77 +143,11 @@ Widget updateWorkerPage(context,Worker model) {
                                 ),
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'please enter the quantity';
+                                    return 'please enter the key';
                                   }
                                   return null;
                                 },
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              TextFormField(
-                                controller: idNumberController,
-                                obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'price'),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                  fontFamily: 'Outfit',
-                                  color:
-                                  FlutterFlowTheme.of(context).primaryText,
-                                ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'please enter the price';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              TextFormField(
-                                controller: jobTitleController,
-                                obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'job title'),
-                                   
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                  fontFamily: 'Outfit',
-                                  color:
-                                  FlutterFlowTheme.of(context).primaryText,
-                                ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'please enter the quantity';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              TextFormField(
-                                controller: salaryController,
-                                obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'salary'),
-                                   
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                  fontFamily: 'Outfit',
-                                  color:
-                                  FlutterFlowTheme.of(context).primaryText,
-                                ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'please enter the price';
-                                  }
-                                  return null;
-                                },
-                              ),
-
                             ],
                           ),
                         ),

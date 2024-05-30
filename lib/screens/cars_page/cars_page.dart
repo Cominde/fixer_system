@@ -8,6 +8,7 @@ import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pager/pager.dart';
 
 import '../../components/custom/box_decoration.dart';
 import 'cars_page_model.dart';
@@ -78,6 +79,7 @@ class _CarsPageState extends State<CarsPage> {
                         navFive: FlutterFlowTheme.of(context).secondaryText,
                         navSix: FlutterFlowTheme.of(context).secondaryText,
                         navSeven: FlutterFlowTheme.of(context).secondaryText,
+                        navEight: FlutterFlowTheme.of(context).secondaryText,
                       ),
                     ),
                   Expanded(
@@ -380,6 +382,19 @@ class _CarsPageState extends State<CarsPage> {
                                     ],
                                   ),
                                 ),
+                                Center(
+                                  child: Pager(
+                                    currentPage: AppCubit.get(context).getCarsModel!.current,
+                                    totalPages: AppCubit.get(context).getCarsModel!.pages,
+                                    onPageChanged: (page) {
+                                      setState(() {
+                                        AppCubit.get(context).getCarsModel!.current = page;
+                                        AppCubit.get(context).getCars(page: page);
+                                      });
+                                    },
+                                    numberButtonSelectedColor: Color(0xffF68B1E),
+                                  ),
+                                )
                               ],
                             ),
                           ),

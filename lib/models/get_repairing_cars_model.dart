@@ -4,9 +4,12 @@ class GetRepairingCarsModel{
   int ? results;
   int ? page;
   List<repairingCarData>data=[];
+  int pages = 1;
+  int current = 1;
   GetRepairingCarsModel.fromJson(Map<String,dynamic>?json){
     results=json?['result'];
     page=json?['page'];
+    pages=json?['paginationResult']['numberOfPages'];
     json?['data'].forEach((element) {
       data.add(repairingCarData.fromJson(element));
     });

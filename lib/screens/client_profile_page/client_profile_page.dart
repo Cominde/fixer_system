@@ -192,7 +192,7 @@ class _ClientDetailsState extends State<ClientProfilePage> {
                                         .override(
                                           fontFamily: 'Outfit',
                                           color: FlutterFlowTheme.of(context)
-                                              .tertiary,
+                                              .primaryText,
                                         ),
                                     validator: (value) {
                                       if (value!.isEmpty) {
@@ -215,7 +215,7 @@ class _ClientDetailsState extends State<ClientProfilePage> {
                                         .override(
                                           fontFamily: 'Outfit',
                                           color: FlutterFlowTheme.of(context)
-                                              .tertiary,
+                                              .primaryText,
                                         ),
                                     validator: (value) {
                                       if (value!.isEmpty) {
@@ -248,7 +248,7 @@ class _ClientDetailsState extends State<ClientProfilePage> {
                                         .override(
                                           fontFamily: 'Outfit',
                                           color: FlutterFlowTheme.of(context)
-                                              .tertiary,
+                                              .primaryText,
                                         ),
                                     validator: (value) {
                                       if (value!.isEmpty) {
@@ -274,7 +274,7 @@ class _ClientDetailsState extends State<ClientProfilePage> {
                                         .override(
                                       fontFamily: 'Outfit',
                                       color: FlutterFlowTheme.of(context)
-                                          .tertiary,
+                                          .primaryText,
                                     ),
                                     validator: (value) {
                                       if (value!.isEmpty) {

@@ -2,9 +2,14 @@ class GetListOfInventoryComponentsModel{
   GetListOfInventoryComponentsModel();
   int ?results;
   List<InventoryComponentData>data=[];
-  GetListOfInventoryComponentsModel.fromJson(Map<String,dynamic>?json)
+  int pages = 1;
+  int current = 1;
+  GetListOfInventoryComponentsModel.fromJson(Map<String,dynamic>?json, {bool search = false})
   {
-    results=json?['results'];
+    if(!search) {
+      results=json?['results'];
+      pages=json?['paginationResult']['numberOfPages'];
+    }
     json?['data'].forEach((element) {
       data.add(InventoryComponentData.fromJson(element));
     });

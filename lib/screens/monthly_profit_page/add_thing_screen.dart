@@ -128,7 +128,7 @@ Widget addThingScreen(context,plus) {
                                     .override(
                                   fontFamily: 'Outfit',
                                   color:
-                                  FlutterFlowTheme.of(context).tertiary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -153,7 +153,7 @@ Widget addThingScreen(context,plus) {
                                     .override(
                                   fontFamily: 'Outfit',
                                   color:
-                                  FlutterFlowTheme.of(context).tertiary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -177,7 +177,7 @@ Widget addThingScreen(context,plus) {
                                     .override(
                                   fontFamily: 'Outfit',
                                   color:
-                                  FlutterFlowTheme.of(context).tertiary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
                                 validator: (value) {
                                   if (value!.isEmpty) {

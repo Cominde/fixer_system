@@ -508,6 +508,7 @@ class _RepairsPageState extends State<RepairsPage> {
                   navFour: FlutterFlowTheme.of(context).secondaryText,
                   navFive: FlutterFlowTheme.of(context).secondaryText,
                   navSix: FlutterFlowTheme.of(context).secondaryText,
+                  navEight: FlutterFlowTheme.of(context).secondaryText,
                 ),
               ),
             Expanded(

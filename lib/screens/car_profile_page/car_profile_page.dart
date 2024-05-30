@@ -209,6 +209,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
                       Icons.done,
                       size: 30,
                     ),
+              heroTag: 'edit car info',
             ),
           ),
         ),
@@ -392,7 +393,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
                                       .override(
                                         fontFamily: 'Outfit',
                                         color: FlutterFlowTheme.of(context)
-                                            .tertiary,
+                                            .primaryText,
                                       ),
                                 ),
                                 const SizedBox(height: 16.0),
@@ -406,7 +407,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
                                       .override(
                                         fontFamily: 'Outfit',
                                         color: FlutterFlowTheme.of(context)
-                                            .tertiary,
+                                            .primaryText,
                                       ),
                                 ),
                                 const SizedBox(height: 16.0),
@@ -420,7 +421,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
                                       .override(
                                         fontFamily: 'Outfit',
                                         color: FlutterFlowTheme.of(context)
-                                            .tertiary,
+                                            .primaryText,
                                       ),
                                 ),
                                 const SizedBox(height: 16.0),
@@ -434,7 +435,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
                                       .override(
                                         fontFamily: 'Outfit',
                                         color: FlutterFlowTheme.of(context)
-                                            .tertiary,
+                                            .primaryText,
                                       ),
                                 ),
                                 const SizedBox(height: 16.0),
@@ -448,7 +449,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
                                       .override(
                                         fontFamily: 'Outfit',
                                         color: FlutterFlowTheme.of(context)
-                                            .tertiary,
+                                            .primaryText,
                                       ),
                                 ),
                                 const SizedBox(height: 16.0),
@@ -462,7 +463,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
                                       .override(
                                         fontFamily: 'Outfit',
                                         color: FlutterFlowTheme.of(context)
-                                            .tertiary,
+                                            .primaryText,
                                       ),
                                 ),
                                 const SizedBox(height: 16.0),
@@ -476,7 +477,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
                                       .override(
                                         fontFamily: 'Outfit',
                                         color: FlutterFlowTheme.of(context)
-                                            .tertiary,
+                                            .primaryText,
                                       ),
                                 ),
                                 const SizedBox(height: 16.0),
@@ -500,7 +501,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
                                       .override(
                                         fontFamily: 'Outfit',
                                         color: FlutterFlowTheme.of(context)
-                                            .tertiary,
+                                            .primaryText,
                                       ),
                                 ),
                                 const SizedBox(height: 16.0),
@@ -514,7 +515,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
                                       .override(
                                         fontFamily: 'Outfit',
                                         color: FlutterFlowTheme.of(context)
-                                            .tertiary,
+                                            .primaryText,
                                       ),
                                 ),
                                 const SizedBox(height: 16.0),
@@ -528,7 +529,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
                                       .override(
                                         fontFamily: 'Outfit',
                                         color: FlutterFlowTheme.of(context)
-                                            .tertiary,
+                                            .primaryText,
                                       ),
                                 ),
                                 const SizedBox(height: 16.0),
@@ -542,7 +543,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
                                       .override(
                                         fontFamily: 'Outfit',
                                         color: FlutterFlowTheme.of(context)
-                                            .tertiary,
+                                            .primaryText,
                                       ),
                                 ),
                                 const SizedBox(height: 16.0),
@@ -556,7 +557,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
                                       .override(
                                         fontFamily: 'Outfit',
                                         color: FlutterFlowTheme.of(context)
-                                            .tertiary,
+                                            .primaryText,
                                       ),
                                 ),
                                 const SizedBox(height: 16.0),
@@ -589,7 +590,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
                                       .override(
                                         fontFamily: 'Outfit',
                                         color: FlutterFlowTheme.of(context)
-                                            .tertiary,
+                                            .primaryText,
                                       ),
                                 ),
                                 const SizedBox(height: 16.0),
@@ -621,7 +622,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
                                       .override(
                                         fontFamily: 'Outfit',
                                         color: FlutterFlowTheme.of(context)
-                                            .tertiary,
+                                            .primaryText,
                                       ),
                                 ),
                                 const SizedBox(height: 16.0),

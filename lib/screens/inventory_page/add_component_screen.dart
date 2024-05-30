@@ -111,7 +111,7 @@ final formKey = GlobalKey<FormState>();
                                     .override(
                                   fontFamily: 'Outfit',
                                   color:
-                                  FlutterFlowTheme.of(context).tertiary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -132,7 +132,7 @@ final formKey = GlobalKey<FormState>();
                                     .override(
                                   fontFamily: 'Outfit',
                                   color:
-                                  FlutterFlowTheme.of(context).tertiary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -153,7 +153,7 @@ final formKey = GlobalKey<FormState>();
                                     .override(
                                   fontFamily: 'Outfit',
                                   color:
-                                  FlutterFlowTheme.of(context).tertiary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
                                 validator: (value) {
                                   if (value!.isEmpty) {

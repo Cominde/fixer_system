@@ -83,6 +83,7 @@ class _MonthlyProfitPageState extends State<MonthlyProfitPage> {
                         navFive: FlutterFlowTheme.of(context).secondaryText,
                         navSix: const Color(0xFFF68B1E),
                         navSeven: FlutterFlowTheme.of(context).secondaryText,
+                        navEight: FlutterFlowTheme.of(context).secondaryText,
                       ),
                     ),
                   Expanded(

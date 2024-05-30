@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pager/pager.dart';
 
 import '../../cubit/cubit.dart';
 import '../../cubit/states.dart';
@@ -73,6 +74,7 @@ class _ClientsPageState extends State<ClientsPage> {
                     navFive: FlutterFlowTheme.of(context).secondaryText,
                     navSix: FlutterFlowTheme.of(context).secondaryText,
                     navSeven: FlutterFlowTheme.of(context).secondaryText,
+                    navEight: FlutterFlowTheme.of(context).secondaryText,
                   ),
                 ),
               Expanded(
@@ -395,6 +397,19 @@ class _ClientsPageState extends State<ClientsPage> {
                                 ],
                               ),
                             ),
+                            Center(
+                              child: Pager(
+                                currentPage: AppCubit.get(context).getUsersModel!.current,
+                                totalPages: AppCubit.get(context).getUsersModel!.pages,
+                                onPageChanged: (page) {
+                                  setState(() {
+                                    AppCubit.get(context).getUsersModel!.current = page;
+                                    AppCubit.get(context).getUsers(page: page);
+                                  });
+                                },
+                                numberButtonSelectedColor: Color(0xffF68B1E),
+                              ),
+                            )
                           ],
                         ),
                       ),

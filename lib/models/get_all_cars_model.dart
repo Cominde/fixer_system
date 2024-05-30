@@ -2,8 +2,11 @@ class GetCarsModel{
   GetCarsModel();
   int ? results;
   List<CarData>data=[];
+  int pages = 1;
+  int current = 1;
   GetCarsModel.fromJson(Map<String,dynamic>?json){
     results=json?['results'];
+    pages=json?['paginationResult']['numberOfPages'];
     json?['data'].forEach((element) {
       data.add(CarData.fromJson(element));
     });

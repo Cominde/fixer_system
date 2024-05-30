@@ -6,6 +6,7 @@ import 'package:fixer_system/screens/clients_page/clients_page.dart';
 import 'package:fixer_system/screens/inventory_page/inventory_page.dart';
 import 'package:fixer_system/screens/monthly_profit_page/monthly_profit_page.dart';
 import 'package:fixer_system/screens/team_page/team_page.dart';
+import 'package:fixer_system/screens/types_page/types_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -26,6 +27,7 @@ class MainNavWidget extends StatefulWidget {
     this.navFive,
     this.navSix,
     this.navSeven,
+    this.navEight,
   });
 
   final Color? navOne;
@@ -35,6 +37,7 @@ class MainNavWidget extends StatefulWidget {
   final Color? navFive;
   final Color? navSix;
   final Color? navSeven;
+  final Color? navEight;
 
   @override
   State<MainNavWidget> createState() => _MainNavWidgetState();
@@ -105,7 +108,7 @@ class _MainNavWidgetState extends State<MainNavWidget>
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
+      padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
       child: Container(
         width: 270,
         height: double.infinity,
@@ -124,7 +127,7 @@ class _MainNavWidgetState extends State<MainNavWidget>
           borderRadius: BorderRadius.circular(20),
         ),
         child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(24, 32, 24, 16),
+          padding: const EdgeInsetsDirectional.fromSTEB(24, 32, 24, 6),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -168,7 +171,7 @@ class _MainNavWidgetState extends State<MainNavWidget>
                 ],
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                 child: Text(
                   'HOME',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -181,7 +184,7 @@ class _MainNavWidgetState extends State<MainNavWidget>
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
@@ -202,7 +205,7 @@ class _MainNavWidgetState extends State<MainNavWidget>
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                         child: Icon(
                           Icons.directions_car_filled_rounded,
                           color: widget.navOne,
@@ -231,7 +234,7 @@ class _MainNavWidgetState extends State<MainNavWidget>
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
@@ -252,7 +255,7 @@ class _MainNavWidgetState extends State<MainNavWidget>
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                         child: Icon(
                           Icons.person_rounded,
                           color: widget.navTwo,
@@ -279,7 +282,7 @@ class _MainNavWidgetState extends State<MainNavWidget>
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
@@ -300,7 +303,7 @@ class _MainNavWidgetState extends State<MainNavWidget>
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                         child: Icon(
                           Icons.car_repair,
                           color: widget.navThree,
@@ -329,7 +332,7 @@ class _MainNavWidgetState extends State<MainNavWidget>
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
@@ -350,7 +353,7 @@ class _MainNavWidgetState extends State<MainNavWidget>
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                         child: Icon(
                           Icons.receipt_long_rounded,
                           color: widget.navFour,
@@ -377,7 +380,7 @@ class _MainNavWidgetState extends State<MainNavWidget>
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                 child: Text(
                   'ORGANIZATION',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -390,7 +393,7 @@ class _MainNavWidgetState extends State<MainNavWidget>
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
@@ -411,7 +414,7 @@ class _MainNavWidgetState extends State<MainNavWidget>
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                         child: Icon(
                           Icons.group_rounded,
                           color: widget.navFive,
@@ -440,7 +443,7 @@ class _MainNavWidgetState extends State<MainNavWidget>
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
@@ -461,7 +464,7 @@ class _MainNavWidgetState extends State<MainNavWidget>
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                         child: Icon(
                           Icons.monetization_on_rounded,
                           color: widget.navSix,
@@ -490,7 +493,7 @@ class _MainNavWidgetState extends State<MainNavWidget>
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
@@ -511,7 +514,7 @@ class _MainNavWidgetState extends State<MainNavWidget>
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                         child: Icon(
                           Icons.home_repair_service_rounded,
                           color: widget.navSeven,
@@ -539,6 +542,56 @@ class _MainNavWidgetState extends State<MainNavWidget>
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.fade,
+                        duration: const Duration(milliseconds: 0),
+                        reverseDuration: const Duration(milliseconds: 0),
+                        child: const TypesPage(),
+                      ),
+                    );
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                        child: Icon(
+                          Icons.difference_rounded,
+                          color: widget.navEight,
+                          size: 24,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                        child: Text(
+                          'Types',
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                            fontFamily: FlutterFlowTheme.of(context)
+                                .bodyMediumFamily,
+                            color: widget.navEight,
+                            letterSpacing: 0,
+                            useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                FlutterFlowTheme.of(context)
+                                    .bodyMediumFamily),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
@@ -548,7 +601,7 @@ class _MainNavWidgetState extends State<MainNavWidget>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,

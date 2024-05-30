@@ -249,10 +249,10 @@ class AppCubit extends Cubit<AppCubitStates> {
     });
   }
 
-  void getUsers() {
+  void getUsers({int page = 1}) {
     emit(AppGetUsersLoadingState());
     read(
-      Uri.parse(GETUSERS),
+      Uri.parse(GETUSERS+page.toString()),
       headers: headers,
     ).then((value) {
       getUsersModel = GetUsersModel.fromJson(jsonDecode(value));
@@ -288,10 +288,10 @@ class AppCubit extends Cubit<AppCubitStates> {
     });
   }
 
-  void getWorkers() {
+  void getWorkers({int page = 1}) {
     emit(AppGetWorkersLoadingState());
     read(
-      Uri.parse(GETWORKERS),
+      Uri.parse(GETWORKERS+page.toString()),
       headers: headers,
     ).then((value) {
       getWorkersModel = GetWorkersModel.fromJson(jsonDecode(value));
@@ -333,10 +333,10 @@ class AppCubit extends Cubit<AppCubitStates> {
     });
   }
 
-  void getCars() {
+  void getCars({int page = 1}) {
     emit(AppGetAllCarsLoadingState());
     read(
-      Uri.parse(GETCARS),
+      Uri.parse(GETCARS+page.toString()),
       headers: headers,
     ).then((value) {
       getCarsModel = GetCarsModel.fromJson(jsonDecode(value));
@@ -349,11 +349,11 @@ class AppCubit extends Cubit<AppCubitStates> {
     });
   }
 
-  void getRepairingCars() {
+  void getRepairingCars({int page = 1}) {
     emit(AppGetRepairingCarsLoadingState());
 
     read(
-      Uri.parse(GETREPAIRINGCARS),
+      Uri.parse(GETREPAIRINGCARS+page.toString()),
       headers: headers,
     ).then((value) {
 
@@ -429,10 +429,10 @@ class AppCubit extends Cubit<AppCubitStates> {
     });
   }
 
-  void getListOfComponents() {
+  void getListOfComponents({int page = 1}) {
     emit(AppGetListOfComponentsLoadingState());
     read(
-      Uri.parse(GETLISTOFCOMPONETS),
+      Uri.parse(GETLISTOFCOMPONETS+page.toString()),
       headers: headers,
     ).then((value) {
       getListOfInventoryComponentsModel =
@@ -642,6 +642,27 @@ class AppCubit extends Cubit<AppCubitStates> {
     });
   }
 
+  String extractIdFromJson(String jsonString) {
+    // Decode the JSON string
+    Map<String, dynamic> decodedJson = json.decode(jsonString);
+
+    // Extract the message from the decoded JSON
+    String message = decodedJson['message'];
+
+    // Regular expression to match the ID pattern
+    RegExp regExp = RegExp(r'component with id ([a-zA-Z0-9]+)');
+
+    // Find the first match
+    RegExpMatch? match = regExp.firstMatch(message);
+
+    // Return the ID if found, otherwise return an empty string
+    if (match != null) {
+      return match.group(1)??'';
+    } else {
+      return '';
+    }
+  }
+
   void addRepair(
     context, {
     required String carNumber,
@@ -668,7 +689,15 @@ class AppCubit extends Cubit<AppCubitStates> {
         showToast(context, "Repair added successfully");
         emit(AppAddRepairSuccessState());
       } else {
-        showToast(context, response.body);
+        print(response.body);
+        String id = extractIdFromJson(response.body);
+        if(id.isNotEmpty) {
+          int index =  components.indexWhere((element) => element['id'] == id);
+          String name = components[index]['name'];
+          showToast(context, 'Not enough $name.');
+        } else {
+          showToast(context, response.body);
+        }
         emit(AppAddRepairErrorState());
       }
       // if (forgetPasswordModel!.status != 'fail') {
@@ -867,7 +896,7 @@ class AppCubit extends Cubit<AppCubitStates> {
       headers: headers,
     ).then((value) {
       searchListOfInventoryComponentsModel =
-          GetListOfInventoryComponentsModel.fromJson(jsonDecode(value));
+          GetListOfInventoryComponentsModel.fromJson(jsonDecode(value),search: true);
       if (searchListOfInventoryComponentsModel?.results != null) {
         emit(AppSearchComponentsSuccessState());
       } else {
