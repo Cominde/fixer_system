@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:fixer_system/cubit/states.dart';
+import 'package:fixer_system/models/get_all_types_model.dart';
 import 'package:fixer_system/models/get_completed_repairs_model.dart';
 import 'package:fixer_system/models/get_specific_user_model.dart';
 import 'package:fixer_system/models/get_users_model.dart';
@@ -37,7 +38,7 @@ class AppCubit extends Cubit<AppCubitStates> {
   GetCompletedRepairsModel? getCompletedRepairsModel =GetCompletedRepairsModel();
   GetMonthWorkModel? getMonthWorkModel = GetMonthWorkModel();
   GetListOfInventoryComponentsModel? searchListOfInventoryComponentsModel =GetListOfInventoryComponentsModel();
-
+  GetTypesModel?getTypesModel=GetTypesModel();
   var time = DateTime.now();
   void changDatePicker(value) {
     time = value;
@@ -989,7 +990,7 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppAddRepairErrorState());
       }
     }).catchError((onError){
-      emit(AppAddRepairLoadingState());
+      emit(AppAddRepairErrorState());
     });
 
   }
@@ -1022,6 +1023,80 @@ class AppCubit extends Cubit<AppCubitStates> {
     });
   }
 
+  void createCode(context,{
+      required String name,
+      required String key,
 
+  }){
+
+    emit(AppCreateCodeLoadingState());
+    var body=jsonEncode(
+        {
+          'category': name,
+          'code':key,
+        });
+    post(Uri.parse(CREATECODE),headers: headers,body: body).then((value){
+      if (value.statusCode==201)
+      {
+        showToast(context, '$name added successfully');
+        getTypesModel?.types.add(Type.fromJson(jsonDecode(value.body.toString())['data']));
+        emit(AppCreateCodeSuccessState());
+
+      }
+      else{
+        showToast(context,'Failed to add $name');
+
+        emit(AppCreateCodeErrorState());
+      }
+    }).catchError((onError){
+      emit(AppCreateCodeErrorState());
+    });
+
+
+  }
+
+
+  void getTypes({int page = 1}) {
+    emit(AppGetTypesLoadingState());
+    read(
+      Uri.parse(GETTYPES),
+      headers: headers,
+    ).then((value) {
+      getTypesModel = GetTypesModel.fromJson(jsonDecode(value));
+      if (getTypesModel?.results != null) {
+        emit(AppGetTypesSuccessState());
+      } else {
+        emit(AppGetTypesErrorState());
+      }
+    });
+  }
+
+
+
+
+  void updateType(
+      context, {
+        required String id,
+        required String? category,
+      }) {
+    emit(AppUpdateTypeLoadingState());
+    final body = jsonEncode({
+      'category': category,
+    });
+    put(Uri.parse(UPDATETYPE + id), headers: headers, body: body)
+        .then((value) {
+      if (value.statusCode == 200) {
+        showToast(context, 'Type updated successfully');
+        emit(AppUpdateTypeSuccessState());
+      } else {
+
+        emit(AppUpdateTypeErrorState());
+        showToast(context, 'Failed to update Type');
+
+      }
+    }).catchError((error) {
+      emit(AppUpdateTypeErrorState());
+    });
+  }
 
 }

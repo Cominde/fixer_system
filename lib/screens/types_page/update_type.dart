@@ -7,9 +7,10 @@ import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 import '../../components/custom/box_decoration.dart';
 import '../../cubit/cubit.dart';
 import '../../cubit/states.dart';
+import '../../models/get_all_types_model.dart';
 import '../../models/get_workers_model.dart';
 
-Widget updateTypePage(context,Worker model) {
+Widget updateTypePage(context,Type model) {
 
   final formKey = GlobalKey<FormState>();
 
@@ -17,8 +18,8 @@ Widget updateTypePage(context,Worker model) {
 
   var keyController = TextEditingController();
 
-  nameController=TextEditingController(text: model.name);
-  keyController=TextEditingController(text: model.phoneNumber.toString());
+  nameController=TextEditingController(text: model.category);
+  keyController=TextEditingController(text: model.code.toString());
 
   return BlocConsumer<AppCubit, AppCubitStates>(
     listener: (context, state) {},
@@ -44,7 +45,7 @@ Widget updateTypePage(context,Worker model) {
         ),
         actions: [
           ConditionalBuilder(
-            condition: state is AppUpdateWorkerLoadingState,
+            condition: state is AppUpdateTypeLoadingState,
             builder: (context) => const  Center(
               child: Padding(padding: EdgeInsets.all(40.0),
                 child: CircularProgressIndicator(),
@@ -54,14 +55,10 @@ Widget updateTypePage(context,Worker model) {
             fallback: (context) => FFButtonWidget(
               onPressed: () {
                 if (formKey.currentState!.validate()) {
-                  /*AppCubit.get(context).updateWorker(context,
-                    name: nameController.text,
-                    IDNumber: idNumberController.text,
-                    jobTitle: jobTitleController.text,
-                    phoneNumber: phoneNumberController.text,
-                    salary: salaryController.text,
+                  AppCubit.get(context).updateType(context,
+                    category: nameController.text,
                     id:model.id!,
-                  );*/
+                  );
                 }
               },
               text: 'Update Type',
@@ -133,7 +130,7 @@ Widget updateTypePage(context,Worker model) {
                                 controller: keyController,
                                 obscureText: false,
                                 enabled: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'quantity'),
+                                decoration: CustomInputDecoration.customInputDecoration(context,'key'),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(

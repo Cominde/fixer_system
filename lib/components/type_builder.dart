@@ -1,14 +1,11 @@
+import 'package:fixer_system/models/get_all_types_model.dart';
 import 'package:fixer_system/screens/types_page/update_type.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../cubit/cubit.dart';
-import '../models/get_workers_model.dart';
-import '../screens/team_page/add_reward_or_loan_screen.dart';
-
-Widget typeBuilder(context,Worker model){
+Widget typeBuilder(context,Type model){
   return  Padding(
     padding: const EdgeInsetsDirectional.fromSTEB(
         0, 0, 0, 2),
@@ -41,7 +38,7 @@ Widget typeBuilder(context,Worker model){
                 children: [
 
                   AutoSizeText(
-                    '${model.name}',
+                    '${model.category}',
                     style: FlutterFlowTheme.of(
                         context)
                         .bodyMedium
@@ -76,7 +73,7 @@ Widget typeBuilder(context,Worker model){
                     const AlignmentDirectional(
                         -1, 0),
                     child: Text(
-                      'key',
+                      '${model.code}',
                       style: FlutterFlowTheme.of(
                           context)
                           .bodyMedium

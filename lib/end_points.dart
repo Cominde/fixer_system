@@ -39,4 +39,8 @@ const FIRSTTIME='${baseUrl}auth/admin/firstCome';
 const DELETEWORKER='${baseUrl}Worker/';
 const ADDREWARDORLOANS='${baseUrl}Worker/';
 const ADDCONSTANT='${baseUrl}MonthlyReport/put_bills_rent/';
+const CREATECODE='${baseUrl}Category';
+const GETTYPES='${baseUrl}Category';
+const UPDATETYPE='${baseUrl}Category/';
+
 

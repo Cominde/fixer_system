@@ -45,10 +45,7 @@ Future addConstantsScreen(context ,year,month) {
               icon: IconButton(
                 onPressed: () {
                   Navigator.of(context).pop();
-
-
                   amountController = TextEditingController();
-
                 },
                 icon: Icon(Icons.close,color: FlutterFlowTheme.of(context).error,),
                 hoverColor: Colors.transparent,

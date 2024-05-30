@@ -47,7 +47,7 @@ Widget addNewTypePage(context) {
         ),
         actions: [
           ConditionalBuilder(
-            condition: state is AppAddWorkerLoadingState,
+            condition: state is AppCreateCodeLoadingState,
             builder: (context) => const  Center(
               child: Padding(padding: EdgeInsets.all(40.0),
                 child: CircularProgressIndicator(),
@@ -58,14 +58,11 @@ Widget addNewTypePage(context) {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
 
-                  /*AppCubit.get(context).addWorker(
+                  AppCubit.get(context).createCode(
                     context,
                     name: nameController.text,
-                    phoneNumber: phoneNumberController.text,
-                    jobTitle: jobTitleController.text,
-                    salary: salaryController.text,
-                    IDNumber: idNumberController.text,
-                  );*/
+                    key: keyController.text,
+                  );
                 }
               },
               text: 'Add Type',

@@ -28,7 +28,7 @@ class _TypesPageState extends State<TypesPage> {
 
   @override
   void initState() {
-    AppCubit.get(context).getWorkers();
+   AppCubit.get(context).getTypes();
     super.initState();
     _model = createModel(context, () => TypesPageModel());
   }
@@ -44,7 +44,14 @@ class _TypesPageState extends State<TypesPage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppCubitStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is AppCreateCodeSuccessState)
+          {
+            setState(() {
+
+            });
+          }
+      },
       builder: (context, state) {
         return GestureDetector(
           onTap: () => _model.unfocusNode.canRequestFocus
@@ -415,7 +422,7 @@ class _TypesPageState extends State<TypesPage> {
                                               ),
                                               ConditionalBuilder(
                                                 condition: state
-                                                is AppGetWorkersLoadingState ||
+                                                is AppGetTypesLoadingState ||
                                                     state
                                                     is AppSearchWorkersLoadingState,
                                                 builder: (context) =>
@@ -454,8 +461,8 @@ class _TypesPageState extends State<TypesPage> {
                                                               Axis.vertical,
                                                               itemCount:
                                                               AppCubit.get(context)
-                                                                  .getWorkersModel
-                                                                  ?.workers
+                                                                  .getTypesModel
+                                                                  ?.types
                                                                   .length,
                                                               physics:
                                                               const BouncingScrollPhysics(),
@@ -465,8 +472,9 @@ class _TypesPageState extends State<TypesPage> {
                                                                       context,
                                                                       AppCubit.get(
                                                                           context)
-                                                                          .getWorkersModel!
-                                                                          .workers[index]),
+                                                                          .getTypesModel!
+                                                                          .types[index]),
+
                                                             ),
                                                           ),
                                                     ),

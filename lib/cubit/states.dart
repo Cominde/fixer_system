@@ -193,3 +193,21 @@ class AppDeleteWorkerErrorState extends AppCubitStates{}
 class AppAddRewardOrLoansLoadingState extends AppCubitStates{}
 class AppAddRewardOrLoansSuccessState extends AppCubitStates{}
 class AppAddRewardOrLoansErrorState extends AppCubitStates{}
+
+
+class AppCreateCodeLoadingState extends AppCubitStates{}
+class AppCreateCodeSuccessState extends AppCubitStates{}
+class AppCreateCodeErrorState extends AppCubitStates{}
+
+
+class AppGetTypesLoadingState extends AppCubitStates{}
+class AppGetTypesSuccessState extends AppCubitStates{}
+class AppGetTypesErrorState extends AppCubitStates{}
+
+
+
+class AppUpdateTypeLoadingState extends AppCubitStates{}
+class AppUpdateTypeSuccessState extends AppCubitStates{}
+class AppUpdateTypeErrorState extends AppCubitStates{}
+
+
