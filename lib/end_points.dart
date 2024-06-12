@@ -30,6 +30,7 @@ const UPDATECAR='${baseUrl}Garage/update/';
 const GETMAINPRAMS='${baseUrl}MonthlyReport/';
 const UPDATEWORKER='${baseUrl}Worker/withoutNID/';
 const GETCOMPLETEDREPAIRS ='${baseUrl}repairing';
+const GETCOMPLETEDREPAIRDETAILS='${baseUrl}repairing/report/';
 const GETMONTHWORK='${baseUrl}MonthlyReport/home/work/';
 const SEARCHCOMPONENTS='${baseUrl}Inventort/search/';
 const ADDTHING ='${baseUrl}MonthlyReport/addthing';

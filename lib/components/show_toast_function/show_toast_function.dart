@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -37,9 +36,9 @@ showToast(context,text) {
       toastDuration: const Duration(seconds: 2),
       positionedToastBuilder: (context, child) {
         return Positioned(
-          child: child,
           top: 16.0,
           left: 16.0,
+          child: child,
         );
       });
 }

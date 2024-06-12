@@ -497,7 +497,7 @@ class _TypesPageState extends State<TypesPage> {
                                       AppCubit.get(context).getWorkers(page: page);
                                     });
                                   },
-                                  numberButtonSelectedColor: Color(0xffF68B1E),
+                                  numberButtonSelectedColor: const Color(0xffF68B1E),
                                 ),
                               )
                             ],

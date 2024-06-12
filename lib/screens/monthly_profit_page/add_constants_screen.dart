@@ -1,5 +1,4 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
@@ -65,7 +64,7 @@ Future addConstantsScreen(context ,year,month) {
 
                         AppCubit.get(context).putConstant(
                           context,
-                          title: list['${typeController.text}']!,
+                          title: list[typeController.text]!,
                           amount: int.parse(amountController.text),
                           year: year,
                           month: month,

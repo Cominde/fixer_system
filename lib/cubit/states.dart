@@ -164,6 +164,10 @@ class AppGetCompletedRepairsLoadingState extends AppCubitStates{}
 class AppGetCompletedRepairsSuccessState extends AppCubitStates{}
 class AppGetCompletedRepairsErrorState extends AppCubitStates{}
 
+class AppGetCompletedRepairDetailsLoadingState extends AppCubitStates{}
+class AppGetCompletedRepairDetailsSuccessState extends AppCubitStates{}
+class AppGetCompletedRepairDetailsErrorState extends AppCubitStates{}
+
 
 class AppGetMonthWorkLoadingState extends AppCubitStates{}
 class AppGetMonthWorkSuccessState extends AppCubitStates{}

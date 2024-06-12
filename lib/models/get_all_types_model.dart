@@ -1,7 +1,7 @@
 
 class GetTypesModel{
   GetTypesModel();
-  int? results=null;
+  int? results;
   List<Type>types=[];
   int pages = 1;
   int current = 1;

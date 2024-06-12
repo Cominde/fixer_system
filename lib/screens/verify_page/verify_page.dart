@@ -1,9 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:fixer_system/components/show_toast_function/show_toast_function.dart';
 import 'package:fixer_system/cubit/states.dart';
-import 'package:fixer_system/screens/bills_page/bills_page.dart';
 import 'package:fixer_system/screens/cars_page/cars_page.dart';
-import 'package:fixer_system/screens/login/login_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
@@ -11,20 +9,18 @@ import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 import '../../cubit/cubit.dart';
 import '../login/login.dart';
 
-class verifyPage extends StatefulWidget {
-   LoginModel _model;
-  verifyPage(this._model);
+class VerifyPage extends StatefulWidget {
+  final LoginModel _model;
+  const VerifyPage(this._model, {super.key});
 
 
 
 
   @override
-  State<verifyPage> createState() => _verifyPageState(_model);
+  State<VerifyPage> createState() => _VerifyPageState();
 }
 
-class _verifyPageState extends State<verifyPage> {
-  LoginModel _model;
-  _verifyPageState(this._model);
+class _VerifyPageState extends State<VerifyPage> {
 
   @override
   Widget build(BuildContext context) {
@@ -98,14 +94,14 @@ class _verifyPageState extends State<verifyPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Text('verification email sent to ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25),),
-                         Text(' ${_model.textController1.text}',style: TextStyle(fontSize: 25,color: Colors.orange),),
+                         Text(' ${widget._model.textController1.text}',style: const TextStyle(fontSize: 25,color: Colors.orange),),
 
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: const Text('Press the following button after verifying it or to resend the email',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25),),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Press the following button after verifying it or to resend the email',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25),),
                   ),
               ConditionalBuilder(
                 condition: state is AppLoginLoadingState,
@@ -116,7 +112,7 @@ class _verifyPageState extends State<verifyPage> {
 
                 fallback: (context) => FFButtonWidget(
                   onPressed: () {
-                      AppCubit.get(context).login(context, email: _model.textController1.text, password: _model.textController2.text);
+                      AppCubit.get(context).login(context, email: widget._model.textController1.text, password: widget._model.textController2.text);
                   },
                   text: 'Login',
                   options: FFButtonOptions(

@@ -25,7 +25,7 @@ Widget updateWorkerPage(context,Worker model) {
 
   nameController=TextEditingController(text: model.name);
   phoneNumberController=TextEditingController(text: model.phoneNumber.toString());
-  idNumberController=TextEditingController(text: model.IDNumber.toString());
+  idNumberController=TextEditingController(text: model.idNumber.toString());
   jobTitleController=TextEditingController(text: model.jobTitle.toString());
   salaryController=TextEditingController(text:model.salary.toString());
   return BlocConsumer<AppCubit, AppCubitStates>(
@@ -64,7 +64,7 @@ Widget updateWorkerPage(context,Worker model) {
                 if (formKey.currentState!.validate()) {
                   AppCubit.get(context).updateWorker(context,
                     name: nameController.text,
-                    IDNumber: idNumberController.text,
+                    idNumber: idNumberController.text,
                     jobTitle: jobTitleController.text,
                     phoneNumber: phoneNumberController.text,
                     salary: salaryController.text,

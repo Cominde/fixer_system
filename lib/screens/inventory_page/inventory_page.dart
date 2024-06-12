@@ -422,7 +422,7 @@ class _InventoryPageState extends State<InventoryPage> {
                                        AppCubit.get(context).getListOfComponents(page: page);
                                      });
                                    },
-                                   numberButtonSelectedColor: Color(0xffF68B1E),
+                                   numberButtonSelectedColor: const Color(0xffF68B1E),
                                  ),
                                )
                              ],

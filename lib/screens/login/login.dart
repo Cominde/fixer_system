@@ -57,7 +57,7 @@ class _LoginState extends State<Login> {
               type: PageTransitionType.fade,
               duration: const Duration(milliseconds: 0),
               reverseDuration: const Duration(milliseconds: 0),
-              child: verifyPage(_model),
+              child: VerifyPage(_model),
             ),
           );
         }
@@ -69,7 +69,7 @@ class _LoginState extends State<Login> {
                 type: PageTransitionType.fade,
                 duration: const Duration(milliseconds: 0),
                 reverseDuration: const Duration(milliseconds: 0),
-                child: SetFirstTimePage(),
+                child: const SetFirstTimePage(),
               ),
             );
           }
@@ -186,7 +186,7 @@ class _LoginState extends State<Login> {
                                   fontFamily: FlutterFlowTheme
                                       .of(context)
                                       .labelMediumFamily,
-                                  color: Color(0xFFF68B1E),
+                                  color: const Color(0xFFF68B1E),
                                   letterSpacing: 0,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme
@@ -217,7 +217,7 @@ class _LoginState extends State<Login> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Color(0xFFF68B1E),
                                     width: 2,
                                   ),
@@ -341,15 +341,15 @@ class _LoginState extends State<Login> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Forgotten password? '),
+                            const Text('Forgotten password? '),
                             TextButton(onPressed: (){
                               Navigator.push(context,  PageTransition(
                                 type: PageTransitionType.fade,
                                 duration: const Duration(milliseconds: 0),
                                 reverseDuration: const Duration(milliseconds: 0),
-                                child:ForgetPasswordPage (),
+                                child:const ForgetPasswordPage (),
                               ),);
-                            }, child: Text('Reset Password',style: TextStyle(color: Colors.orange),))
+                            }, child: const Text('Reset Password',style: TextStyle(color: Colors.orange),))
                     
                           ],
                         )

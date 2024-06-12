@@ -10,7 +10,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../components/custom/box_decoration.dart';
 import '../login/login.dart';
-import '../login/login_model.dart';
 
 class SetFirstTimePage extends StatefulWidget {
   const SetFirstTimePage({super.key});
@@ -56,7 +55,7 @@ class _SetFirstTimePageState extends State<SetFirstTimePage> {
               type: PageTransitionType.fade,
               duration: const Duration(milliseconds: 0),
               reverseDuration: const Duration(milliseconds: 0),
-              child: Login(),
+              child: const Login(),
             ),
           );
         }
@@ -202,7 +201,7 @@ class _SetFirstTimePageState extends State<SetFirstTimePage> {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Color(0xFFF68B1E),
                                   width: 2,
                                 ),

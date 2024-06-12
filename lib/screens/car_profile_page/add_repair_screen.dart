@@ -1,7 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 import 'package:searchfield/searchfield.dart';
@@ -214,13 +212,13 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                   Expanded(
                                     child: SearchField(
                                       onSearchTextChanged: (searchQuery) {
-                                        print(searchQuery);
+                                        //print(searchQuery);
                                         AppCubit.get(context).searchComponents(word: searchQuery);
                                         return AppCubit.get(context).searchListOfInventoryComponentsModel!.data.map((e) => SearchFieldListItem(e.name!,item: e)).toList();
                                       },
-                                      emptyWidget: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: const Text("No Results"),
+                                      emptyWidget: const Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text("No Results"),
                                       ),
                                       suggestions: AppCubit.get(context).searchListOfInventoryComponentsModel!.data.map((e) => SearchFieldListItem(e.name!,item: e)).toList(),
                                       onSuggestionTap: (searchItem) {
@@ -228,7 +226,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                         if(index != -1){
                                           components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].id;
                                           components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].name;
-                                          print(components[i]);
+                                          //print(components[i]);
                                           setState(() {
                                             componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data[index].name!);
                                             componentsFocusNodes[i].unfocus();
@@ -240,7 +238,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                         if(index != -1){
                                           components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].id;
                                           components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].name;
-                                          print(components[i]);
+                                          //print(components[i]);
                                           setState(() {
                                             componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data[index].name!);
                                             componentsFocusNodes[i].unfocus();
@@ -248,7 +246,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                         } else {
                                           components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data.first.id;
                                           components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data.first.name;
-                                          print(components[i]);
+                                          //print(components[i]);
                                           setState(() {
                                             componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data.first.name!);
                                             componentsFocusNodes[i].unfocus();
@@ -260,7 +258,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                         if(index != -1){
                                           components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].id;
                                           components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].name;
-                                          print(components[i]);
+                                          //print(components[i]);
                                           setState(() {
                                             componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data[index].name!);
                                             componentsFocusNodes[i].unfocus();
@@ -268,7 +266,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                         } else {
                                           components[i]['id']='';
                                           components[i]['name']='';
-                                          print(components[i]);
+                                          //print(components[i]);
                                           setState(() {
                                             componentsControllers[i] = TextEditingController();
                                             componentsFocusNodes[i].unfocus();
@@ -281,7 +279,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                       suggestionsDecoration: SuggestionDecoration(
                                         border: Border.all(color: FlutterFlowTheme.of(context).primaryText),
                                         borderRadius: BorderRadius.circular(8),
-                                        padding: EdgeInsets.all(8),
+                                        padding: const EdgeInsets.all(8),
                                         hoverColor: Theme.of(context).hoverColor,
                                       ),
                                       focusNode: componentsFocusNodes[i],
@@ -303,9 +301,9 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                             }
                                           });
                                         },
+                                        heroTag: 'remove component',
                                         child: const Icon(Icons.remove,
                                             color: Colors.white),
-                                        heroTag: 'remove component',
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -323,9 +321,9 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                             components[i]['quantity'] += 1;
                                           });
                                         },
+                                        heroTag: 'add component',
                                         child: const Icon(Icons.add,
                                             color: Colors.white),
-                                        heroTag: 'add component',
                                       ),
                                     ],
                                   ),
@@ -342,9 +340,9 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                     componentsControllers.removeAt(i);
                                   });
                                 },
+                                heroTag: 'delete component',
                                 child: const Icon(Icons.delete_forever_rounded,
                                     color: Colors.white),
-                                heroTag: 'delete component',
                               ),
                                 ],
 
@@ -472,9 +470,9 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                     services.removeAt(index);
                                   });
                                 },
+                                heroTag: 'delete service',
                                 child: const Icon(Icons.delete_forever_rounded,
                                     color: Colors.white),
-                                heroTag: 'delete service',
                               ),
                             ],
                           );
@@ -578,9 +576,9 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                     additions.removeAt(index);
                                   });
                                 },
+                                heroTag: 'delete addition',
                                 child: const Icon(Icons.delete_forever_rounded,
                                     color: Colors.white),
-                                heroTag: 'delete addition',
                               ),
                             ],
                           );

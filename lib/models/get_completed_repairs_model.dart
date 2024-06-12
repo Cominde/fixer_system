@@ -16,6 +16,7 @@ class GetCompletedRepairsModel {
 
 class CompletedRepairData {
   CompletedRepairData();
+  String? id;
   String? brand;
   String? category;
   String? model;
@@ -25,6 +26,7 @@ class CompletedRepairData {
   String? client;
 
   CompletedRepairData.fromJson(Map<String, dynamic>? json) {
+    id = json?["id"];
     brand = json?["brand"];
     category = json?["category"];
     model = json?["model"];

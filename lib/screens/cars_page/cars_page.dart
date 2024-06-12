@@ -392,7 +392,7 @@ class _CarsPageState extends State<CarsPage> {
                                         AppCubit.get(context).getCars(page: page);
                                       });
                                     },
-                                    numberButtonSelectedColor: Color(0xffF68B1E),
+                                    numberButtonSelectedColor: const Color(0xffF68B1E),
                                   ),
                                 )
                               ],

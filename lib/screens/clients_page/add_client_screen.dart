@@ -161,7 +161,7 @@ Widget addNewClientScreen(context) {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text('Required User Info',style: TextStyle(fontWeight: FontWeight.bold),),
+                              const Text('Required User Info',style: TextStyle(fontWeight: FontWeight.bold),),
                               const SizedBox(
                                 height: 10,
                               ),
@@ -226,7 +226,7 @@ Widget addNewClientScreen(context) {
                               const SizedBox(
                                 height: 10,
                               ),
-                              Text('Required Car Info',style: TextStyle(fontWeight: FontWeight.bold),),
+                              const Text('Required Car Info',style: TextStyle(fontWeight: FontWeight.bold),),
                               const SizedBox(
                                 height: 10,
                               ),
@@ -379,7 +379,7 @@ Widget addNewClientScreen(context) {
                             mainAxisAlignment: MainAxisAlignment.start,
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Text('Optional Car Info',style: TextStyle(fontWeight: FontWeight.bold),),
+                              const Text('Optional Car Info',style: TextStyle(fontWeight: FontWeight.bold),),
                               const SizedBox(
                                 height: 10,
                               ),
@@ -404,7 +404,7 @@ Widget addNewClientScreen(context) {
                               const SizedBox(
                                 height: 10,
                               ),
-                              Text('For Old Clients',style: TextStyle(fontWeight: FontWeight.bold),),
+                              const Text('For Old Clients',style: TextStyle(fontWeight: FontWeight.bold),),
                               const SizedBox(
                                 height: 10,
                               ),

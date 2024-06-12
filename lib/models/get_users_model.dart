@@ -1,7 +1,7 @@
 
 class GetUsersModel{
   GetUsersModel();
-  int? results=null;
+  int? results;
   List<User>users=[];
   int pages = 1;
   int current = 1;

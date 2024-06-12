@@ -1,7 +1,7 @@
 
 class GetWorkersModel{
   GetWorkersModel();
-  int? results=null;
+  int? results;
   List<Worker>workers=[];
   int pages = 1;
   int current = 1;
@@ -22,7 +22,7 @@ class Worker {
   String?phoneNumber;
   String?jobTitle;
   double?salary;
-  String?IDNumber;
+  String?idNumber;
   // DateTime?createdAt;
   // DateTime?updatedAt;
   //
@@ -34,7 +34,7 @@ class Worker {
     phoneNumber=json?['phoneNumber'];
     jobTitle=json?['jobTitle'];
     salary=(json?['salary'])*1.0 ;
-    IDNumber=json?['IdNumber'];
+    idNumber=json?['IdNumber'];
 
   }
 }

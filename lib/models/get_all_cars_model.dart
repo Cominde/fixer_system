@@ -34,7 +34,7 @@ class CarData{
   bool? repairing;
   int? distance;
   String?motorNumber;
-  var componentState;
+  //var componentState;
   DateTime?nextRepairDate;
   double?repairingPercentage;
 
@@ -44,12 +44,12 @@ class CarData{
     state=json?['State'];
 
     id=json?['_id'];
-    print(json?['_id']);
-    print (id);
-     ownerName=json?['ownerName'];
-     carNumber=json?['carNumber'];
-     phoneNumber=json?['phoneNumber'];
-     email=json?['email'];
+    //print(json?['_id']);
+    //print (id);
+    ownerName=json?['ownerName'];
+    carNumber=json?['carNumber'];
+    phoneNumber=json?['phoneNumber'];
+    email=json?['email'];
     carIdNumber=json?['carIdNumber'];
     color=json?['color'];
     state=json?['state'];
@@ -61,7 +61,7 @@ class CarData{
     periodicRepairs=json?['periodicRepairs'];
     nonPeriodicRepairs=json?['nonPeriodicRepairs'];
     repairing=json?['repairing'];
-   // componentState=(json?['componentState']);
+    // componentState=(json?['componentState']);
     distance=json?['distances'];
     motorNumber=json?['motorNumber'];
     if (json?['nextRepairDate']!=null) {

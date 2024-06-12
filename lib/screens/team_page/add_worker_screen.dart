@@ -77,7 +77,7 @@ Widget addNewWorkerPage(context) {
                       phoneNumber: phoneNumberController.text,
                       jobTitle: jobTitleController.text,
                       salary: salaryController.text,
-                      IDNumber: idNumberController.text,
+                      idNumber: idNumberController.text,
                   );
                 }
               },

@@ -1,14 +1,13 @@
 import 'dart:convert';
 
-import 'package:bloc/bloc.dart';
 import 'package:fixer_system/cubit/states.dart';
 import 'package:fixer_system/models/get_all_types_model.dart';
+import 'package:fixer_system/models/get_completed_repair_details_model.dart';
 import 'package:fixer_system/models/get_completed_repairs_model.dart';
 import 'package:fixer_system/models/get_specific_user_model.dart';
 import 'package:fixer_system/models/get_users_model.dart';
 import 'package:fixer_system/models/get_workers_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 import 'package:http/http.dart';
 
 import '../components/show_toast_function/show_toast_function.dart';
@@ -36,6 +35,7 @@ class AppCubit extends Cubit<AppCubitStates> {
   GetAllRepairsForSpecificCarModel? getAllRepairsForSpecificCarModel =GetAllRepairsForSpecificCarModel();
   MainPramsModel? mainPramsModel = MainPramsModel();
   GetCompletedRepairsModel? getCompletedRepairsModel =GetCompletedRepairsModel();
+  GetCompletedRepairDetailsModel? getCompletedRepairDetailsModel = GetCompletedRepairDetailsModel();
   GetMonthWorkModel? getMonthWorkModel = GetMonthWorkModel();
   GetListOfInventoryComponentsModel? searchListOfInventoryComponentsModel =GetListOfInventoryComponentsModel();
   GetTypesModel?getTypesModel=GetTypesModel();
@@ -76,7 +76,6 @@ class AppCubit extends Cubit<AppCubitStates> {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ${jsonDecode(response.body)['token']}',
           };
-          print(jsonDecode(response.body)['token']);
           emit(AppLoginSuccessState());
         }
       } else {
@@ -84,7 +83,6 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppLoginErrorState());
       }
     }).catchError((onError) {
-      print(onError.toString());
       emit(AppLoginErrorState());
     });
   }
@@ -121,7 +119,6 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppSetFirstTimeErrorState());
       }
     }).catchError((onError) {
-      print(onError.toString());
       emit(AppSetFirstTimeErrorState());
     });
   }
@@ -154,7 +151,6 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppForgetPasswordErrorState());
       }
     }).catchError((onError) {
-      print(onError.toString());
       emit(AppForgetPasswordErrorState());
     });
   }
@@ -191,7 +187,6 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppResetPasswordErrorState());
       }
     }).catchError((onError) {
-      print(onError.toString());
       emit(AppResetPasswordErrorState());
     });
   }
@@ -284,7 +279,6 @@ class AppCubit extends Cubit<AppCubitStates> {
         showToast(context, response.body);
       }
     }).catchError((error) {
-      print(error.toString());
       emit(AppChangeServiceStateErrorState(error.toString()));
     });
   }
@@ -310,7 +304,7 @@ class AppCubit extends Cubit<AppCubitStates> {
     required String phoneNumber,
     required String jobTitle,
     required String salary,
-    required String IDNumber,
+    required String idNumber,
   }) {
     emit(AppAddWorkerLoadingState());
     final body = jsonEncode({
@@ -318,7 +312,7 @@ class AppCubit extends Cubit<AppCubitStates> {
       'phoneNumber': phoneNumber,
       'jobTitle': jobTitle,
       'salary': salary,
-      'IdNumber': IDNumber,
+      'IdNumber': idNumber,
     });
 
     post(Uri.parse(ADDWORKER), headers: headers, body: body).then((response) {
@@ -361,7 +355,6 @@ class AppCubit extends Cubit<AppCubitStates> {
       getRepairingCarsModel = GetRepairingCarsModel.fromJson(jsonDecode(value));
       emit(AppGetRepairingCarsSuccessState());
     }).catchError((onError) {
-      print(onError.toString());
       emit(AppGetRepairingCarsErrorState());
     });
   }
@@ -425,7 +418,6 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppSearchUsersErrorState());
       }
     }).catchError((error) {
-      print(error.toString());
       emit(AppSearchUsersErrorState());
     });
   }
@@ -539,7 +531,6 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppGetSpecificUserErrorState());
       }
     }).catchError((error) {
-      print(error.toString());
       emit(AppGetSpecificUserErrorState());
     });
   }
@@ -591,7 +582,6 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppAddCarErrorState());
       }
     }).catchError((onError) {
-      print(onError.toString());
     });
   }
 
@@ -638,7 +628,6 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppGetSpecificCarSuccessState());
       }
     }).catchError((error) {
-      print(error.toString());
       emit(AppGetSpecificCarErrorState());
     });
   }
@@ -690,7 +679,6 @@ class AppCubit extends Cubit<AppCubitStates> {
         showToast(context, "Repair added successfully");
         emit(AppAddRepairSuccessState());
       } else {
-        print(response.body);
         String id = extractIdFromJson(response.body);
         if(id.isNotEmpty) {
           int index =  components.indexWhere((element) => element['id'] == id);
@@ -727,7 +715,6 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppGetAllRepairsForSpecificCarErrorState());
       }
     }).catchError((error) {
-      print(error.toString());
       emit(AppGetAllRepairsForSpecificCarErrorState());
     });
   }
@@ -783,7 +770,6 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppUpdateCarErrorState());
       }
     }).catchError((error) {
-      print(error.toString());
       emit(AppUpdateCarErrorState());
     });
   }
@@ -800,7 +786,7 @@ class AppCubit extends Cubit<AppCubitStates> {
       "month": month,
     });
     post(
-      Uri.parse('$GETMAINPRAMS'),
+      Uri.parse(GETMAINPRAMS),
       headers: headers,
       body: body,
     ).then((value) {
@@ -811,7 +797,6 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppGetMainPramsErrorState());
       }
     }).catchError((error) {
-      print(error.toString());
       emit(AppGetMainPramsErrorState());
     });
   }
@@ -823,7 +808,7 @@ class AppCubit extends Cubit<AppCubitStates> {
     required String? phoneNumber,
     required String? jobTitle,
     required String? salary,
-    required String? IDNumber,
+    required String? idNumber,
   }) {
     emit(AppUpdateWorkerLoadingState());
     final body = jsonEncode({
@@ -831,7 +816,7 @@ class AppCubit extends Cubit<AppCubitStates> {
       'phoneNumber': phoneNumber,
       'jobTitle': jobTitle,
       'salary': salary,
-      'IdNumber': IDNumber,
+      'IdNumber': idNumber,
     });
     put(Uri.parse(UPDATEWORKER + id), headers: headers, body: body)
         .then((value) {
@@ -862,8 +847,27 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppGetCompletedRepairsErrorState());
       }
     }).catchError((error) {
-      print( error.toString());
       emit(AppGetCompletedRepairsErrorState());
+    });
+  }
+
+  void getCompletedRepairDetails({
+    required String repairId,
+  }) {
+    emit(AppGetSpecificUserLoadingState());
+
+    read(
+      Uri.parse(GETCOMPLETEDREPAIRDETAILS + repairId),
+      headers: headers,
+    ).then((value) {
+      getCompletedRepairDetailsModel = GetCompletedRepairDetailsModel.fromJson(jsonDecode(value));
+      if (getCompletedRepairDetailsModel?.name != null) {
+        emit(AppGetSpecificUserSuccessState());
+      } else {
+        emit(AppGetSpecificUserErrorState());
+      }
+    }).catchError((error) {
+      emit(AppGetSpecificUserErrorState());
     });
   }
 
@@ -881,7 +885,6 @@ class AppCubit extends Cubit<AppCubitStates> {
       getMonthWorkModel = GetMonthWorkModel.fromJson(jsonDecode(value));
       emit(AppGetMonthWorkSuccessState());
     }).catchError((error) {
-      print(error.toString());
       emit(AppGetMonthWorkErrorState());
     });
   }
@@ -935,7 +938,6 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppAddThingErrorState());
       }
     }).catchError((onError) {
-      print(onError.toString());
       emit(AppAddThingErrorState());
     });
   }
@@ -957,7 +959,6 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppDeleteWorkerErrorState());
       }
     }).catchError((onError) {
-      print(onError.toString());
       emit(AppDeleteWorkerErrorState());
     });
   }
@@ -975,9 +976,8 @@ class AppCubit extends Cubit<AppCubitStates> {
       }
     var body=jsonEncode(
         {
-      '$type': amount,
+      type: amount,
     });
-    print(body);
     post(Uri.parse(ADDREWARDORLOANS+id),headers: headers,body: body).then((value){
       if (value.statusCode==201)
       {
@@ -1018,7 +1018,6 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppAddConstantErrorState());
       }
     }).catchError((onError) {
-      print(onError.toString());
       emit(AppAddConstantErrorState());
     });
   }

@@ -8,7 +8,6 @@ import '../../components/custom/box_decoration.dart';
 import '../../cubit/cubit.dart';
 import '../../cubit/states.dart';
 import '../../models/get_all_types_model.dart';
-import '../../models/get_workers_model.dart';
 
 Widget updateTypePage(context,Type model) {
 

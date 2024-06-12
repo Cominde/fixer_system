@@ -3,7 +3,7 @@ class GetRepairingCarsModel{
   GetRepairingCarsModel();
   int ? results;
   int ? page;
-  List<repairingCarData>data=[];
+  List<RepairingCarData>data=[];
   int pages = 1;
   int current = 1;
   GetRepairingCarsModel.fromJson(Map<String,dynamic>?json){
@@ -11,11 +11,11 @@ class GetRepairingCarsModel{
     page=json?['page'];
     pages=json?['paginationResult']['numberOfPages'];
     json?['data'].forEach((element) {
-      data.add(repairingCarData.fromJson(element));
+      data.add(RepairingCarData.fromJson(element));
     });
   }
 }
-class repairingCarData{
+class RepairingCarData{
   String? id;
   String? ownerName;
   String? carNumber;
@@ -36,7 +36,7 @@ class repairingCarData{
   String? motorNumber;
   var completedServicesRatio;
 
-  repairingCarData.fromJson(Map<String,dynamic>?json)
+  RepairingCarData.fromJson(Map<String,dynamic>?json)
   {
      id=json?['_id'];
      ownerName=json?['ownerName'];

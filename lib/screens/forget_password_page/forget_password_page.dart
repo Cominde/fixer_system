@@ -10,7 +10,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../components/custom/box_decoration.dart';
-import '../login/login_model.dart';
 
 class ForgetPasswordPage extends StatefulWidget {
   const ForgetPasswordPage({super.key});
@@ -202,15 +201,15 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Back to '),
+                          const Text('Back to '),
                           TextButton(onPressed: (){
                             Navigator.push(context,  PageTransition(
                               type: PageTransitionType.fade,
                               duration: const Duration(milliseconds: 0),
                               reverseDuration: const Duration(milliseconds: 0),
-                              child:Login(),
+                              child:const Login(),
                             ),);
-                          }, child: Text('Login page',style: TextStyle(color: Colors.orange),))
+                          }, child: const Text('Login page',style: TextStyle(color: Colors.orange),))
 
                         ],
                       )

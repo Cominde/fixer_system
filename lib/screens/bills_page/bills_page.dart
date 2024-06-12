@@ -427,7 +427,7 @@ var searchController=TextEditingController();
                                           primary: false,
                                           shrinkWrap: true,
                                           scrollDirection: Axis.vertical,
-                                          itemBuilder: (context, index) => billItemBuilder(context,AppCubit.get(context).getCompletedRepairsModel?.completedRepairs[index]),
+                                          itemBuilder: (context, index) => billItemBuilder(context,AppCubit.get(context).getCompletedRepairsModel?.completedRepairs[index],AppCubit.get(context)),
 
                                           itemCount:AppCubit.get(context).getCompletedRepairsModel?.completedRepairs.length ,
                                         ),

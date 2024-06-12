@@ -71,7 +71,7 @@ Widget teamMemberBuilder(context,Worker model){
               Expanded(
                 flex: 2,
                 child: Text(
-                  '${model.IDNumber}',
+                  '${model.idNumber}',
                   style:
                   FlutterFlowTheme.of(context)
                       .bodyMedium

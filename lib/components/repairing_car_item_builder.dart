@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../models/get_repairing_cars_model.dart';
 import '../screens/car_profile_page/car_profile_page.dart';
 
-Widget repairingCarItemBuilder(context, repairingCarData model) {
+Widget repairingCarItemBuilder(context, RepairingCarData model) {
   return InkWell(
     onTap: (){
       Navigator.push(

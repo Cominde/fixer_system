@@ -203,13 +203,13 @@ class _CarProfilePageState extends State<CarProfilePage> {
               shape: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide.none),
+              heroTag: 'edit car info',
               child: readOnly == true
                   ? const Icon(Icons.edit_outlined)
                   : const Icon(
                       Icons.done,
                       size: 30,
                     ),
-              heroTag: 'edit car info',
             ),
           ),
         ),
