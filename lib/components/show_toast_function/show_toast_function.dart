@@ -27,13 +27,13 @@ showToast(context,text) {
   fToast.showToast(
     child: toast,
     gravity: ToastGravity.BOTTOM,
-    toastDuration: const Duration(seconds: 1),
+    toastDuration: const Duration(seconds: 3),
   );
 
   // Custom Toast Position
   fToast.showToast(
       child: toast,
-      toastDuration: const Duration(seconds: 2),
+      toastDuration: const Duration(seconds: 7),
       positionedToastBuilder: (context, child) {
         return Positioned(
           top: 16.0,

@@ -393,13 +393,34 @@ class _InventoryPageState extends State<InventoryPage> {
                                             ),),
             
                                         
-                                                   fallback: (context) =>  ListView.builder(
-                                                     padding: EdgeInsets.zero,
-                                                     shrinkWrap: true,
-                                                     scrollDirection: Axis.vertical,
-                                                     physics: const BouncingScrollPhysics(),
-                                                     itemBuilder:(context, index) =>  componentItemBuilder(context, AppCubit.get(context).getListOfInventoryComponentsModel!.data[index]),
-                                                     itemCount:AppCubit.get(context).getListOfInventoryComponentsModel!.data.length,
+                                                   fallback: (context) =>  ConditionalBuilder(
+                                                     condition:
+                                                     AppCubit.get(context)
+                                                         .getListOfInventoryComponentsModel!
+                                                         .data
+                                                         .isEmpty,
+                                                     builder: (context) => Text(
+                                                       'No Results',
+                                                       style: TextStyle(
+                                                           fontSize: 50,
+                                                           color:
+                                                           Colors.grey[300]),
+                                                     ),
+                                                     fallback: (context) =>
+                                                         Padding(
+                                                           padding:
+                                                           const EdgeInsetsDirectional
+                                                               .fromSTEB(
+                                                               0, 16, 0, 0),
+                                                           child: ListView.builder(
+                                                             padding: EdgeInsets.zero,
+                                                             shrinkWrap: true,
+                                                             scrollDirection: Axis.vertical,
+                                                             physics: const BouncingScrollPhysics(),
+                                                             itemBuilder:(context, index) =>  componentItemBuilder(context, AppCubit.get(context).getListOfInventoryComponentsModel!.data[index]),
+                                                             itemCount:AppCubit.get(context).getListOfInventoryComponentsModel!.data.length,
+                                                           ),
+                                                         ),
                                                    ),
                                                  ),
 
@@ -414,8 +435,8 @@ class _InventoryPageState extends State<InventoryPage> {
                                ),
                                Center(
                                  child: Pager(
-                                   currentPage: AppCubit.get(context).getListOfInventoryComponentsModel!.current,
-                                   totalPages: AppCubit.get(context).getListOfInventoryComponentsModel!.pages,
+                                   currentPage: AppCubit.get(context).getListOfInventoryComponentsModel!.current>0?AppCubit.get(context).getListOfInventoryComponentsModel!.current:1,
+                                   totalPages: AppCubit.get(context).getListOfInventoryComponentsModel!.pages>0?AppCubit.get(context).getListOfInventoryComponentsModel!.pages:1,
                                    onPageChanged: (page) {
                                      setState(() {
                                        AppCubit.get(context).getListOfInventoryComponentsModel!.current = page;

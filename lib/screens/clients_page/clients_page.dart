@@ -255,7 +255,9 @@ class _ClientsPageState extends State<ClientsPage> {
                                                       size: 24,
                                                     ),
                                                     onPressed: () async {
-                                                      showDialog(context: context, builder: (context) => addNewClientScreen(context));
+                                                      AppCubit.get(context).getAllTypes();
+
+                                                      showDialog(context: context, builder: (context) => addNewClientScreen(context, AppCubit.get(context).getAllTypesModel!.types));
                                                     },
                                                   ),
                                                 ),
@@ -376,17 +378,32 @@ class _ClientsPageState extends State<ClientsPage> {
                                             ),),
             
                                         
-                                              fallback:(context) =>  Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(0, 16, 0, 0),
-                                                child: ListView.builder(
-                                                  padding: EdgeInsets.zero,
-                                                  shrinkWrap: true,
-                                                  scrollDirection: Axis.vertical,
-                                                  physics: const BouncingScrollPhysics(),
-                                                  itemBuilder: (context, index) => clientItemBuilder(context,AppCubit.get(context).getUsersModel!.users[index]),
-                                                  itemCount: AppCubit.get(context).getUsersModel!.users.length,
+                                              fallback:(context) =>  ConditionalBuilder(
+                                                condition:
+                                                AppCubit.get(context)
+                                                    .getUsersModel!
+                                                    .users
+                                                    .isEmpty,
+                                                builder: (context) => Text(
+                                                  'No Results',
+                                                  style: TextStyle(
+                                                      fontSize: 50,
+                                                      color:
+                                                      Colors.grey[300]),
                                                 ),
+                                                fallback: (context) =>
+                                                    Padding(
+                                                      padding: const EdgeInsetsDirectional
+                                                          .fromSTEB(0, 16, 0, 0),
+                                                      child: ListView.builder(
+                                                        padding: EdgeInsets.zero,
+                                                        shrinkWrap: true,
+                                                        scrollDirection: Axis.vertical,
+                                                        physics: const BouncingScrollPhysics(),
+                                                        itemBuilder: (context, index) => clientItemBuilder(context,AppCubit.get(context).getUsersModel!.users[index]),
+                                                        itemCount: AppCubit.get(context).getUsersModel!.users.length,
+                                                      ),
+                                                    ),
                                               ),
                                             ),
                                           ],
@@ -399,8 +416,8 @@ class _ClientsPageState extends State<ClientsPage> {
                             ),
                             Center(
                               child: Pager(
-                                currentPage: AppCubit.get(context).getUsersModel!.current,
-                                totalPages: AppCubit.get(context).getUsersModel!.pages,
+                                currentPage: AppCubit.get(context).getUsersModel!.current>0?AppCubit.get(context).getUsersModel!.current:1,
+                                totalPages: AppCubit.get(context).getUsersModel!.pages>0?AppCubit.get(context).getUsersModel!.pages:1,
                                 onPageChanged: (page) {
                                   setState(() {
                                     AppCubit.get(context).getUsersModel!.current = page;

@@ -482,8 +482,8 @@ class _CarsInGaragePageState extends State<CarsInGaragePage> {
                                   ),
                                   Center(
                                     child: Pager(
-                                      currentPage: AppCubit.get(context).getRepairingCarsModel!.current,
-                                      totalPages: AppCubit.get(context).getRepairingCarsModel!.pages,
+                                      currentPage: AppCubit.get(context).getRepairingCarsModel!.current>0?AppCubit.get(context).getRepairingCarsModel!.current:1,
+                                      totalPages: AppCubit.get(context).getRepairingCarsModel!.pages>0?AppCubit.get(context).getRepairingCarsModel!.pages:1,
                                       onPageChanged: (page) {
                                         setState(() {
                                           AppCubit.get(context).getRepairingCarsModel!.current = page;

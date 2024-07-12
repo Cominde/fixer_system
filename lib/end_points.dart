@@ -42,6 +42,7 @@ const ADDREWARDORLOANS='${baseUrl}Worker/';
 const ADDCONSTANT='${baseUrl}MonthlyReport/put_bills_rent/';
 const CREATECODE='${baseUrl}Category';
 const GETTYPES='${baseUrl}Category';
-const UPDATETYPE='${baseUrl}Category/';
+const GETALLTYPES='${baseUrl}Category/category/fordrop/';
+const UPDATETYPE='${baseUrl}Category';
 
 

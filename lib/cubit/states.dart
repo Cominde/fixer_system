@@ -208,7 +208,9 @@ class AppGetTypesLoadingState extends AppCubitStates{}
 class AppGetTypesSuccessState extends AppCubitStates{}
 class AppGetTypesErrorState extends AppCubitStates{}
 
-
+class AppGetAllTypesLoadingState extends AppCubitStates{}
+class AppGetAllTypesSuccessState extends AppCubitStates{}
+class AppGetAllTypesErrorState extends AppCubitStates{}
 
 class AppUpdateTypeLoadingState extends AppCubitStates{}
 class AppUpdateTypeSuccessState extends AppCubitStates{}

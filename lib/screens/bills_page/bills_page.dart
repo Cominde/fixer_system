@@ -422,14 +422,35 @@ var searchController=TextEditingController();
                                             child: CircularProgressIndicator(),
                                           ),
                                         ),
-                                        fallback: (context) => ListView.builder(
-                                          padding: EdgeInsets.zero,
-                                          primary: false,
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.vertical,
-                                          itemBuilder: (context, index) => billItemBuilder(context,AppCubit.get(context).getCompletedRepairsModel?.completedRepairs[index],AppCubit.get(context)),
+                                        fallback: (context) => ConditionalBuilder(
+                                          condition:
+                                          AppCubit.get(context)
+                                              .getCompletedRepairsModel!
+                                              .completedRepairs
+                                              .isEmpty,
+                                          builder: (context) => Text(
+                                            'No Results',
+                                            style: TextStyle(
+                                                fontSize: 50,
+                                                color:
+                                                Colors.grey[300]),
+                                          ),
+                                          fallback: (context) =>
+                                              Padding(
+                                                padding:
+                                                const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                    0, 16, 0, 0),
+                                                child: ListView.builder(
+                                                  padding: EdgeInsets.zero,
+                                                  primary: false,
+                                                  shrinkWrap: true,
+                                                  scrollDirection: Axis.vertical,
+                                                  itemBuilder: (context, index) => billItemBuilder(context,AppCubit.get(context).getCompletedRepairsModel?.completedRepairs[index],AppCubit.get(context)),
 
-                                          itemCount:AppCubit.get(context).getCompletedRepairsModel?.completedRepairs.length ,
+                                                  itemCount:AppCubit.get(context).getCompletedRepairsModel?.completedRepairs.length ,
+                                                ),
+                                              ),
                                         ),
                                       ),
                                     ),

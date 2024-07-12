@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:fixer_system/services/email_faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
@@ -9,6 +10,7 @@ import '../../cubit/states.dart';
 
 final _formKey = GlobalKey<FormState>();
 
+  var typesController = TextEditingController();
 
   var nameController = TextEditingController();
 
@@ -35,7 +37,7 @@ final _formKey = GlobalKey<FormState>();
   var periodicRepairsController  = TextEditingController(text: '0');
   var nonPeriodicRepairsController  = TextEditingController(text: '0');
   var motorNumberController  = TextEditingController();
-Widget addNewClientScreen(context) {
+Widget addNewClientScreen(context, List<String> allTypes) {
 
   return BlocConsumer<AppCubit, AppCubitStates>(
     listener: (context, state) {},
@@ -101,7 +103,8 @@ Widget addNewClientScreen(context) {
                   AppCubit.get(context).addClient(
                     context,
                     name: nameController.text,
-                    email: emailController.text,
+                    email: emailController.text.isNotEmpty?emailController.text:EmailFaker.generateUniqueEmail(nameController.text),
+                    type: typesController.text,
                     carNumber: carNumberController.text,
                     phoneNumber: phoneNumberController.text,
                     color: colorController.text,
@@ -165,6 +168,37 @@ Widget addNewClientScreen(context) {
                               const SizedBox(
                                 height: 10,
                               ),
+                              DropdownButtonFormField<String>(
+                                items: allTypes.map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                decoration:CustomInputDecoration.customInputDecoration(context, 'Type'),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                  fontFamily: 'Outfit',
+                                  color:
+                                  FlutterFlowTheme.of(context).primaryText,
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter the type';
+                                  }
+                                  return null;
+                                },
+                                onChanged: (value) {
+                                  typesController.text = value!;
+                                  print(typesController.text);
+                                },
+                                autofocus: false,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
                               TextFormField(
                                 controller: nameController,
                                 obscureText: false,
@@ -182,22 +216,6 @@ Widget addNewClientScreen(context) {
                                   }
                                   return null;
                                 },
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              TextFormField(
-                                controller: emailController,
-                                obscureText: false,
-                                  decoration:CustomInputDecoration.customInputDecoration(context, 'Email'),
-
-                                  style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                  fontFamily: 'Outfit',
-                                  color:
-                                  FlutterFlowTheme.of(context).primaryText,
-                                ),
                               ),
                               const SizedBox(
                                 height: 10,
@@ -379,6 +397,26 @@ Widget addNewClientScreen(context) {
                             mainAxisAlignment: MainAxisAlignment.start,
                             mainAxisSize: MainAxisSize.max,
                             children: [
+                              const Text('Optional User Info',style: TextStyle(fontWeight: FontWeight.bold),),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              TextFormField(
+                                controller: emailController,
+                                obscureText: false,
+                                decoration:CustomInputDecoration.customInputDecoration(context, 'Email'),
+
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                  fontFamily: 'Outfit',
+                                  color:
+                                  FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
                               const Text('Optional Car Info',style: TextStyle(fontWeight: FontWeight.bold),),
                               const SizedBox(
                                 height: 10,
