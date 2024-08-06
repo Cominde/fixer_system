@@ -87,6 +87,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppCubitStates>(
         listener: (context, state) {
+          print(state.toString());
       if (state is AppGetSpecificCarSuccessState) {
         idController = TextEditingController(
             text: AppCubit.get(context).getSpecificCarModel?.carData?.id);
@@ -290,13 +291,10 @@ class _CarProfilePageState extends State<CarProfilePage> {
           key: formKey,
           child: ConditionalBuilder(
             condition: state is AppGetSpecificCarLoadingState,
-            builder: (context) =>
-                const  Center(
+            builder: (context) => const  Center(
               child: Padding(padding: EdgeInsets.all(40.0),
                  child: CircularProgressIndicator(),
                                             ),),
-            
-                                        
             fallback: (context) => Padding(
               padding: const EdgeInsets.all(16.0),
               child: SingleChildScrollView(
@@ -373,7 +371,6 @@ class _CarProfilePageState extends State<CarProfilePage> {
                           ),
                         ),
                       ),
-
                       Row(
                         children: [
                           Container(

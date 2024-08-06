@@ -748,17 +748,29 @@ class AppCubit extends Cubit<AppCubitStates> {
     required String carId,
     DateTime? lastRepair,
   }) {
+    print('Updating');
     emit(AppUpdateCarLoadingState());
+    String nr='';
+    String lr='';
+
+    if (nextRepair!=null)
+      {
+        nr=nextRepair.toString();
+      }
+    if (lastRepair!=null)
+    {
+      lr=lastRepair.toString();
+    }
+
     final body = jsonEncode({
-      '_id': carId,
       "carNumber": carNumber,
       "color": color,
       "State": state,
       "brand": brand,
       "category": category,
       "model": model,
-      "nextRepairDate": nextRepair.toString(),
-      "lastRepairDate": lastRepair.toString(),
+      "nextRepairDate": nr,
+      "lastRepairDate": lr,
       "periodicRepairs": periodicRepairs,
       "nonPeriodicRepairs": nonPeriodicRepairs,
       "repairing": repairing,
@@ -773,16 +785,20 @@ class AppCubit extends Cubit<AppCubitStates> {
       //   }
       // ],
     });
+    print (body);
     put(Uri.parse(UPDATECAR + carId), headers: headers, body: body)
         .then((value) {
+          print (value.body.toString());
       if (value.statusCode >= 200 && value.statusCode < 300) {
         showToast(context, 'car updated successfully');
         emit(AppUpdateCarSuccessState());
         Navigator.pop(context);
       } else {
+
         emit(AppUpdateCarErrorState());
       }
     }).catchError((error) {
+      print (error);
       emit(AppUpdateCarErrorState());
     });
   }
