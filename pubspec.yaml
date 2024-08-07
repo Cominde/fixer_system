@@ -29,6 +29,7 @@ dependencies:
   flutter_lints: ^3.0.2
   image: ^4.2.0
   lints: ^3.0.0
+  auto_size_text: ^3.0.0
 
 
 #dependency_overrides:

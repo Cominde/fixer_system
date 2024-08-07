@@ -45,7 +45,9 @@ class _VerifyPageState extends State<VerifyPage> {
         },
         builder:(context, state) {
           return Scaffold(
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             appBar: AppBar(
+              backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
               leading: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: FlutterFlowIconButton(

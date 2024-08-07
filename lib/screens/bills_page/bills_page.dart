@@ -51,7 +51,7 @@ var searchController=TextEditingController();
               : FocusScope.of(context).unfocus(),
           child: Scaffold(
             key: scaffoldKey,
-            backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             body: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -190,267 +190,282 @@ var searchController=TextEditingController();
                                         FlutterFlowTheme.of(context).lineColor,
                                       ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 0, 12),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Expanded(
-                                            flex: 3,
-                                            child: Padding(
-                                              padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  12, 0, 0, 0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsetsDirectional
-                                                        .fromSTEB(0, 4, 0, 0),
-                                                    child: Text(
-                                                      'Car',
-                                                      style: FlutterFlowTheme.of(
-                                                          context)
-                                                          .bodySmall
-                                                          .override(
-                                                        fontFamily:
-                                                        FlutterFlowTheme.of(
-                                                            context)
-                                                            .bodySmallFamily,
-                                                        letterSpacing: 0,
-                                                        useGoogleFonts: GoogleFonts
-                                                            .asMap()
-                                                            .containsKey(
-                                                            FlutterFlowTheme.of(
-                                                                context)
-                                                                .bodySmallFamily),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          if (responsiveVisibility(
-                                            context: context,
-                                            phone: false,
-                                          ))
-                                            Expanded(
-                                              flex: 2,
-                                              child: Padding(
-                                                padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    24, 0, 0, 0),
-                                                child: Column(
-                                                  mainAxisSize: MainAxisSize.max,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                                  children: [
-                                                    Padding(
-                                                      padding: const EdgeInsetsDirectional
-                                                          .fromSTEB(0, 4, 0, 0),
-                                                      child: Text(
-                                                        'Car Code',
-                                                        style: FlutterFlowTheme.of(
-                                                            context)
-                                                            .bodySmall
-                                                            .override(
-                                                          fontFamily:
-                                                          FlutterFlowTheme.of(
-                                                              context)
-                                                              .bodySmallFamily,
-                                                          letterSpacing: 0,
-                                                          useGoogleFonts: GoogleFonts
-                                                              .asMap()
-                                                              .containsKey(
-                                                              FlutterFlowTheme.of(
-                                                                  context)
-                                                                  .bodySmallFamily),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          if (responsiveVisibility(
-                                            context: context,
-                                            phone: false,
-                                          ))
-                                            Expanded(
-                                              flex: 2,
-                                              child: Padding(
-                                                padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    24, 0, 0, 0),
-                                                child: Column(
-                                                  mainAxisSize: MainAxisSize.max,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                                  children: [
-                                                    Padding(
-                                                      padding: const EdgeInsetsDirectional
-                                                          .fromSTEB(0, 4, 0, 0),
-                                                      child: Text(
-                                                        'Owner',
-                                                        style: FlutterFlowTheme.of(
-                                                            context)
-                                                            .bodySmall
-                                                            .override(
-                                                          fontFamily:
-                                                          FlutterFlowTheme.of(
-                                                              context)
-                                                              .bodySmallFamily,
-                                                          letterSpacing: 0,
-                                                          useGoogleFonts: GoogleFonts
-                                                              .asMap()
-                                                              .containsKey(
-                                                              FlutterFlowTheme.of(
-                                                                  context)
-                                                                  .bodySmallFamily),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          if (responsiveVisibility(
-                                            context: context,
-                                            phone: false,
-                                          ))
-                                            Expanded(
-                                              flex: 2,
-                                              child: Padding(
-                                                padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    24, 0, 0, 0),
-                                                child: Column(
-                                                  mainAxisSize: MainAxisSize.max,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                                  children: [
-                                                    Padding(
-                                                      padding: const EdgeInsetsDirectional
-                                                          .fromSTEB(0, 4, 0, 0),
-                                                      child: Text(
-                                                        'Paid on',
-                                                        style: FlutterFlowTheme.of(
-                                                            context)
-                                                            .bodySmall
-                                                            .override(
-                                                          fontFamily:
-                                                          FlutterFlowTheme.of(
-                                                              context)
-                                                              .bodySmallFamily,
-                                                          letterSpacing: 0,
-                                                          useGoogleFonts: GoogleFonts
-                                                              .asMap()
-                                                              .containsKey(
-                                                              FlutterFlowTheme.of(
-                                                                  context)
-                                                                  .bodySmallFamily),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Padding(
-                                              padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  24, 0, 0, 0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsetsDirectional
-                                                        .fromSTEB(0, 4, 0, 0),
-                                                    child: Text(
-                                                      'Amount',
-                                                      style: FlutterFlowTheme.of(
-                                                          context)
-                                                          .bodySmall
-                                                          .override(
-                                                        fontFamily:
-                                                        FlutterFlowTheme.of(
-                                                            context)
-                                                            .bodySmallFamily,
-                                                        letterSpacing: 0,
-                                                        useGoogleFonts: GoogleFonts
-                                                            .asMap()
-                                                            .containsKey(
-                                                            FlutterFlowTheme.of(
-                                                                context)
-                                                                .bodySmallFamily),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    if (responsiveVisibility(
-                                      context: context,
-                                      tabletLandscape: false,
-                                      desktop: false,
-                                    ))
-                                    Divider(
-                                        height: 24,
-                                        thickness: 1,
-                                        color:
-                                        FlutterFlowTheme.of(context).lineColor,
-                                      ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0, 4, 0, 0),
-                                      child: ConditionalBuilder(
-                                        condition: state is AppGetCompletedRepairsLoadingState,
-                                        builder: (context) => const Center(
-                                          child: Padding(
-                                            padding: EdgeInsets.all(40.0),
-                                            child: CircularProgressIndicator(),
+                                      padding:
+                                      const EdgeInsetsDirectional.fromSTEB(
+                                          0, 12, 0, 0),
+                                      child: Container(
+                                        width: MediaQuery.sizeOf(context).width,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          borderRadius:
+                                          BorderRadius.circular(8),
+                                          border: Border.all(
+                                            color: FlutterFlowTheme.of(context)
+                                                .lineColor,
+                                            width: 1,
                                           ),
                                         ),
-                                        fallback: (context) => ConditionalBuilder(
-                                          condition:
-                                          AppCubit.get(context)
-                                              .getCompletedRepairsModel!
-                                              .completedRepairs
-                                              .isEmpty,
-                                          builder: (context) => Text(
-                                            'No Results',
-                                            style: TextStyle(
-                                                fontSize: 50,
-                                                color:
-                                                Colors.grey[300]),
-                                          ),
-                                          fallback: (context) =>
+                                        child: Padding(
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 12),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            children: [
                                               Padding(
-                                                padding:
-                                                const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                    0, 16, 0, 0),
-                                                child: ListView.builder(
-                                                  padding: EdgeInsets.zero,
-                                                  primary: false,
-                                                  shrinkWrap: true,
-                                                  scrollDirection: Axis.vertical,
-                                                  itemBuilder: (context, index) => billItemBuilder(context,AppCubit.get(context).getCompletedRepairsModel?.completedRepairs[index],AppCubit.get(context)),
-
-                                                  itemCount:AppCubit.get(context).getCompletedRepairsModel?.completedRepairs.length ,
+                                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                                    0, 0, 0, 12),
+                                                child: Row(
+                                                  mainAxisSize: MainAxisSize.max,
+                                                  children: [
+                                                    Expanded(
+                                                      flex: 3,
+                                                      child: Padding(
+                                                        padding:
+                                                        const EdgeInsetsDirectional.fromSTEB(
+                                                            12, 0, 0, 0),
+                                                        child: Column(
+                                                          mainAxisSize: MainAxisSize.max,
+                                                          crossAxisAlignment:
+                                                          CrossAxisAlignment.start,
+                                                          children: [
+                                                            Padding(
+                                                              padding: const EdgeInsetsDirectional
+                                                                  .fromSTEB(0, 4, 0, 0),
+                                                              child: Text(
+                                                                'Car',
+                                                                style: FlutterFlowTheme.of(
+                                                                    context)
+                                                                    .bodySmall
+                                                                    .override(
+                                                                  fontFamily:
+                                                                  FlutterFlowTheme.of(
+                                                                      context)
+                                                                      .bodySmallFamily,
+                                                                  letterSpacing: 0,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                      .asMap()
+                                                                      .containsKey(
+                                                                      FlutterFlowTheme.of(
+                                                                          context)
+                                                                          .bodySmallFamily),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    if (responsiveVisibility(
+                                                      context: context,
+                                                      phone: false,
+                                                    ))
+                                                      Expanded(
+                                                        flex: 2,
+                                                        child: Padding(
+                                                          padding:
+                                                          const EdgeInsetsDirectional.fromSTEB(
+                                                              24, 0, 0, 0),
+                                                          child: Column(
+                                                            mainAxisSize: MainAxisSize.max,
+                                                            crossAxisAlignment:
+                                                            CrossAxisAlignment.start,
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsetsDirectional
+                                                                    .fromSTEB(0, 4, 0, 0),
+                                                                child: Text(
+                                                                  'Car Code',
+                                                                  style: FlutterFlowTheme.of(
+                                                                      context)
+                                                                      .bodySmall
+                                                                      .override(
+                                                                    fontFamily:
+                                                                    FlutterFlowTheme.of(
+                                                                        context)
+                                                                        .bodySmallFamily,
+                                                                    letterSpacing: 0,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                        .containsKey(
+                                                                        FlutterFlowTheme.of(
+                                                                            context)
+                                                                            .bodySmallFamily),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    if (responsiveVisibility(
+                                                      context: context,
+                                                      phone: false,
+                                                    ))
+                                                      Expanded(
+                                                        flex: 2,
+                                                        child: Padding(
+                                                          padding:
+                                                          const EdgeInsetsDirectional.fromSTEB(
+                                                              24, 0, 0, 0),
+                                                          child: Column(
+                                                            mainAxisSize: MainAxisSize.max,
+                                                            crossAxisAlignment:
+                                                            CrossAxisAlignment.start,
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsetsDirectional
+                                                                    .fromSTEB(0, 4, 0, 0),
+                                                                child: Text(
+                                                                  'Owner',
+                                                                  style: FlutterFlowTheme.of(
+                                                                      context)
+                                                                      .bodySmall
+                                                                      .override(
+                                                                    fontFamily:
+                                                                    FlutterFlowTheme.of(
+                                                                        context)
+                                                                        .bodySmallFamily,
+                                                                    letterSpacing: 0,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                        .containsKey(
+                                                                        FlutterFlowTheme.of(
+                                                                            context)
+                                                                            .bodySmallFamily),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    if (responsiveVisibility(
+                                                      context: context,
+                                                      phone: false,
+                                                    ))
+                                                      Expanded(
+                                                        flex: 2,
+                                                        child: Padding(
+                                                          padding:
+                                                          const EdgeInsetsDirectional.fromSTEB(
+                                                              24, 0, 0, 0),
+                                                          child: Column(
+                                                            mainAxisSize: MainAxisSize.max,
+                                                            crossAxisAlignment:
+                                                            CrossAxisAlignment.start,
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsetsDirectional
+                                                                    .fromSTEB(0, 4, 0, 0),
+                                                                child: Text(
+                                                                  'Paid on',
+                                                                  style: FlutterFlowTheme.of(
+                                                                      context)
+                                                                      .bodySmall
+                                                                      .override(
+                                                                    fontFamily:
+                                                                    FlutterFlowTheme.of(
+                                                                        context)
+                                                                        .bodySmallFamily,
+                                                                    letterSpacing: 0,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                        .containsKey(
+                                                                        FlutterFlowTheme.of(
+                                                                            context)
+                                                                            .bodySmallFamily),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    Expanded(
+                                                      flex: 2,
+                                                      child: Padding(
+                                                        padding:
+                                                        const EdgeInsetsDirectional.fromSTEB(
+                                                            24, 0, 0, 0),
+                                                        child: Column(
+                                                          mainAxisSize: MainAxisSize.max,
+                                                          crossAxisAlignment:
+                                                          CrossAxisAlignment.start,
+                                                          children: [
+                                                            Padding(
+                                                              padding: const EdgeInsetsDirectional
+                                                                  .fromSTEB(0, 4, 0, 0),
+                                                              child: Text(
+                                                                'Amount',
+                                                                style: FlutterFlowTheme.of(
+                                                                    context)
+                                                                    .bodySmall
+                                                                    .override(
+                                                                  fontFamily:
+                                                                  FlutterFlowTheme.of(
+                                                                      context)
+                                                                      .bodySmallFamily,
+                                                                  letterSpacing: 0,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                      .asMap()
+                                                                      .containsKey(
+                                                                      FlutterFlowTheme.of(
+                                                                          context)
+                                                                          .bodySmallFamily),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
+                                              ConditionalBuilder(
+                                                condition: state is AppGetCompletedRepairsLoadingState,
+                                                builder: (context) => const Center(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.all(40.0),
+                                                    child: CircularProgressIndicator(),
+                                                  ),
+                                                ),
+                                                fallback: (context) => ConditionalBuilder(
+                                                  condition:
+                                                  AppCubit.get(context)
+                                                      .getCompletedRepairsModel!
+                                                      .completedRepairs
+                                                      .isEmpty,
+                                                  builder: (context) => Text(
+                                                    'No Results',
+                                                    style: TextStyle(
+                                                        fontSize: 50,
+                                                        color:
+                                                        Colors.grey[300]),
+                                                  ),
+                                                  fallback: (context) =>
+                                                      Padding(
+                                                        padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                            0, 16, 0, 0),
+                                                        child: ListView.builder(
+                                                          padding: EdgeInsets.zero,
+                                                          primary: false,
+                                                          shrinkWrap: true,
+                                                          scrollDirection: Axis.vertical,
+                                                          itemBuilder: (context, index) => billItemBuilder(context,AppCubit.get(context).getCompletedRepairsModel?.completedRepairs[index],AppCubit.get(context)),
+
+                                                          itemCount:AppCubit.get(context).getCompletedRepairsModel?.completedRepairs.length ,
+                                                        ),
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),

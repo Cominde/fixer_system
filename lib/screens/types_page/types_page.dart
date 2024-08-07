@@ -59,7 +59,7 @@ class _TypesPageState extends State<TypesPage> {
               : FocusScope.of(context).unfocus(),
           child: Scaffold(
             key: scaffoldKey,
-            backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             body: Row(
               mainAxisSize: MainAxisSize.max,
               children: [

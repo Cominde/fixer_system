@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:fixer_system/screens/car_profile_page/add_repair_screen.dart';
 import 'package:flutter/material.dart';
@@ -169,6 +170,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
     },
         builder: (context, state) {
       return Scaffold(
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         floatingActionButton: Container(
           alignment: Alignment.bottomRight,
           child: ConditionalBuilder(
@@ -215,6 +217,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
           ),
         ),
         appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           toolbarHeight: 66,
           leadingWidth: 66,
           title: const Text(
@@ -354,8 +357,9 @@ class _CarProfilePageState extends State<CarProfilePage> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
+                                    AutoSizeText(
                                       carNumberController.text,
+                                      maxLines: 1,
                                       style: const TextStyle(
                                         fontSize: 45,
                                         fontWeight: FontWeight.bold,

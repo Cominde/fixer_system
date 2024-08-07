@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
               title: 'Fixer',
               theme: theme,
               darkTheme: darkTheme,
+              debugShowCheckedModeBanner: false,
               home: const Login(),
             ),
           );

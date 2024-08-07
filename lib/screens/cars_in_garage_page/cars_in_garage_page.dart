@@ -456,19 +456,40 @@ class _CarsInGaragePageState extends State<CarsInGaragePage> {
                                                     child:ConditionalBuilder(
                                                       condition: state is AppGetRepairingCarsLoadingState||state is AppSearchRepairingCarsLoadingState,
                                                       builder: (context) => const  Center(
-              child: Padding(padding: EdgeInsets.all(40.0),
-                 child: CircularProgressIndicator(),
-                                            ),),
+                                                        child: Padding(padding: EdgeInsets.all(40.0),
+                                                          child: CircularProgressIndicator(),
+                                                        ),),
 
-                                        
-                                                      fallback:(context) =>ListView.separated(
-                                                        padding: EdgeInsets.zero,
-                                                        shrinkWrap: true,
-                                                        scrollDirection: Axis.vertical,
-                                                        itemBuilder: (context, index) =>//Container(color: Colors.grey,),
-                                                             repairingCarItemBuilder(context,AppCubit.get(context).getRepairingCarsModel!.data[index]),
-                                                        itemCount: AppCubit.get(context).getRepairingCarsModel!.data.length,
-                                                        separatorBuilder: (context, index) => Container(color: Colors.grey[400],width: double.infinity,height: 1,),
+
+                                                      fallback:(context) => ConditionalBuilder(
+                                                        condition:
+                                                        AppCubit.get(context)
+                                                            .getRepairingCarsModel!.
+                                                        data.
+                                                        isEmpty,
+                                                        builder: (context) => Text(
+                                                          'No Results',
+                                                          style: TextStyle(
+                                                              fontSize: 50,
+                                                              color:
+                                                              Colors.grey[300]),
+                                                        ),
+                                                        fallback: (context) =>
+                                                            Padding(
+                                                              padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                  0, 16, 0, 0),
+                                                              child: ListView.separated(
+                                                                padding: EdgeInsets.zero,
+                                                                shrinkWrap: true,
+                                                                scrollDirection: Axis.vertical,
+                                                                itemBuilder: (context, index) =>//Container(color: Colors.grey,),
+                                                                repairingCarItemBuilder(context,AppCubit.get(context).getRepairingCarsModel!.data[index]),
+                                                                itemCount: AppCubit.get(context).getRepairingCarsModel!.data.length,
+                                                                separatorBuilder: (context, index) => Container(color: Colors.grey[400],width: double.infinity,height: 1,),
+                                                              ),
+                                                            ),
                                                       ),  ),
                                                       
                                                   ),

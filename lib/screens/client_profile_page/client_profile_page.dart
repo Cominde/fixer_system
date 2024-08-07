@@ -74,6 +74,7 @@ class _ClientDetailsState extends State<ClientProfilePage> {
         return Form(
           key: formKey,
           child: Scaffold(
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             floatingActionButton: Container(
               alignment: Alignment.bottomRight,
               child: ConditionalBuilder(
@@ -112,6 +113,7 @@ class _ClientDetailsState extends State<ClientProfilePage> {
               child: AppBar(
                 toolbarHeight: 66,
                 leadingWidth: 66,
+                backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
                 actions: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),

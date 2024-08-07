@@ -72,7 +72,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           child: Form(
             key: formKey,
             child: Scaffold(
-
               key: scaffoldKey,
               backgroundColor: FlutterFlowTheme
                   .of(context)
