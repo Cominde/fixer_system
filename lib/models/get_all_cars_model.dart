@@ -5,6 +5,7 @@ class GetCarsModel{
   int pages = 1;
   int current = 1;
   GetCarsModel.fromJson(Map<String,dynamic>?json){
+    print(json);
     results=json?['results'];
     pages=json?['paginationResult']['numberOfPages'];
     json?['data'].forEach((element) {

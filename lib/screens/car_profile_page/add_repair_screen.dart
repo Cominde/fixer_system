@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,7 +70,9 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
         },
         builder: (context, state) {
           return Scaffold(
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             appBar: AppBar(
+              backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
               title: const Text(
                 'Add Repair',
                 style: TextStyle(
@@ -176,8 +179,9 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
+                                  AutoSizeText(
                                     widget.carNumber,
+                                    maxLines: 1,
                                     style: const TextStyle(
                                       fontSize: 45,
                                       fontWeight: FontWeight.bold,
@@ -205,7 +209,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                         itemCount: components.length,
                         separatorBuilder: (context, index) => const SizedBox(height: 15,),
                         itemBuilder: (context, i) {
-                          AppCubit.get(context).getListOfComponents();
+                          //AppCubit.get(context).getListOfComponents();
 
                           return Row(
                             children: <Widget>[

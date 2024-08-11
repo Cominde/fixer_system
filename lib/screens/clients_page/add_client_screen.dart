@@ -1,5 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:fixer_system/screens/client_profile_page/add_car_screen.dart';
+/*import 'package:fixer_system/screens/client_profile_page/add_car_screen.dart';*/
 import 'package:fixer_system/services/email_faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -173,37 +173,6 @@ Widget addNewClientScreen(context, List<String> allTypes) {
                                   const SizedBox(
                                     height: 10,
                                   ),
-                                  DropdownButtonFormField<String>(
-                                    items: allTypes.map<DropdownMenuItem<String>>(
-                                            (String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
-                                    decoration:CustomInputDecoration.customInputDecoration(context, 'Type'),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                      fontFamily: 'Outfit',
-                                      color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                    ),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'please enter the type';
-                                      }
-                                      return null;
-                                    },
-                                    onChanged: (value) {
-                                      typesController.text = value!;
-                                      print(typesController.text);
-                                    },
-                                    autofocus: false,
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
                                   TextFormField(
                                     controller: nameController,
                                     obscureText: false,
@@ -250,6 +219,37 @@ Widget addNewClientScreen(context, List<String> allTypes) {
                                     height: 10,
                                   ),
                                   const Text('Required Car Info',style: TextStyle(fontWeight: FontWeight.bold),),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  DropdownButtonFormField<String>(
+                                    items: allTypes.map<DropdownMenuItem<String>>(
+                                            (String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(value),
+                                          );
+                                        }).toList(),
+                                    decoration:CustomInputDecoration.customInputDecoration(context, 'Type'),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                      fontFamily: 'Outfit',
+                                      color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'please enter the type';
+                                      }
+                                      return null;
+                                    },
+                                    onChanged: (value) {
+                                      typesController.text = value!;
+                                      print(typesController.text);
+                                    },
+                                    autofocus: false,
+                                  ),
                                   const SizedBox(
                                     height: 10,
                                   ),
@@ -379,6 +379,13 @@ Widget addNewClientScreen(context, List<String> allTypes) {
                                   const SizedBox(
                                     height: 10,
                                   ),
+                                  Text('Model',style: FlutterFlowTheme
+                                      .of(context)
+                                      .bodySmall
+                                      .override(
+                                    fontFamily: 'Outfit',
+                                    color: const Color(0xFFF68B1E),
+                                  ),),
                                   Container(
                                     alignment: Alignment.centerRight,
                                     height: MediaQuery.sizeOf(context).height * 0.2,

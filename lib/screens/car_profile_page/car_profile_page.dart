@@ -647,28 +647,39 @@ class _CarProfilePageState extends State<CarProfilePage> {
                                     fontSize: 20),
                               ),
                             ),
-                            SizedBox(
-                              height: 700,
-                              child: ConditionalBuilder(
-                                condition: state is AppGetAllCarsLoadingState,
-                                builder: (context) => const Center(
-                                    child: CircularProgressIndicator()),
-                                fallback: (context) => ListView.separated(
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) =>
-                                      repairItemBuilder(
-                                          context,
-                                          AppCubit.get(context)
-                                              .getAllRepairsForSpecificCarModel!
-                                              .repairs[index]),
-                                  itemCount: AppCubit.get(context)
-                                      .getAllRepairsForSpecificCarModel!
-                                      .repairs
-                                      .length,
-                                  separatorBuilder: (context, index) =>
-                                      const SizedBox(
-                                    width: 25,
-                                  ),
+                            ConditionalBuilder(
+                              condition: state is AppGetAllCarsLoadingState,
+                              builder: (context) => const Center(
+                                  child: CircularProgressIndicator()),
+                              fallback: (context) =>  Column(
+                                children: List.generate(
+                                  (AppCubit.get(context).getAllRepairsForSpecificCarModel!.repairs.length + 1) ~/ 2, // Number of rows needed
+                                      (rowIndex) {
+                                    int firstItemIndex = rowIndex * 2;
+                                    int secondItemIndex = firstItemIndex + 1;
+
+                                    return Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: repairItemBuilder(
+                                            context,
+                                            AppCubit.get(context).getAllRepairsForSpecificCarModel!.repairs[firstItemIndex],
+                                          ),
+                                        ),
+                                        if (secondItemIndex < AppCubit.get(context).getAllRepairsForSpecificCarModel!.repairs.length)
+                                          SizedBox(width: 25), // Add spacing between items
+                                        if (secondItemIndex < AppCubit.get(context).getAllRepairsForSpecificCarModel!.repairs.length)
+                                          Expanded(
+                                            child: repairItemBuilder(
+                                              context,
+                                              AppCubit.get(context).getAllRepairsForSpecificCarModel!.repairs[secondItemIndex],
+                                            ),
+                                          ),
+                                      ],
+                                    );
+                                  },
                                 ),
                               ),
                             ),

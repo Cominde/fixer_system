@@ -548,6 +548,7 @@ class AppCubit extends Cubit<AppCubitStates> {
     context, {
     required String id,
     required String carNumber,
+    required String type,
     required String color,
     required String brand,
     required String category,
@@ -575,6 +576,7 @@ class AppCubit extends Cubit<AppCubitStates> {
       'repairing': false,
       "periodicRepairs": 0,
       "nonPeriodicRepairs": 0,
+      'clientType': type,
     });
 
     post(Uri.parse(ADDCAR + id), headers: headers, body: body).then((response) {

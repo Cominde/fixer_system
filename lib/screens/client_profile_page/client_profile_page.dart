@@ -130,10 +130,12 @@ class _ClientDetailsState extends State<ClientProfilePage> {
                         size: 24,
                       ),
                       onPressed: () async {
+                        AppCubit.get(context).getAllTypes();
+
                         showDialog(
                             context: context,
                             builder: (context) =>
-                                addNewCarScreen(context, widget.userId));
+                                addNewCarScreen(context, widget.userId, AppCubit.get(context).getAllTypesModel!.types));
                       },
                     ),
                   ),

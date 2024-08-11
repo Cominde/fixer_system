@@ -9,7 +9,7 @@ import '../../cubit/states.dart';
 
 final _formKey = GlobalKey<FormState>();
 
-
+  var typesController = TextEditingController();
 
   var carNumberController = TextEditingController();
 
@@ -35,7 +35,7 @@ final _formKey = GlobalKey<FormState>();
 
   var motorNumberController = TextEditingController();
 
-Widget addNewCarScreen(context, String userId,) {
+Widget addNewCarScreen(context, String userId, List<String> allTypes) {
 
 
 
@@ -113,6 +113,7 @@ Widget addNewCarScreen(context, String userId,) {
                     periodicRepairs: periodicRepairsController.text,
                     nonPeriodicRepairs: nonPeriodicRepairsController.text,
                     motorNumber: motorNumberController.text,
+                    type: typesController.text,
                   );
                 }
               },
@@ -164,6 +165,34 @@ Widget addNewCarScreen(context, String userId,) {
                               const Text('Required Car Info',style: TextStyle(fontWeight: FontWeight.bold),),
                               const SizedBox(
                                 height: 10,
+                              ),
+                              DropdownButtonFormField<String>(
+                                items: allTypes.map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                decoration:CustomInputDecoration.customInputDecoration(context, 'Type'),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                  fontFamily: 'Outfit',
+                                  color:
+                                  FlutterFlowTheme.of(context).primaryText,
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter the type';
+                                  }
+                                  return null;
+                                },
+                                onChanged: (value) {
+                                  typesController.text = value!;
+                                  print(typesController.text);
+                                },
+                                autofocus: false,
                               ),
                               const SizedBox(
                                 height: 10,
@@ -294,6 +323,13 @@ Widget addNewCarScreen(context, String userId,) {
                               const SizedBox(
                                 height: 10,
                               ),
+                              Text('Model',style: FlutterFlowTheme
+                                  .of(context)
+                                  .bodySmall
+                                  .override(
+                                fontFamily: 'Outfit',
+                                color: const Color(0xFFF68B1E),
+                              ),),
                               Container(
                                 alignment: Alignment.centerRight,
                                 height: MediaQuery.sizeOf(context).height * 0.2,
