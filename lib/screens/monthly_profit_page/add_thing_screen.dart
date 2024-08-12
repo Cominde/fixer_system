@@ -18,7 +18,7 @@ var dateController= TextEditingController();
 var priceController = TextEditingController();
 
 
-Widget addThingScreen(context,plus) {
+Widget addThingScreen(context,bool plus) {
 
 
   return BlocConsumer<AppCubit, AppCubitStates>(
@@ -29,8 +29,13 @@ Widget addThingScreen(context,plus) {
         alignment: Alignment.topRight,
         surfaceTintColor: FlutterFlowTheme.of(context).primaryBackground,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        title: const Text(
+        title: plus==true? const Text(
           'Add Thing',
+          style: TextStyle(
+            fontSize: 25,
+          ),
+        ): const Text(
+          'Subtract Thing',
           style: TextStyle(
             fontSize: 25,
           ),

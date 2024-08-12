@@ -65,7 +65,7 @@ Future addConstantsScreen(context ,year,month) {
                         AppCubit.get(context).putConstant(
                           context,
                           title: list[typeController.text]!,
-                          amount: int.parse(amountController.text),
+                          amount: amountController.text,
                           year: year,
                           month: month,
                         );

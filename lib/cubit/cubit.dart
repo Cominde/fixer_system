@@ -1035,25 +1035,28 @@ class AppCubit extends Cubit<AppCubitStates> {
   void putConstant(
       context, {
         required String title,
-        required int amount,
+        required var amount,
         required String year,
         required String month,
       }) {
 
     emit(AppAddConstantLoadingState());
     var body = jsonEncode({
-      title: amount,
+      title:int.parse(amount),
     });
+    print(body.toString());
     put(Uri.parse('$ADDCONSTANT${year}_$month'), headers: headers, body: body).then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
         showToast(context, '$title added successfully');
         emit(AppAddConstantSuccessState());
         Navigator.pop(context);
       } else {
+        print(response.body.toString());
         showToast(context, 'Failed to add $title');
         emit(AppAddConstantErrorState());
       }
     }).catchError((onError) {
+     print(onError.toString());
       emit(AppAddConstantErrorState());
     });
   }
