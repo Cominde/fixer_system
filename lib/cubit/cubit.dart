@@ -1152,4 +1152,28 @@ class AppCubit extends Cubit<AppCubitStates> {
     });
   }
 
+
+  void searchTypes({
+    required String word,
+  }) {
+
+    emit(AppSearchTypesLoadingState());
+    getAllTypesModel = GetAllTypesModel();
+    read(
+      Uri.parse(SEARCHTYPE + word),
+      headers: headers,
+    ).then((value) {
+      getTypesModel = GetTypesModel.fromJson(jsonDecode(value));
+      if (getTypesModel?.results != null) {
+        emit(AppSearchTypesSuccessState());
+      } else {
+        emit(AppSearchTypesErrorState());
+      }
+    }).catchError((error) {
+      emit(AppSearchTypesErrorState());
+    });
+  }
+
+
 }
+
