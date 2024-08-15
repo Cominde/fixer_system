@@ -215,11 +215,11 @@ class _TypesPageState extends State<TypesPage> {
                                                           (value) {
                                                         if (value.isNotEmpty) {
                                                           AppCubit.get(context)
-                                                              .searchWorkers(
+                                                              .searchTypes(
                                                               word: value);
                                                         } else {
                                                           AppCubit.get(context)
-                                                              .getWorkers();
+                                                              .getTypes();
                                                         }
                                                       },
                                                     ),
@@ -424,7 +424,7 @@ class _TypesPageState extends State<TypesPage> {
                                                 condition: state
                                                 is AppGetTypesLoadingState ||
                                                     state
-                                                    is AppSearchWorkersLoadingState,
+                                                    is AppSearchTypesLoadingState,
                                                 builder: (context) =>
                                                 const Center(
                                                   child: Padding(
@@ -489,12 +489,12 @@ class _TypesPageState extends State<TypesPage> {
                               ),
                               Center(
                                 child: Pager(
-                                  currentPage: AppCubit.get(context).getWorkersModel!.current>0?AppCubit.get(context).getWorkersModel!.current:1,
-                                  totalPages: AppCubit.get(context).getWorkersModel!.pages>0?AppCubit.get(context).getWorkersModel!.pages:1,
+                                  currentPage: AppCubit.get(context).getTypesModel!.current>0?AppCubit.get(context).getTypesModel!.current:1,
+                                  totalPages: AppCubit.get(context).getTypesModel!.pages>0?AppCubit.get(context).getTypesModel!.pages:1,
                                   onPageChanged: (page) {
                                     setState(() {
-                                      AppCubit.get(context).getWorkersModel!.current = page;
-                                      AppCubit.get(context).getWorkers(page: page);
+                                      AppCubit.get(context).getTypesModel!.current = page;
+                                      AppCubit.get(context).getTypes(page: page);
                                     });
                                   },
                                   numberButtonSelectedColor: const Color(0xffF68B1E),

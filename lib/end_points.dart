@@ -46,4 +46,3 @@ const GETALLTYPES='${baseUrl}Category/category/fordrop/';
 const UPDATETYPE='${baseUrl}Category';
 const SEARCHTYPE='${baseUrl}Category/search/';
 
-

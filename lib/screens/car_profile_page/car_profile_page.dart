@@ -88,7 +88,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppCubitStates>(
         listener: (context, state) {
-          print(state.toString());
+          // print(state.toString());
       if (state is AppGetSpecificCarSuccessState) {
         idController = TextEditingController(
             text: AppCubit.get(context).getSpecificCarModel?.carData?.id);
@@ -669,7 +669,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
                                           ),
                                         ),
                                         if (secondItemIndex < AppCubit.get(context).getAllRepairsForSpecificCarModel!.repairs.length)
-                                          SizedBox(width: 25), // Add spacing between items
+                                          const SizedBox(width: 25), // Add spacing between items
                                         if (secondItemIndex < AppCubit.get(context).getAllRepairsForSpecificCarModel!.repairs.length)
                                           Expanded(
                                             child: repairItemBuilder(

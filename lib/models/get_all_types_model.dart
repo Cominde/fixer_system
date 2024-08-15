@@ -6,13 +6,13 @@ class GetTypesModel{
   int pages = 1;
   int current = 1;
   GetTypesModel.fromJson(Map<String,dynamic>?json){
-    print(json);
+    //print(json);
     results=json?['results'];
     pages=json?['paginationResult']['numberOfPages'];
     json?['data'].forEach((element) {
       types.add(Type.fromJson(element));
     });
-    print(types.length);
+    //print(types.length);
   }
 }
 

@@ -214,7 +214,7 @@ class AppCubit extends Cubit<AppCubitStates> {
   }) {
     emit(AppAddClientLoadingState());
 
-    print(type);
+    // print(type);
     final body = jsonEncode({
       'name': name,
       'email': email,
@@ -750,7 +750,7 @@ class AppCubit extends Cubit<AppCubitStates> {
     required String carId,
     DateTime? lastRepair,
   }) {
-    print('Updating');
+    // print('Updating');
     emit(AppUpdateCarLoadingState());
     String nr='';
     String lr='';
@@ -787,10 +787,10 @@ class AppCubit extends Cubit<AppCubitStates> {
       //   }
       // ],
     });
-    print (body);
+    // print (body);
     put(Uri.parse(UPDATECAR + carId), headers: headers, body: body)
         .then((value) {
-          print (value.body.toString());
+          // print (value.body.toString());
       if (value.statusCode >= 200 && value.statusCode < 300) {
         showToast(context, 'car updated successfully');
         emit(AppUpdateCarSuccessState());
@@ -800,7 +800,7 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppUpdateCarErrorState());
       }
     }).catchError((error) {
-      print (error);
+      // print (error);
       emit(AppUpdateCarErrorState());
     });
   }
@@ -821,7 +821,9 @@ class AppCubit extends Cubit<AppCubitStates> {
       headers: headers,
       body: body,
     ).then((value) {
+      //print(value.body);
       mainPramsModel = MainPramsModel.fromJson(jsonDecode(value.body));
+      //print(mainPramsModel!.income);
       if (value.statusCode>=201 && value.statusCode<300) {
         emit(AppGetMainPramsSuccessState());
       } else {
@@ -914,6 +916,7 @@ class AppCubit extends Cubit<AppCubitStates> {
       Uri.parse('$GETMONTHWORK${year}_$month'),
       headers: headers,
     ).then((value) {
+      //print(value);
       getMonthWorkModel = GetMonthWorkModel.fromJson(jsonDecode(value));
       emit(AppGetMonthWorkSuccessState());
     }).catchError((error) {
@@ -1042,21 +1045,18 @@ class AppCubit extends Cubit<AppCubitStates> {
 
     emit(AppAddConstantLoadingState());
     var body = jsonEncode({
-      title:int.parse(amount),
+      title: int.parse(amount),
     });
-    print(body.toString());
     put(Uri.parse('$ADDCONSTANT${year}_$month'), headers: headers, body: body).then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
         showToast(context, '$title added successfully');
         emit(AppAddConstantSuccessState());
         Navigator.pop(context);
       } else {
-        print(response.body.toString());
         showToast(context, 'Failed to add $title');
         emit(AppAddConstantErrorState());
       }
     }).catchError((onError) {
-     print(onError.toString());
       emit(AppAddConstantErrorState());
     });
   }
@@ -1152,7 +1152,6 @@ class AppCubit extends Cubit<AppCubitStates> {
     });
   }
 
-
   void searchTypes({
     required String word,
   }) {
@@ -1174,6 +1173,4 @@ class AppCubit extends Cubit<AppCubitStates> {
     });
   }
 
-
 }
-

@@ -29,12 +29,12 @@ Widget addThingScreen(context,bool plus) {
         alignment: Alignment.topRight,
         surfaceTintColor: FlutterFlowTheme.of(context).primaryBackground,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        title: plus==true? const Text(
+        title: plus ? const Text(
           'Add Thing',
           style: TextStyle(
             fontSize: 25,
           ),
-        ): const Text(
+        ) : const Text(
           'Subtract Thing',
           style: TextStyle(
             fontSize: 25,

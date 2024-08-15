@@ -246,7 +246,7 @@ Widget addNewClientScreen(context, List<String> allTypes) {
                                     },
                                     onChanged: (value) {
                                       typesController.text = value!;
-                                      print(typesController.text);
+                                      // print(typesController.text);
                                     },
                                     autofocus: false,
                                   ),

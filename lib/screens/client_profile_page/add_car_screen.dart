@@ -190,7 +190,7 @@ Widget addNewCarScreen(context, String userId, List<String> allTypes) {
                                 },
                                 onChanged: (value) {
                                   typesController.text = value!;
-                                  print(typesController.text);
+                                  //print(typesController.text);
                                 },
                                 autofocus: false,
                               ),

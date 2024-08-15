@@ -479,16 +479,8 @@ class _MonthlyProfitPageState extends State<MonthlyProfitPage> {
                                                 hidesUnderline: true,
                                               ),
                                             ),
-                                            Expanded(
-                                              child: Container(
-                                                width: 100,
-                                                height: 1,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryBackground,
-                                                ),
-                                              ),
+                                            const Expanded(
+                                              child: SizedBox()
                                             ),
                                             if (responsiveVisibility(
                                               context: context,
