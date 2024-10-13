@@ -36,31 +36,25 @@ Widget teamMemberBuilder(context,Worker model){
           children: [
             Expanded(
               flex: 2,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
+              child: AutoSizeText(
+                '${model.name}',
+                style: FlutterFlowTheme.of(
+                    context)
+                    .bodyMedium
+                    .override(
 
-                  AutoSizeText(
-                    '${model.name}',
-                    style: FlutterFlowTheme.of(
-                        context)
-                        .bodyMedium
-                        .override(
-
-                      fontFamily:
+                  fontFamily:
+                  FlutterFlowTheme.of(
+                      context)
+                      .titleMediumFamily,
+                  letterSpacing: 0,
+                  useGoogleFonts: GoogleFonts
+                      .asMap()
+                      .containsKey(
                       FlutterFlowTheme.of(
                           context)
-                          .titleMediumFamily,
-                      letterSpacing: 0,
-                      useGoogleFonts: GoogleFonts
-                          .asMap()
-                          .containsKey(
-                          FlutterFlowTheme.of(
-                              context)
-                              .titleMediumFamily),
-                    ),
-                  ),
-                ],
+                          .titleMediumFamily),
+                ),
               ),
             ),
             if (responsiveVisibility(

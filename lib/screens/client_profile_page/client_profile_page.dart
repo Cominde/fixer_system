@@ -135,7 +135,7 @@ class _ClientDetailsState extends State<ClientProfilePage> {
                         showDialog(
                             context: context,
                             builder: (context) =>
-                                addNewCarScreen(context, widget.userId, AppCubit.get(context).getAllTypesModel!.types));
+                                AddNewCarScreen(userId: widget.userId,allTypes: AppCubit.get(context).getAllTypesModel!.types));
                       },
                     ),
                   ),

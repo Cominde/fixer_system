@@ -4,9 +4,12 @@ import 'package:fixer_system/cubit/cubit.dart';
 import 'package:fixer_system/cubit/states.dart';
 import 'package:fixer_system/screens/verify_page/verify_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_keyboard_shortcuts/keyboard_shortcuts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../components/custom/box_decoration.dart';
 import '../forget_password_page/forget_password_page.dart';
@@ -26,6 +29,10 @@ class _LoginState extends State<Login> {
 
   var formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  List<String> _savedEmails = [];
+  List<String> _suggestions = [];
+  final ScrollController _controller = ScrollController();
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
@@ -37,12 +44,41 @@ class _LoginState extends State<Login> {
 
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
+    _loadEmails();
+  }
+
+  void _loadEmails() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? savedEmails = prefs.getStringList('emails');
+    if (savedEmails != null) {
+      setState(() {
+        _savedEmails = savedEmails;
+      });
+    }
+    print(savedEmails);
+  }
+
+  void _saveEmail(String email) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (!_savedEmails.contains(email)) {
+      _savedEmails.add(email);
+      await prefs.setStringList('emails', _savedEmails);
+    }
+  }
+
+  void _filterEmails(String input) {
+    setState(() {
+      _suggestions = _savedEmails
+          .where((email) => email.toLowerCase().contains(input.toLowerCase()))
+          .toList();
+    });
+    print(_suggestions);
   }
 
   @override
   void dispose() {
     _model.dispose();
-
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -51,6 +87,7 @@ class _LoginState extends State<Login> {
     return BlocConsumer<AppCubit, AppCubitStates>(
       listener: (context, state) {
         if (state is AppLoginVerifyState) {
+          _saveEmail(_model.textController1.text);
           Navigator.push(
             context,
             PageTransition(
@@ -126,40 +163,98 @@ class _LoginState extends State<Login> {
                             width: MediaQuery
                                 .sizeOf(context)
                                 .width * 0.3,
-                            child: TextFormField(
-                              controller: _model.textController1,
-                              focusNode: _model.textFieldFocusNode1,
-                              autofocus: true,
-                              autofillHints: const [AutofillHints.email],
-                              textInputAction: TextInputAction.next,
-                              obscureText: false,
-                              decoration: CustomInputDecoration
-                                  .customInputDecoration(context, 'email'),
-                    
-                    
-                              style: FlutterFlowTheme
-                                  .of(context)
-                                  .bodyMedium
-                                  .override(
-                                fontFamily:
-                                FlutterFlowTheme
-                                    .of(context)
-                                    .bodyMediumFamily,
-                                letterSpacing: 0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
+                            height: _suggestions.isNotEmpty&&_model.textFieldFocusNode1!.hasFocus?120:null,
+                            child: Stack(
+                              children: [
+                                TextFormField(
+                                  controller: _model.textController1,
+                                  focusNode: _model.textFieldFocusNode1,
+                                  autofocus: true,
+                                  autofillHints: const [AutofillHints.email],
+                                  textInputAction: TextInputAction.next,
+                                  obscureText: false,
+                                  decoration: CustomInputDecoration
+                                      .customInputDecoration(context, 'email'),
+
+
+                                  style: FlutterFlowTheme
+                                      .of(context)
+                                      .bodyMedium
+                                      .override(
+                                    fontFamily:
                                     FlutterFlowTheme
                                         .of(context)
-                                        .bodyMediumFamily),
-                              ),
-                              minLines: null,
-                              keyboardType: TextInputType.emailAddress,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please Enter your Email';
-                                }
-                                return null;
-                              },
-                    
+                                        .bodyMediumFamily,
+                                    letterSpacing: 0,
+                                    useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                        FlutterFlowTheme
+                                            .of(context)
+                                            .bodyMediumFamily),
+                                  ),
+                                  minLines: null,
+                                  keyboardType: TextInputType.emailAddress,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please Enter your Email';
+                                    }
+                                    return null;
+                                  },
+                                  onChanged: (value) {
+                                    _filterEmails(value); // Filter suggestions as user types
+                                  },
+                                ),
+                                if (_suggestions.isNotEmpty&&_model.textFieldFocusNode1!.hasFocus)
+                                  Positioned(
+                                    left: 0,
+                                    right: 0,
+                                    top: 60, // Adjust the top position based on TextFormField height
+                                    child: KeyBoardShortcuts(
+                                      globalShortcuts: true,
+                                      keysToPress: {LogicalKeyboardKey.arrowUp},
+                                      onKeysPressed: () {
+                                        if (_suggestions.isNotEmpty) {
+                                          _focusNode.canRequestFocus
+                                              ? FocusScope.of(context).requestFocus(_focusNode)
+                                              : FocusScope.of(context).unfocus();
+                                          _controller.animateTo(_controller.offset - 55, duration: Duration(milliseconds: 30), curve: Curves.ease);
+                                        }
+                                      },
+                                      child: KeyBoardShortcuts(
+                                        globalShortcuts: true,
+                                        keysToPress: {LogicalKeyboardKey.arrowDown},
+                                        onKeysPressed: () {
+                                          if (_suggestions.isNotEmpty) {
+                                            _focusNode.canRequestFocus
+                                                ? FocusScope.of(context).requestFocus(_focusNode)
+                                                : FocusScope.of(context).unfocus();
+                                            _controller.animateTo(_controller.offset + 55, duration: Duration(milliseconds: 30), curve: Curves.ease);
+                                          }
+                                        },
+                                        child: SizedBox(
+                                          height: 60,
+                                          child: Material(
+                                            elevation: 4.0,
+                                            child: ListView.builder(
+                                              controller: _controller,
+                                              itemCount: _suggestions.length,
+                                              itemBuilder: (context, index) {
+                                                return ListTile(
+                                                  title: Text(_suggestions[index]),
+                                                  onTap: () {
+                                                    setState(() {
+                                                      _model.textController1.text = _suggestions[index];
+                                                      _suggestions.clear(); // Hide suggestions once selected
+                                                    });
+                                                  },
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
                             ),
                           ),
                         ),

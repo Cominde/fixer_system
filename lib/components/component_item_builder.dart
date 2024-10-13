@@ -203,7 +203,7 @@ return  Padding(
                         ),
                         onPressed:
                             () async {
-                          showDialog(context: context, builder:(context) =>  editNewComponentPage(context,model));
+                          showDialog(context: context, builder:(context) =>  EditNewComponentPage(model: model));
                         },
                       ),
                     ),
