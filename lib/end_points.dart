@@ -45,4 +45,5 @@ const GETTYPES='${baseUrl}Category';
 const GETALLTYPES='${baseUrl}Category/category/fordrop/';
 const UPDATETYPE='${baseUrl}Category';
 const SEARCHTYPE='${baseUrl}Category/search/';
+const GETNEXTCARCODE='${baseUrl}User/carCode/';
 

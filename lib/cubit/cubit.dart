@@ -42,6 +42,18 @@ class AppCubit extends Cubit<AppCubitStates> {
   GetTypesModel? getTypesModel = GetTypesModel();
   GetAllTypesModel? getAllTypesModel = GetAllTypesModel();
   var time = DateTime.now();
+
+  Future<String> getTheNextCode(String type) async {
+    var data= await read(
+      Uri.parse(GETNEXTCARCODE+type),
+      headers: headers,
+    );
+    return "${jsonDecode(data)['data']}";
+
+
+}
+
+
   void changDatePicker(value) {
     time = value;
     emit(AppDatePickerChangeState());
@@ -211,6 +223,8 @@ class AppCubit extends Cubit<AppCubitStates> {
     required String periodicRepairs,
     required String nonPeriodicRepairs,
     required String motorNumber,
+        required String manually,
+        required String carCode,
   }) {
     emit(AppAddClientLoadingState());
 
@@ -234,6 +248,8 @@ class AppCubit extends Cubit<AppCubitStates> {
       'nonPeriodicRepairs': nonPeriodicRepairs,
       'motorNumber': motorNumber,
       "State": "good",
+      "manually":manually,
+      "carCode":carCode,
     });
 
     post(Uri.parse(ADDCLIENT), headers: headers, body: body).then((response) {
@@ -559,6 +575,8 @@ class AppCubit extends Cubit<AppCubitStates> {
     required String periodicRepairs,
     required String nonPeriodicRepairs,
     required String motorNumber,
+        required String manually,
+        required String carCode,
   }) {
     emit(AppAddCarLoadingState());
 
@@ -577,6 +595,8 @@ class AppCubit extends Cubit<AppCubitStates> {
       "periodicRepairs": 0,
       "nonPeriodicRepairs": 0,
       'clientType': type,
+      "manually":manually,
+      "carCode":carCode,
     });
 
     post(Uri.parse(ADDCAR + id), headers: headers, body: body).then((response) {

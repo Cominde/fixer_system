@@ -49,6 +49,12 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
 
   var motorNumberController = TextEditingController();
 
+  var codeController = TextEditingController();
+
+  bool automatic=true;
+
+  String nextCode='';
+
   final ScrollController _controller = ScrollController();
   final FocusNode _focusNode = FocusNode();
 
@@ -135,6 +141,8 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                       nonPeriodicRepairs: nonPeriodicRepairsController.text,
                       motorNumber: motorNumberController.text,
                       type: typesController.text,
+                      manually:automatic?'False':'True',
+                      carCode:codeController.text,
                     );
                   }
                 },
@@ -227,11 +235,55 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                                       }
                                       return null;
                                     },
-                                    onChanged: (value) {
+                                    onChanged: (value) async {
                                       typesController.text = value!;
+
+                                      codeController.text=await AppCubit.get(context).getTheNextCode(value);
                                       //print(typesController.text);
                                     },
                                     autofocus: false,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+
+                                  Switch(
+                                    value: automatic,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        automatic = value;
+                                        print(automatic);// Toggle the mode
+                                      });
+                                    },
+                                    activeColor: Colors.black, // Background for dark mode
+                                    activeTrackColor: Colors.orange, // Toggle track for dark mode
+                                    inactiveThumbColor: Colors.black, // Background for light mode
+                                    inactiveTrackColor: Colors.grey, // Toggle track for light mode
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Visibility(
+                                    visible: !automatic,
+                                    child: TextFormField(
+                                      controller: codeController,
+                                      obscureText: false,
+
+                                      decoration:CustomInputDecoration.customInputDecoration(context, 'code'),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                        fontFamily: 'Outfit',
+                                        color:
+                                        FlutterFlowTheme.of(context).primaryText,
+                                      ),
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'please enter the Car number';
+                                        }
+                                        return null;
+                                      },
+                                    ),
                                   ),
                                   const SizedBox(
                                     height: 10,
