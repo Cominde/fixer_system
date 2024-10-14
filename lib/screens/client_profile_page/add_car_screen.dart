@@ -267,7 +267,7 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                                   ),
                                   Visibility(
                                     visible: !automatic,
-                                    replacement: Text('Code assigned automatically'),
+                                    replacement: Text('Code assigned automatically',style: TextStyle(color: Colors.deepOrange),),
                                     child: TextFormField(
 
                                       controller: codeController,
