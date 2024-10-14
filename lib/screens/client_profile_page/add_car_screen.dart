@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:fixer_system/components/year_picker_form_field.dart';
 import 'package:flutter/material.dart';
@@ -265,17 +267,21 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                                   ),
                                   Visibility(
                                     visible: !automatic,
+                                    replacement: Text('Code assigned automatically'),
                                     child: TextFormField(
+
                                       controller: codeController,
                                       obscureText: false,
 
-                                      decoration:CustomInputDecoration.customInputDecoration(context, 'code'),
+                                      decoration:CustomInputDecoration.customInputDecoration(context, 'code',pref: Text('${typesController.text}')),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
+
                                         fontFamily: 'Outfit',
                                         color:
                                         FlutterFlowTheme.of(context).primaryText,
+
                                       ),
                                       validator: (value) {
                                         if (value!.isEmpty) {
@@ -283,6 +289,8 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                                         }
                                         return null;
                                       },
+
+
                                     ),
                                   ),
                                   const SizedBox(
@@ -354,7 +362,7 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                                   TextFormField(
                                     controller: colorController,
                                     obscureText: false,
-                                    decoration:CustomInputDecoration.customInputDecoration(context, 'Color'),
+                                    decoration:CustomInputDecoration.customInputDecoration(context, 'Color',),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(

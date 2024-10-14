@@ -3,8 +3,10 @@ import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 
 class CustomInputDecoration extends InputDecoration {
 
-  static InputDecoration customInputDecoration(context ,labelText) {
+  static InputDecoration customInputDecoration(context ,labelText,
+      {Widget? pref  }) {
     return InputDecoration(
+      prefix:  pref,
         labelText: labelText,
         labelStyle: FlutterFlowTheme
             .of(context)
