@@ -232,7 +232,7 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                                       FlutterFlowTheme.of(context).primaryText,
                                     ),
                                     validator: (value) {
-                                      if (value!.isEmpty) {
+                                      if (value== null ||value.isEmpty) {
                                         return 'please enter the type';
                                       }
                                       return null;
@@ -267,7 +267,7 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                                   ),
                                   Visibility(
                                     visible: !automatic,
-                                    replacement: Text('Code assigned automatically',style: TextStyle(color: Colors.deepOrange),),
+                                    replacement: Text('Code assigned automatically',style: TextStyle(color: Colors.deepOrange,fontWeight: FontWeight.bold),),
                                     child: TextFormField(
 
                                       controller: codeController,
@@ -285,7 +285,7 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                                       ),
                                       validator: (value) {
                                         if (value!.isEmpty) {
-                                          return 'please enter the Car number';
+                                          return 'please enter the code';
                                         }
                                         return null;
                                       },

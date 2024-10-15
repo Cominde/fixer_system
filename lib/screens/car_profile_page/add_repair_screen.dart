@@ -57,6 +57,17 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
   String nextPerDate = '';
   var nextPerDateController = TextEditingController();
 
+
+
+  var idController = TextEditingController();
+
+  bool automatic=true;
+
+  String nextCode='';
+
+
+
+
   final ScrollController _controller = ScrollController();
   final FocusNode _focusNode = FocusNode();
 
@@ -106,6 +117,9 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                       discount: discount,
                       services: services,
                       type: serviceType,
+                      manually:!automatic,
+                      id: idController.text
+
                     );
                   }
                 },
@@ -227,6 +241,55 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                             ),
                           ),
                           const SizedBox(height: 16.0),
+
+
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Switch(
+                            value: automatic,
+                            onChanged: (value) {
+                              setState(() {
+                                automatic = value;
+                                print(automatic);// Toggle the mode
+                              });
+                            },
+                            activeColor: Colors.black, // Background for dark mode
+                            activeTrackColor: Colors.orange, // Toggle track for dark mode
+                            inactiveThumbColor: Colors.black, // Background for light mode
+                            inactiveTrackColor: Colors.grey, // Toggle track for light mode
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Visibility(
+                            visible: !automatic,
+                            replacement: Text('ID assigned automatically',style: TextStyle(color: Colors.deepOrange,fontWeight: FontWeight.bold),),
+
+                            child: TextFormField(
+                              controller: idController,
+                              obscureText: false,
+
+                              decoration:CustomInputDecoration.customInputDecoration(context, 'code'),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                fontFamily: 'Outfit',
+                                color:
+                                FlutterFlowTheme.of(context).primaryText,
+                              ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'please enter the code';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+
 
 
                           const Padding(

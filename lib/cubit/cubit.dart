@@ -694,7 +694,7 @@ class AppCubit extends Cubit<AppCubitStates> {
     required List<Map<String, dynamic>> additions,
     required String type,
     required double discount,
-    required int daysItTake,
+    required int daysItTake, required bool manually,required String id,
   }) {
     emit(AppAddRepairLoadingState());
     final body = jsonEncode({
@@ -705,6 +705,8 @@ class AppCubit extends Cubit<AppCubitStates> {
       'type': type,
       'discount': discount,
       'daysItTake': daysItTake,
+      "manually":manually,
+      "id":id
     });
 
     post(Uri.parse(ADDREPAIR), headers: headers, body: body).then((response) {
