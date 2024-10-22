@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
-import 'package:new_keyboard_shortcuts/keyboard_shortcuts.dart';
 import 'package:searchfield/searchfield.dart';
 
 import '../../components/custom/box_decoration.dart';
@@ -61,6 +60,10 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
 
   var idController = TextEditingController();
 
+
+  var note1Controller = TextEditingController();
+  var note2Controller = TextEditingController();
+
   bool automatic=true;
 
   String nextCode='';
@@ -91,78 +94,78 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
             }
         },
         builder: (context, state) {
-          return Scaffold(
-            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-            appBar: AppBar(
+          return Focus(
+            onKey: (node, event) {
+              FocusScopeNode currentFocus = FocusScope.of(context);
+              bool isTextFieldFocused = currentFocus.focusedChild is Focus && currentFocus.focusedChild!.context?.widget is EditableText;
+              if (event is RawKeyDownEvent) {
+                if (event.logicalKey == LogicalKeyboardKey.arrowUp && !isTextFieldFocused) {
+                  _controller.animateTo(_controller.offset - 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
+                  return KeyEventResult.handled;
+                } else if (event.logicalKey == LogicalKeyboardKey.arrowDown && !isTextFieldFocused) {
+                  _controller.animateTo(_controller.offset + 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
+                  return KeyEventResult.handled;
+                }
+              }
+              return KeyEventResult.ignored;
+            },
+            child: Scaffold(
               backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-              title: const Text(
-                'Add Repair',
-                style: TextStyle(
-                  fontSize: 25,
-                ),
-              ),
-            ),
-            floatingActionButton: ConditionalBuilder(
-              condition: state is AppAddRepairLoadingState,
-              builder: (context) => const CircularProgressIndicator(),
-              fallback: (context) => FFButtonWidget(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    AppCubit.get(context).addRepair(
-                      context,
-                      carNumber: widget.carNumber,
-                      additions: additions,
-                      components: components,
-                      daysItTake: daysItTake,
-                      discount: discount,
-                      services: services,
-                      type: serviceType,
-                      manually:!automatic,
-                      id: idController.text
-
-                    );
-                  }
-                },
-                text: 'Add Repair',
-                options: FFButtonOptions(
-                  width: MediaQuery.sizeOf(context).width * 0.20,
-                  height: MediaQuery.sizeOf(context).height * 0.065,
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                  iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                  color: const Color(0xFFF68B1E),
-                  textStyle: FlutterFlowTheme.of(context).titleMedium.override(
-                        fontFamily: 'Lexend Deca',
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                  elevation: 3,
-                  borderSide: const BorderSide(
-                    color: Colors.transparent,
-                    width: 1,
+              appBar: AppBar(
+                backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+                title: const Text(
+                  'Add Repair',
+                  style: TextStyle(
+                    fontSize: 25,
                   ),
-                  borderRadius: BorderRadius.circular(50),
                 ),
               ),
-            ),
-            body: KeyBoardShortcuts(
-              globalShortcuts: true,
-              keysToPress: {LogicalKeyboardKey.arrowUp},
-              onKeysPressed: () {
-                _focusNode.canRequestFocus
-                    ? FocusScope.of(context).requestFocus(_focusNode)
-                    : FocusScope.of(context).unfocus();
-                _controller.animateTo(_controller.offset - 200, duration: Duration(milliseconds: 30), curve: Curves.ease);
-              },
-              child: KeyBoardShortcuts(
-                globalShortcuts: true,
-                keysToPress: {LogicalKeyboardKey.arrowDown},
-                onKeysPressed: () {
-                  _focusNode.canRequestFocus
-                      ? FocusScope.of(context).requestFocus(_focusNode)
-                      : FocusScope.of(context).unfocus();
-                  _controller.animateTo(_controller.offset + 200, duration: Duration(milliseconds: 30), curve: Curves.ease);
-                },
+              floatingActionButton: ConditionalBuilder(
+                condition: state is AppAddRepairLoadingState,
+                builder: (context) => const CircularProgressIndicator(),
+                fallback: (context) => FFButtonWidget(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      AppCubit.get(context).addRepair(
+                        context,
+                        carNumber: widget.carNumber,
+                        additions: additions,
+                        components: components,
+                        daysItTake: daysItTake,
+                        discount: discount,
+                        services: services,
+                        type: serviceType,
+                        manually:!automatic,
+                        id: idController.text,
+                        note1: note1Controller.text,
+                        note2: note2Controller.text,
+                      );
+                    }
+                  },
+                  text: 'Add Repair',
+                  options: FFButtonOptions(
+                    width: MediaQuery.sizeOf(context).width * 0.20,
+                    height: MediaQuery.sizeOf(context).height * 0.065,
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                    iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                    color: const Color(0xFFF68B1E),
+                    textStyle: FlutterFlowTheme.of(context).titleMedium.override(
+                          fontFamily: 'Lexend Deca',
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                    elevation: 3,
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                ),
+              ),
+              body: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
                 child: SingleChildScrollView(
                   controller: _controller,
                   child: Padding(
@@ -251,7 +254,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                             onChanged: (value) {
                               setState(() {
                                 automatic = value;
-                                print(automatic);// Toggle the mode
+                                //print(automatic);// Toggle the mode
                               });
                             },
                             activeColor: Colors.black, // Background for dark mode
@@ -264,7 +267,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                           ),
                           Visibility(
                             visible: !automatic,
-                            replacement: Text('ID assigned automatically',style: TextStyle(color: Colors.deepOrange,fontWeight: FontWeight.bold),),
+                            replacement: const Text('ID assigned automatically',style: TextStyle(color: Colors.deepOrange,fontWeight: FontWeight.bold),),
 
                             child: TextFormField(
                               controller: idController,
@@ -833,6 +836,40 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                 ),
                               ),
                             ],
+                          ),
+
+                          const SizedBox(height: 16.0),
+                          TextFormField(
+                            controller: note1Controller,
+                            obscureText: false,
+                            maxLines: 3,
+                            minLines: 3,
+
+                            decoration:CustomInputDecoration.customInputDecoration(context, 'Important Things'),
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                              fontFamily: 'Outfit',
+                              color:
+                              FlutterFlowTheme.of(context).primaryText,
+                            ),
+                          ),
+
+                          const SizedBox(height: 16.0),
+                          TextFormField(
+                            controller: note2Controller,
+                            obscureText: false,
+                            maxLines: 3,
+                            minLines: 3,
+
+                            decoration:CustomInputDecoration.customInputDecoration(context, 'Notes'),
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                              fontFamily: 'Outfit',
+                              color:
+                              FlutterFlowTheme.of(context).primaryText,
+                            ),
                           ),
                           const SizedBox(height: 80,),
 

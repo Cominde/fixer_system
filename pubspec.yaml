@@ -32,7 +32,6 @@ dependencies:
   image: ^4.2.0
   lints: ^4.0.0
   auto_size_text: ^3.0.0
-  new_keyboard_shortcuts: ^0.1.4
 
 
 #dependency_overrides:

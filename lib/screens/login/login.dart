@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_keyboard_shortcuts/keyboard_shortcuts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../components/custom/box_decoration.dart';
@@ -208,48 +207,24 @@ class _LoginState extends State<Login> {
                                     left: 0,
                                     right: 0,
                                     top: 60, // Adjust the top position based on TextFormField height
-                                    child: KeyBoardShortcuts(
-                                      globalShortcuts: true,
-                                      keysToPress: {LogicalKeyboardKey.arrowUp},
-                                      onKeysPressed: () {
-                                        if (_suggestions.isNotEmpty) {
-                                          _focusNode.canRequestFocus
-                                              ? FocusScope.of(context).requestFocus(_focusNode)
-                                              : FocusScope.of(context).unfocus();
-                                          _controller.animateTo(_controller.offset - 55, duration: Duration(milliseconds: 30), curve: Curves.ease);
-                                        }
-                                      },
-                                      child: KeyBoardShortcuts(
-                                        globalShortcuts: true,
-                                        keysToPress: {LogicalKeyboardKey.arrowDown},
-                                        onKeysPressed: () {
-                                          if (_suggestions.isNotEmpty) {
-                                            _focusNode.canRequestFocus
-                                                ? FocusScope.of(context).requestFocus(_focusNode)
-                                                : FocusScope.of(context).unfocus();
-                                            _controller.animateTo(_controller.offset + 55, duration: Duration(milliseconds: 30), curve: Curves.ease);
-                                          }
-                                        },
-                                        child: SizedBox(
-                                          height: 60,
-                                          child: Material(
-                                            elevation: 4.0,
-                                            child: ListView.builder(
-                                              controller: _controller,
-                                              itemCount: _suggestions.length,
-                                              itemBuilder: (context, index) {
-                                                return ListTile(
-                                                  title: Text(_suggestions[index]),
-                                                  onTap: () {
-                                                    setState(() {
-                                                      _model.textController1.text = _suggestions[index];
-                                                      _suggestions.clear(); // Hide suggestions once selected
-                                                    });
-                                                  },
-                                                );
+                                    child: SizedBox(
+                                      height: 60,
+                                      child: Material(
+                                        elevation: 4.0,
+                                        child: ListView.builder(
+                                          controller: _controller,
+                                          itemCount: _suggestions.length,
+                                          itemBuilder: (context, index) {
+                                            return ListTile(
+                                              title: Text(_suggestions[index]),
+                                              onTap: () {
+                                                setState(() {
+                                                  _model.textController1.text = _suggestions[index];
+                                                  _suggestions.clear(); // Hide suggestions once selected
+                                                });
                                               },
-                                            ),
-                                          ),
+                                            );
+                                          },
                                         ),
                                       ),
                                     ),

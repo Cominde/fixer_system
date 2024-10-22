@@ -1,6 +1,7 @@
 
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 
@@ -16,6 +17,8 @@ var titleController = TextEditingController();
 var dateController= TextEditingController();
 
 var priceController = TextEditingController();
+
+final ScrollController _controller = ScrollController();
 
 
 Widget addThingScreen(context,bool plus) {
@@ -102,112 +105,129 @@ Widget addThingScreen(context,bool plus) {
             ),
           ),
         ],
-        content: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
+        content: Focus(
+          onKey: (node, event) {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            bool isTextFieldFocused = currentFocus.focusedChild is Focus && currentFocus.focusedChild!.context?.widget is EditableText;
+            if (event is RawKeyDownEvent) {
+              if (event.logicalKey == LogicalKeyboardKey.arrowUp && !isTextFieldFocused) {
+                _controller.animateTo(_controller.offset - 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
+                return KeyEventResult.handled;
+              } else if (event.logicalKey == LogicalKeyboardKey.arrowDown && !isTextFieldFocused) {
+                _controller.animateTo(_controller.offset + 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
+                return KeyEventResult.handled;
+              }
+            }
+            return KeyEventResult.ignored;
+          },
           child: Form(
             key: _formKey,
             child: SingleChildScrollView(
-              child: Container(
-                padding: const EdgeInsets.all(30),
-                child: Column(
+              scrollDirection: Axis.horizontal,
+              child: SingleChildScrollView(
+                controller: _controller,
+                child: Container(
+                  padding: const EdgeInsets.all(30),
+                  child: Column(
 
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
-                          width: MediaQuery.sizeOf(context).width * 0.70,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              TextFormField(
-                                controller: titleController,
-                                obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'title'),
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 30),
+                            width: MediaQuery.sizeOf(context).width * 0.70,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                TextFormField(
+                                  controller: titleController,
+                                  obscureText: false,
+                                  decoration: CustomInputDecoration.customInputDecoration(context,'title'),
 
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                  fontFamily: 'Outfit',
-                                  color:
-                                  FlutterFlowTheme.of(context).primaryText,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                    fontFamily: 'Outfit',
+                                    color:
+                                    FlutterFlowTheme.of(context).primaryText,
+                                  ),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'please enter the title';
+                                    }
+                                    return null;
+                                  },
                                 ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'please enter the title';
-                                  }
-                                  return null;
-                                },
-                              ),
 
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              TextFormField(
-                                controller: priceController,
-                                obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'Price'),
-
-
-
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                  fontFamily: 'Outfit',
-                                  color:
-                                  FlutterFlowTheme.of(context).primaryText,
+                                const SizedBox(
+                                  height: 10,
                                 ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'please enter the Price';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              TextFormField(
-                                controller: dateController,
-                                obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'Date '),
+                                TextFormField(
+                                  controller: priceController,
+                                  obscureText: false,
+                                  decoration: CustomInputDecoration.customInputDecoration(context,'Price'),
 
 
 
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                  fontFamily: 'Outfit',
-                                  color:
-                                  FlutterFlowTheme.of(context).primaryText,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                    fontFamily: 'Outfit',
+                                    color:
+                                    FlutterFlowTheme.of(context).primaryText,
+                                  ),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'please enter the Price';
+                                    }
+                                    return null;
+                                  },
                                 ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'please enter the date';
-                                  }
-                                  return null;
-                                },
-                                onTap:() {
-                                  showDatePicker(
-                                    context: context,
-                                    firstDate: DateTime(2024),
-                                    lastDate: DateTime(2999),
-                                    initialDate: DateTime.now(),
-                                  ).then((value) {
-                                    dateController.text =
-                                        '${value?.year.toString()}-${value?.month.toString()}-${value?.day.toString()}';
-                                  });
-                                },
-                              ),
-                            ],
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                TextFormField(
+                                  controller: dateController,
+                                  obscureText: false,
+                                  decoration: CustomInputDecoration.customInputDecoration(context,'Date '),
+
+
+
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                    fontFamily: 'Outfit',
+                                    color:
+                                    FlutterFlowTheme.of(context).primaryText,
+                                  ),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'please enter the date';
+                                    }
+                                    return null;
+                                  },
+                                  onTap:() {
+                                    showDatePicker(
+                                      context: context,
+                                      firstDate: DateTime(2024),
+                                      lastDate: DateTime(2999),
+                                      initialDate: DateTime.now(),
+                                    ).then((value) {
+                                      dateController.text =
+                                          '${value?.year.toString()}-${value?.month.toString()}-${value?.day.toString()}';
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

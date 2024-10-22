@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 
@@ -13,6 +14,8 @@ final _formKey = GlobalKey<FormState>();
 var nameController = TextEditingController();
 
 var keyController = TextEditingController();
+
+final ScrollController _controller = ScrollController();
 
 Widget addNewTypePage(context) {
 
@@ -88,73 +91,90 @@ Widget addNewTypePage(context) {
             ),
           ),
         ],
-        content: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
+        content: Focus(
+          onKey: (node, event) {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            bool isTextFieldFocused = currentFocus.focusedChild is Focus && currentFocus.focusedChild!.context?.widget is EditableText;
+            if (event is RawKeyDownEvent) {
+              if (event.logicalKey == LogicalKeyboardKey.arrowUp && !isTextFieldFocused) {
+                _controller.animateTo(_controller.offset - 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
+                return KeyEventResult.handled;
+              } else if (event.logicalKey == LogicalKeyboardKey.arrowDown && !isTextFieldFocused) {
+                _controller.animateTo(_controller.offset + 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
+                return KeyEventResult.handled;
+              }
+            }
+            return KeyEventResult.ignored;
+          },
           child: Form(
             key: _formKey,
             child: SingleChildScrollView(
-              child: Container(
-                padding: const EdgeInsets.all(30),
-                child: Column(
+              scrollDirection: Axis.horizontal,
+              child: SingleChildScrollView(
+                controller: _controller,
+                child: Container(
+                  padding: const EdgeInsets.all(30),
+                  child: Column(
 
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
-                          width: MediaQuery.sizeOf(context).width * 0.70,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              TextFormField(
-                                controller: nameController,
-                                obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'name'),
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            width: MediaQuery.sizeOf(context).width * 0.70,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                TextFormField(
+                                  controller: nameController,
+                                  obscureText: false,
+                                  decoration: CustomInputDecoration.customInputDecoration(context,'name'),
 
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                  fontFamily: 'Outfit',
-                                  color:
-                                  FlutterFlowTheme.of(context).primaryText,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                    fontFamily: 'Outfit',
+                                    color:
+                                    FlutterFlowTheme.of(context).primaryText,
+                                  ),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'please enter the name';
+                                    }
+                                    return null;
+                                  },
                                 ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'please enter the name';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              TextFormField(
-                                controller: keyController,
-                                obscureText: false,
-                                decoration: CustomInputDecoration.customInputDecoration(context,'key'),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                  fontFamily: 'Outfit',
-                                  color:
-                                  FlutterFlowTheme.of(context).primaryText,
+                                const SizedBox(
+                                  height: 10,
                                 ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'please enter the key';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ],
+                                TextFormField(
+                                  controller: keyController,
+                                  obscureText: false,
+                                  decoration: CustomInputDecoration.customInputDecoration(context,'key'),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                    fontFamily: 'Outfit',
+                                    color:
+                                    FlutterFlowTheme.of(context).primaryText,
+                                  ),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'please enter the key';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

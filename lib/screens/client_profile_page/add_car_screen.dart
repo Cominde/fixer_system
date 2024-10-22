@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
-import 'package:new_keyboard_shortcuts/keyboard_shortcuts.dart';
 
 import '../../components/custom/box_decoration.dart';
 import '../../cubit/cubit.dart';
@@ -171,26 +170,25 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
               ),
             ),
           ],
-          content: Form(
-            key: _formKey,
-            child: KeyBoardShortcuts(
-              globalShortcuts: true,
-              keysToPress: {LogicalKeyboardKey.arrowUp},
-              onKeysPressed: () {
-                _focusNode.canRequestFocus
-                    ? FocusScope.of(context).requestFocus(_focusNode)
-                    : FocusScope.of(context).unfocus();
-                _controller.animateTo(_controller.offset - 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
-              },
-              child: KeyBoardShortcuts(
-                globalShortcuts: true,
-                keysToPress: {LogicalKeyboardKey.arrowDown},
-                onKeysPressed: () {
-                  _focusNode.canRequestFocus
-                      ? FocusScope.of(context).requestFocus(_focusNode)
-                      : FocusScope.of(context).unfocus();
+          content: Focus(
+            onKey: (node, event) {
+              FocusScopeNode currentFocus = FocusScope.of(context);
+              bool isTextFieldFocused = currentFocus.focusedChild is Focus && currentFocus.focusedChild!.context?.widget is EditableText;
+              if (event is RawKeyDownEvent) {
+                if (event.logicalKey == LogicalKeyboardKey.arrowUp && !isTextFieldFocused) {
+                  _controller.animateTo(_controller.offset - 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
+                  return KeyEventResult.handled;
+                } else if (event.logicalKey == LogicalKeyboardKey.arrowDown && !isTextFieldFocused) {
                   _controller.animateTo(_controller.offset + 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
-                },
+                  return KeyEventResult.handled;
+                }
+              }
+              return KeyEventResult.ignored;
+            },
+            child: Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
                 child: SingleChildScrollView(
                   controller: _controller,
                   scrollDirection: Axis.vertical,
@@ -205,7 +203,7 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
                               width: MediaQuery.sizeOf(context).width * 0.43,
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
@@ -435,7 +433,7 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                               ),
                             ),
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
                               width: MediaQuery.sizeOf(context).width * 0.43,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,

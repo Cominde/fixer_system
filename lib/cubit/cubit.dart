@@ -575,8 +575,8 @@ class AppCubit extends Cubit<AppCubitStates> {
     required String periodicRepairs,
     required String nonPeriodicRepairs,
     required String motorNumber,
-        required String manually,
-        required String carCode,
+    required String manually,
+    required String carCode,
   }) {
     emit(AppAddCarLoadingState());
 
@@ -688,13 +688,17 @@ class AppCubit extends Cubit<AppCubitStates> {
 
   void addRepair(
     context, {
-    required String carNumber,
-    required List<Map<String, dynamic>> components,
-    required List<Map<String, dynamic>> services,
-    required List<Map<String, dynamic>> additions,
-    required String type,
-    required double discount,
-    required int daysItTake, required bool manually,required String id,
+        required String carNumber,
+        required List<Map<String, dynamic>> components,
+        required List<Map<String, dynamic>> services,
+        required List<Map<String, dynamic>> additions,
+        required String type,
+        required double discount,
+        required int daysItTake,
+        required bool manually,
+        required String id,
+        String note1 = "",
+        String note2 = "",
   }) {
     emit(AppAddRepairLoadingState());
     final body = jsonEncode({
@@ -706,7 +710,9 @@ class AppCubit extends Cubit<AppCubitStates> {
       'discount': discount,
       'daysItTake': daysItTake,
       "manually":manually,
-      "id":id
+      "id":id,
+      "Note1":note1,
+      "Note2":note2,
     });
 
     post(Uri.parse(ADDREPAIR), headers: headers, body: body).then((response) {

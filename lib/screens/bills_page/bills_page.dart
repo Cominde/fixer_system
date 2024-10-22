@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:new_keyboard_shortcuts/keyboard_shortcuts.dart';
 
 import 'bills_page_model.dart';
 export 'bills_page_model.dart';
@@ -51,28 +50,25 @@ class _BillsPageState extends State<BillsPage> {
         },
         builder:(context, state) {
 
-          return GestureDetector(
-          onTap: () => _model.unfocusNode.canRequestFocus
-              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-              : FocusScope.of(context).unfocus(),
-            child: KeyBoardShortcuts(
-              globalShortcuts: true,
-              keysToPress: {LogicalKeyboardKey.arrowUp},
-              onKeysPressed: () {
-                _focusNode.canRequestFocus
-                    ? FocusScope.of(context).requestFocus(_focusNode)
-                    : FocusScope.of(context).unfocus();
-                _controller.animateTo(_controller.offset - 200, duration: Duration(milliseconds: 30), curve: Curves.ease);
-              },
-              child: KeyBoardShortcuts(
-                globalShortcuts: true,
-                keysToPress: {LogicalKeyboardKey.arrowDown},
-                onKeysPressed: () {
-                  _focusNode.canRequestFocus
-                      ? FocusScope.of(context).requestFocus(_focusNode)
-                      : FocusScope.of(context).unfocus();
-                  _controller.animateTo(_controller.offset + 200, duration: Duration(milliseconds: 30), curve: Curves.ease);
-                },
+          return Focus(
+            onKey: (node, event) {
+              FocusScopeNode currentFocus = FocusScope.of(context);
+              bool isTextFieldFocused = currentFocus.focusedChild is Focus && currentFocus.focusedChild!.context?.widget is EditableText;
+              if (event is RawKeyDownEvent) {
+                if (event.logicalKey == LogicalKeyboardKey.arrowUp && !isTextFieldFocused) {
+                  _controller.animateTo(_controller.offset - 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
+                  return KeyEventResult.handled;
+                } else if (event.logicalKey == LogicalKeyboardKey.arrowDown && !isTextFieldFocused) {
+                  _controller.animateTo(_controller.offset + 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
+                  return KeyEventResult.handled;
+                }
+              }
+              return KeyEventResult.ignored;
+            },
+            child: GestureDetector(
+            onTap: () => _model.unfocusNode.canRequestFocus
+                ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+                : FocusScope.of(context).unfocus(),
               child: Scaffold(
                 key: scaffoldKey,
                 backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -507,9 +503,8 @@ class _BillsPageState extends State<BillsPage> {
                   ],
                 ),
               ),
-            ),
-          ),
-        );
+                    ),
+          );
         },
     );
   }

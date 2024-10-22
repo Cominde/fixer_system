@@ -34,6 +34,7 @@ class GetCompletedRepairDetailsModel {
 class Visit{
   Visit();
   String ? id;
+  String ? invoiceID;
   int ?discount;
   String? carNumber;
   String?type;
@@ -45,12 +46,15 @@ class Visit{
   bool?complete;
   double?completedServicesRatio;
   String? state;
+  String? note1;
+  String? note2;
   DateTime?createdAt;
   DateTime?updatedAt;
 
   Visit.fromJson(Map<String,dynamic>?json)
   {
     id=json?['_id'];
+    invoiceID=json?['genId'];
     discount=json?['discount'];
     carNumber=json?['carNumber'];
     type=json?['type'];
@@ -70,6 +74,8 @@ class Visit{
       completedServicesRatio=double.parse(json!['completedServicesRatio'].toString());
     }
     state=json?['State'];
+    note1=json?['note1'];
+    note2=json?['note2'];
     createdAt=DateTime.parse(json?['createdAt']);
     updatedAt=DateTime.parse(json?['updatedAt']);
 

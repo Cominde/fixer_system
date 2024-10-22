@@ -1,12 +1,10 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:fixer_system/components/year_picker_form_field.dart';
-/*import 'package:fixer_system/screens/client_profile_page/add_car_screen.dart';*/
 import 'package:fixer_system/services/email_faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
-import 'package:new_keyboard_shortcuts/keyboard_shortcuts.dart';
 
 import '../../components/custom/box_decoration.dart';
 import '../../cubit/cubit.dart';
@@ -185,26 +183,25 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
                     ),
                   ),
                 ],
-                content: Form(
-                  key: _formKey,
-                  child: KeyBoardShortcuts(
-                    globalShortcuts: true,
-                    keysToPress: {LogicalKeyboardKey.arrowUp},
-                    onKeysPressed: () {
-                      _focusNode.canRequestFocus
-                          ? FocusScope.of(context).requestFocus(_focusNode)
-                          : FocusScope.of(context).unfocus();
-                      _controller.animateTo(_controller.offset - 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
-                    },
-                    child: KeyBoardShortcuts(
-                      globalShortcuts: true,
-                      keysToPress: {LogicalKeyboardKey.arrowDown},
-                      onKeysPressed: () {
-                        _focusNode.canRequestFocus
-                            ? FocusScope.of(context).requestFocus(_focusNode)
-                            : FocusScope.of(context).unfocus();
+                content: Focus(
+                  onKey: (node, event) {
+                    FocusScopeNode currentFocus = FocusScope.of(context);
+                    bool isTextFieldFocused = currentFocus.focusedChild is Focus && currentFocus.focusedChild!.context?.widget is EditableText;
+                    if (event is RawKeyDownEvent) {
+                      if (event.logicalKey == LogicalKeyboardKey.arrowUp && !isTextFieldFocused) {
+                        _controller.animateTo(_controller.offset - 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
+                        return KeyEventResult.handled;
+                      } else if (event.logicalKey == LogicalKeyboardKey.arrowDown && !isTextFieldFocused) {
                         _controller.animateTo(_controller.offset + 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
-                      },
+                        return KeyEventResult.handled;
+                      }
+                    }
+                    return KeyEventResult.ignored;
+                  },
+                  child: Form(
+                    key: _formKey,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
                       child: SingleChildScrollView(
                         controller: _controller,
                         scrollDirection: Axis.vertical,

@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,6 +13,8 @@ import '../../cubit/states.dart';
 final _formKey = GlobalKey<FormState>();
 
 var typeController = TextEditingController(text: list.keys.first);
+
+final ScrollController _controller = ScrollController();
 
 
 var amountController = TextEditingController();
@@ -94,106 +97,126 @@ Future addConstantsScreen(context ,year,month) {
                   ),
                 ),
               ],
-              content: Form(
-                key: _formKey,
-                child: SingleChildScrollView(
-                  child: Container(
-                    padding: const EdgeInsets.all( 30),
-                    width: MediaQuery.sizeOf(context).width * 0.40,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: FlutterFlowDropDown(
-                            initialOption: list.keys.first,
-                            options: list.keys.toList(),
-                            onChanged: (String? value) {
-                              setState(() {
-                                typeController.text = value!;
-                              });
-                            },
-                            width: 150,
-                            height: 56,
-                            textStyle:
-                            FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                              fontFamily:
-                              FlutterFlowTheme.of(
-                                  context)
-                                  .bodyMediumFamily,
-                              letterSpacing: 0,
-                              useGoogleFonts: GoogleFonts
-                                  .asMap()
-                                  .containsKey(
+              content: Focus(
+                onKey: (node, event) {
+                  FocusScopeNode currentFocus = FocusScope.of(context);
+                  bool isTextFieldFocused = currentFocus.focusedChild is Focus && currentFocus.focusedChild!.context?.widget is EditableText;
+                  if (event is RawKeyDownEvent) {
+                    if (event.logicalKey == LogicalKeyboardKey.arrowUp && !isTextFieldFocused) {
+                      _controller.animateTo(_controller.offset - 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
+                      return KeyEventResult.handled;
+                    } else if (event.logicalKey == LogicalKeyboardKey.arrowDown && !isTextFieldFocused) {
+                      _controller.animateTo(_controller.offset + 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
+                      return KeyEventResult.handled;
+                    }
+                  }
+                  return KeyEventResult.ignored;
+                },
+                child: Form(
+                  key: _formKey,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: SingleChildScrollView(
+                      controller: _controller,
+                      child: Container(
+                        padding: const EdgeInsets.all( 30),
+                        width: MediaQuery.sizeOf(context).width * 0.40,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: FlutterFlowDropDown(
+                                initialOption: list.keys.first,
+                                options: list.keys.toList(),
+                                onChanged: (String? value) {
+                                  setState(() {
+                                    typeController.text = value!;
+                                  });
+                                },
+                                width: 150,
+                                height: 56,
+                                textStyle:
+                                FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                  fontFamily:
                                   FlutterFlowTheme.of(
                                       context)
-                                      .bodyMediumFamily),
+                                      .bodyMediumFamily,
+                                  letterSpacing: 0,
+                                  useGoogleFonts: GoogleFonts
+                                      .asMap()
+                                      .containsKey(
+                                      FlutterFlowTheme.of(
+                                          context)
+                                          .bodyMediumFamily),
+                                ),
+                                hintText: 'Select type',
+                                icon: Icon(
+                                  Icons
+                                      .keyboard_arrow_down_rounded,
+                                  color: FlutterFlowTheme.of(
+                                      context)
+                                      .secondaryText,
+                                  size: 24,
+                                ),
+                                fillColor:
+                                FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                elevation: 2,
+                                borderColor:
+                                FlutterFlowTheme.of(context)
+                                    .secondaryText,
+                                borderWidth: 2,
+                                borderRadius: 8,
+                                margin:
+                                const EdgeInsetsDirectional
+                                    .fromSTEB(16, 4, 16, 4),
+                                hidesUnderline: true,
+                              ),
                             ),
-                            hintText: 'Select type',
-                            icon: Icon(
-                              Icons
-                                  .keyboard_arrow_down_rounded,
-                              color: FlutterFlowTheme.of(
-                                  context)
-                                  .secondaryText,
-                              size: 24,
+                            /*Expanded(
+
+                              child: DropdownMenu<String>(
+                                initialSelection: list.keys.first,
+                                onSelected: (String? value) {
+                                  setState(() {
+                                    typeController.text = value!;
+                                  });
+                                },
+                                dropdownMenuEntries: list.keys.map<DropdownMenuEntry<String>>((String value) {
+                                  return DropdownMenuEntry<String>(value: value, label: value);
+                                }).toList(),
+                              ),
+                            ),*/
+
+                            const SizedBox(
+                              width: 10,
                             ),
-                            fillColor:
-                            FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            elevation: 2,
-                            borderColor:
-                            FlutterFlowTheme.of(context)
-                                .secondaryText,
-                            borderWidth: 2,
-                            borderRadius: 8,
-                            margin:
-                            const EdgeInsetsDirectional
-                                .fromSTEB(16, 4, 16, 4),
-                            hidesUnderline: true,
-                          ),
-                        ),
-                        /*Expanded(
 
-                          child: DropdownMenu<String>(
-                            initialSelection: list.keys.first,
-                            onSelected: (String? value) {
-                              setState(() {
-                                typeController.text = value!;
-                              });
-                            },
-                            dropdownMenuEntries: list.keys.map<DropdownMenuEntry<String>>((String value) {
-                              return DropdownMenuEntry<String>(value: value, label: value);
-                            }).toList(),
-                          ),
-                        ),*/
-
-                        const SizedBox(
-                          width: 10,
-                        ),
-
-                        Expanded(
-                          child: TextFormField(
-                            controller: amountController,
-                            obscureText: false,
-                            decoration: CustomInputDecoration.customInputDecoration(context,'Amount'),
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                              fontFamily: 'Outfit',
-                              color:
-                              FlutterFlowTheme.of(context).primaryText,
+                            Expanded(
+                              child: TextFormField(
+                                controller: amountController,
+                                obscureText: false,
+                                decoration: CustomInputDecoration.customInputDecoration(context,'Amount'),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                  fontFamily: 'Outfit',
+                                  color:
+                                  FlutterFlowTheme.of(context).primaryText,
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter the amount';
+                                  }
+                                  return null;
+                                },
+                              ),
                             ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'please enter the amount';
-                              }
-                              return null;
-                            },
-                          ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
