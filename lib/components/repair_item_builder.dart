@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 
@@ -278,7 +279,36 @@ Widget repairItemBuilder(context, RepairData? model) {
                     )),
               ],
             ),
+            Column(
+              children: [
+                const Text(
+                  'Note 1',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                AutoSizeText("${model?.note1??'_'}")
+
+              ],
+            ),
+            Column(
+              children: [
+                const Text(
+                  'Note 2',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                AutoSizeText("${model?.note2??'_'}")
+
+              ],
+            ),
           ],
+
         ),
       ),
     ),

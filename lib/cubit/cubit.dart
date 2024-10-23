@@ -43,7 +43,7 @@ class AppCubit extends Cubit<AppCubitStates> {
   GetAllTypesModel? getAllTypesModel = GetAllTypesModel();
   var time = DateTime.now();
 
-  Future<String> getTheNextCode(String type) async {
+  Future<String> getTheNextClientCode(String type) async {
     var data= await read(
       Uri.parse(GETNEXTCARCODE+type),
       headers: headers,
@@ -53,6 +53,16 @@ class AppCubit extends Cubit<AppCubitStates> {
 
 }
 
+
+  Future<String> getTheNextRepairCode() async {
+    var data= await read(
+      Uri.parse(GETNEXTREPAIRCODE),
+      headers: headers,
+    );
+    return "${jsonDecode(data)['data']}";
+
+
+  }
 
   void changDatePicker(value) {
     time = value;
@@ -698,7 +708,7 @@ class AppCubit extends Cubit<AppCubitStates> {
         required bool manually,
         required String id,
         String note1 = "",
-        String note2 = "",
+        String note2 = "", required distance,
   }) {
     emit(AppAddRepairLoadingState());
     final body = jsonEncode({
@@ -713,6 +723,7 @@ class AppCubit extends Cubit<AppCubitStates> {
       "id":id,
       "Note1":note1,
       "Note2":note2,
+      "distance":distance,
     });
 
     post(Uri.parse(ADDREPAIR), headers: headers, body: body).then((response) {

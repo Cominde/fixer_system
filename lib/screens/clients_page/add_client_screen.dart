@@ -298,7 +298,7 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
                                           },
                                           onChanged: (value) async {
                                             typesController.text = value!;
-                                            codeController.text=await AppCubit.get(context).getTheNextCode(value);
+                                            codeController.text=await AppCubit.get(context).getTheNextClientCode(value);
 
                                             // print(typesController.text);
                                           },

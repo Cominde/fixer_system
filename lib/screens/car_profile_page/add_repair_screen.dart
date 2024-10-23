@@ -70,9 +70,11 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
 
 
 
+  var distanceController=TextEditingController();
 
   final ScrollController _controller = ScrollController();
   final FocusNode _focusNode = FocusNode();
+
 
   @override
   void dispose() {
@@ -132,6 +134,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                         additions: additions,
                         components: components,
                         daysItTake: daysItTake,
+
                         discount: discount,
                         services: services,
                         type: serviceType,
@@ -139,6 +142,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                         id: idController.text,
                         note1: note1Controller.text,
                         note2: note2Controller.text,
+                        distance:distanceController.text,
                       );
                     }
                   },
@@ -249,8 +253,12 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                         ),
                         Switch(
                           value: automatic,
-                          onChanged: (value) {
-                            setState(() {
+                          onChanged: (value) async {
+                            if (value==true) {
+                          idController.text = await AppCubit.get(context)
+                              .getTheNextRepairCode();
+                        }
+                        setState(() {
                               automatic = value;
                               //print(automatic);// Toggle the mode
                             });
@@ -831,6 +839,29 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                     daysItTake = int.parse(value);
                                   });
                                 },
+                              ),
+                            ),
+                            const SizedBox(width: 16.0),
+                            Expanded(
+                              child: TextFormField(
+                                controller: distanceController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'please fill this field';
+                                  }
+                                  return null;
+                                },
+                                decoration: CustomInputDecoration
+                                    .customInputDecoration(
+                                    context, 'distance'),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                  fontFamily: 'Outfit',
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryText,
+                                ),
+
                               ),
                             ),
                           ],

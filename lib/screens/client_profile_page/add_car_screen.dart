@@ -238,7 +238,7 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                                     onChanged: (value) async {
                                       typesController.text = value!;
 
-                                      codeController.text=await AppCubit.get(context).getTheNextCode(value);
+                                      codeController.text=await AppCubit.get(context).getTheNextClientCode(value);
                                       //print(typesController.text);
                                     },
                                     autofocus: false,

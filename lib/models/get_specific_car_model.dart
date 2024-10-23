@@ -71,6 +71,7 @@ class SpecificCarData{
     componentState.addAll(json?['componentState']);
     distance = json?['distances'];
     motorNumber = json?['motorNumber'];
+
     if (json?['nextRepairDate']!=null) {
       nextRepairDate=DateTime.tryParse(json?['nextRepairDate']);
     }
@@ -104,6 +105,9 @@ class RepairData {
   DateTime? createdAt;
   DateTime? updatedAt;
 
+  String? note1;
+  String?note2;
+
 
   RepairData.fromJson(Map<String, dynamic>?json)
   {
@@ -116,6 +120,12 @@ class RepairData {
    totalPrice= json?["totalPrice"];
    carNumber= json?["carNumber"];
    type= json?["type"];
+
+
+   note1=json?['note1'];
+   note2=json?['note2'];
+
+
    if (json?["expectedDate"]!=null) {
      expectedDate= DateTime.tryParse(json?["expectedDate"]);
    }
