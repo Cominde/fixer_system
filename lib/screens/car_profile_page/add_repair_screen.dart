@@ -853,7 +853,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                 },
                                 decoration: CustomInputDecoration
                                     .customInputDecoration(
-                                    context, 'distance'),
+                                    context, 'Distance'),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(

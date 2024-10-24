@@ -708,7 +708,8 @@ class AppCubit extends Cubit<AppCubitStates> {
         required bool manually,
         required String id,
         String note1 = "",
-        String note2 = "", required distance,
+        String note2 = "",
+        required distance,
   }) {
     emit(AppAddRepairLoadingState());
     final body = jsonEncode({

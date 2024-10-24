@@ -48,6 +48,7 @@ class Visit{
   String? state;
   String? note1;
   String? note2;
+  int? distance;
   DateTime?createdAt;
   DateTime?updatedAt;
 
@@ -76,6 +77,7 @@ class Visit{
     state=json?['State'];
     note1=json?['note1'];
     note2=json?['note2'];
+    distance=json?['distance'];
     createdAt=DateTime.parse(json?['createdAt']);
     updatedAt=DateTime.parse(json?['updatedAt']);
 

@@ -107,7 +107,7 @@ class RepairData {
 
   String? note1;
   String?note2;
-
+  int ? distance;
 
   RepairData.fromJson(Map<String, dynamic>?json)
   {
@@ -124,6 +124,7 @@ class RepairData {
 
    note1=json?['note1'];
    note2=json?['note2'];
+   distance=json?['distance'];
 
 
    if (json?["expectedDate"]!=null) {

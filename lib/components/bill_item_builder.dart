@@ -319,7 +319,7 @@ Widget billItemBuilder(context,CompletedRepairData? model, AppCubit cubit){
                                                            pw.TableRow(
                                                                children: [
                                                                  normalText(
-                                                                     cubit.getCompletedRepairDetailsModel?.distances.toString()??'***' ,myFont
+                                                                     (cubit.getCompletedRepairDetailsModel?.visit?.distance??cubit.getCompletedRepairDetailsModel?.distances??'***').toString() ,myFont
                                                                  ),
                                                                ]
                                                            ),

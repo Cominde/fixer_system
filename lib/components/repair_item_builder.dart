@@ -163,6 +163,13 @@ Widget repairItemBuilder(context, RepairData? model) {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      const Text('Distance'),
+                      Text('${(model?.distance)??'_'}',style: const TextStyle(fontWeight: FontWeight.bold),),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
                       const Text('Created At'),
                       Text(
                           '${(model?.createdAt?.day) ?? '-'}/${(model?.createdAt?.month) ?? '-'}/${(model?.createdAt?.year) ?? '-'}',style: const TextStyle(fontWeight: FontWeight.bold),),
@@ -282,7 +289,7 @@ Widget repairItemBuilder(context, RepairData? model) {
             Column(
               children: [
                 const Text(
-                  'Note 1',
+                  'Important Things',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -296,7 +303,7 @@ Widget repairItemBuilder(context, RepairData? model) {
             Column(
               children: [
                 const Text(
-                  'Note 2',
+                  'Notes',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
