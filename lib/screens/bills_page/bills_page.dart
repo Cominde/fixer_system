@@ -208,7 +208,7 @@ class _BillsPageState extends State<BillsPage> {
                                                   size: 24,
                                                 ),
                                                 onPressed: () {
-                                                  AppCubit.get(context).getCompletedRepairs();
+                                                  AppCubit.get(context).getCompletedRepairs(page: AppCubit.get(context).getCompletedRepairsModel!.current);
                                                 },
                                               ),
                                             ),
