@@ -9,14 +9,14 @@ import 'package:searchfield/searchfield.dart';
 import '../../components/custom/box_decoration.dart';
 import '../../cubit/cubit.dart';
 import '../../cubit/states.dart';
+import '../../models/get_specific_car_model.dart';
 
-class AddRepairScreen extends StatefulWidget {
-  final String carNumber;
-  final String carId;
-  const AddRepairScreen(this.carNumber,this.carId, {super.key});
+class UpdateRepairScreen extends StatefulWidget {
+  final RepairData? model;
+  const UpdateRepairScreen(this.model, {super.key});
 
   @override
-  State<AddRepairScreen> createState() => _AddRepairScreenState();
+  State<UpdateRepairScreen> createState() => _UpdateRepairScreenState();
 }
 
 
@@ -32,7 +32,7 @@ enum ColorLabel {
   final Color color;
 }
 
-class _AddRepairScreenState extends State<AddRepairScreen> {
+class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
 
   final _formKey = GlobalKey<FormState>();
   List<Map<String, dynamic>> components = [
@@ -55,7 +55,6 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
   int daysItTake = 0;
   String nextPerDate = '';
   var nextRepairDateController = TextEditingController();
-
 
 
 
@@ -83,18 +82,57 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
     super.dispose();
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    components=[];
+    componentsControllers=[];
+    componentsFocusNodes=[];
+    widget.model!.components.forEach((element) {
+      components.add( {'id': element.id, 'quantity': element.quantity, 'name':element.name});
+      componentsControllers.add(TextEditingController(text: element.name));
+      componentsFocusNodes.add(FocusNode());
+    },);
+
+
+    services=[];
+    widget.model?.services.forEach((element) {
+      services.add( {'name': element.name, 'price': element.price, 'state': element.state});
+    },);
+
+
+    additions=[];
+
+    widget.model?.additions.forEach((element) {
+      additions.add( {'name': element.name, 'price': element.price});
+    },);
+
+
+     serviceType = widget.model!.type!;
+
+
+     discount = widget.model!.discount!*1.0;
+     daysItTake = widget.model!.expectedDate!.difference(DateTime.now()).inDays;
+
+     note1Controller.text=widget.model!.note1??'';
+     note2Controller.text=widget.model!.note2??'';
+     distanceController.text="${widget.model!.distance??''}";
+
+    nextRepairDateController.text="${widget.model!.nextRepairDate??''}";
+
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
 
-
     return BlocConsumer<AppCubit, AppCubitStates>(
         listener: (context, state) {
           if (state is AppAddRepairSuccessState)
-            {
-              AppCubit.get(context).getAllRepairsForSpecificCar(carId: widget.carId);
-              Navigator.pop(context);
-            }
+          {
+            Navigator.pop(context);
+          }
         },
         builder: (context, state) {
           return Focus(
@@ -117,7 +155,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
               appBar: AppBar(
                 backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
                 title: const Text(
-                  'Add Repair',
+                  'Update Repair',
                   style: TextStyle(
                     fontSize: 25,
                   ),
@@ -129,26 +167,25 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                 fallback: (context) => FFButtonWidget(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      AppCubit.get(context).addRepair(
+                      AppCubit.get(context).UpdateRepair(
                         context,
-                        carNumber: widget.carNumber,
                         additions: additions,
                         components: components,
                         daysItTake: daysItTake,
-
                         discount: discount,
                         services: services,
                         type: serviceType,
                         manually:!automatic,
-                        id: idController.text,
+                        id: widget.model!.id!,
                         note1: note1Controller.text,
                         note2: note2Controller.text,
                         distance:distanceController.text,
-                        nextRepairDate: nextRepairDateController.text
+
+                        nextRepairDate: nextRepairDateController.text,
                       );
                     }
                   },
-                  text: 'Add Repair',
+                  text: 'Update Repair',
                   options: FFButtonOptions(
                     width: MediaQuery.sizeOf(context).width * 0.20,
                     height: MediaQuery.sizeOf(context).height * 0.065,
@@ -156,11 +193,11 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                     iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                     color: const Color(0xFFF68B1E),
                     textStyle: FlutterFlowTheme.of(context).titleMedium.override(
-                          fontFamily: 'Lexend Deca',
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      fontFamily: 'Lexend Deca',
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                     elevation: 3,
                     borderSide: const BorderSide(
                       color: Colors.transparent,
@@ -231,7 +268,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     AutoSizeText(
-                                      widget.carNumber,
+                                      widget.model!.carNumber!,
                                       maxLines: 1,
                                       style: const TextStyle(
                                         fontSize: 45,
@@ -253,53 +290,53 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Switch(
-                          value: automatic,
-                          onChanged: (value) async {
-                            if (value==true) {
-                          idController.text = await AppCubit.get(context)
-                              .getTheNextRepairCode();
-                        }
-                        setState(() {
-                              automatic = value;
-                              //print(automatic);// Toggle the mode
-                            });
-                          },
-                          activeColor: Colors.black, // Background for dark mode
-                          activeTrackColor: Colors.orange, // Toggle track for dark mode
-                          inactiveThumbColor: Colors.black, // Background for light mode
-                          inactiveTrackColor: Colors.grey, // Toggle track for light mode
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Visibility(
-                          visible: !automatic,
-                          replacement: const Text('ID assigned automatically',style: TextStyle(color: Colors.deepOrange,fontWeight: FontWeight.bold),),
-
-                          child: TextFormField(
-                            controller: idController,
-                            obscureText: false,
-
-                            decoration:CustomInputDecoration.customInputDecoration(context, 'code'),
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                              fontFamily: 'Outfit',
-                              color:
-                              FlutterFlowTheme.of(context).primaryText,
-                            ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'please enter the code';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        // Switch(
+                        //   value: automatic,
+                        //   onChanged: (value) async {
+                        //     if (value==true) {
+                        //       idController.text = await AppCubit.get(context)
+                        //           .getTheNextRepairCode();
+                        //     }
+                        //     setState(() {
+                        //       automatic = value;
+                        //       //print(automatic);// Toggle the mode
+                        //     });
+                        //   },
+                        //   activeColor: Colors.black, // Background for dark mode
+                        //   activeTrackColor: Colors.orange, // Toggle track for dark mode
+                        //   inactiveThumbColor: Colors.black, // Background for light mode
+                        //   inactiveTrackColor: Colors.grey, // Toggle track for light mode
+                        // ),
+                        // const SizedBox(
+                        //   height: 10,
+                        // ),
+                        // Visibility(
+                        //   visible: !automatic,
+                        //   replacement: const Text('ID assigned automatically',style: TextStyle(color: Colors.deepOrange,fontWeight: FontWeight.bold),),
+                        //
+                        //   child: TextFormField(
+                        //     controller: idController,
+                        //     obscureText: false,
+                        //
+                        //     decoration:CustomInputDecoration.customInputDecoration(context, 'code'),
+                        //     style: FlutterFlowTheme.of(context)
+                        //         .bodyMedium
+                        //         .override(
+                        //       fontFamily: 'Outfit',
+                        //       color:
+                        //       FlutterFlowTheme.of(context).primaryText,
+                        //     ),
+                        //     validator: (value) {
+                        //       if (value!.isEmpty) {
+                        //         return 'please enter the code';
+                        //       }
+                        //       return null;
+                        //     },
+                        //   ),
+                        // ),
+                        // const SizedBox(
+                        //   height: 10,
+                        // ),
 
 
 
@@ -317,174 +354,174 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
 
                             return Row(
                               children: <Widget>[
-                                    Expanded(
-                                      child: SearchField(
-                                        onSearchTextChanged: (searchQuery) {
-                                          //print(searchQuery);
-                                          AppCubit.get(context).searchComponents(word: searchQuery);
-                                          return AppCubit.get(context).searchListOfInventoryComponentsModel!.data.map((e) => SearchFieldListItem(e.name!,item: e)).toList();
-                                        },
-                                        emptyWidget: const Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Text("No Results"),
+                                Expanded(
+                                    child: SearchField(
+                                      onSearchTextChanged: (searchQuery) {
+                                        //print(searchQuery);
+                                        AppCubit.get(context).searchComponents(word: searchQuery);
+                                        return AppCubit.get(context).searchListOfInventoryComponentsModel!.data.map((e) => SearchFieldListItem(e.name!,item: e)).toList();
+                                      },
+                                      emptyWidget: const Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text("No Results"),
+                                      ),
+                                      suggestions: AppCubit.get(context).searchListOfInventoryComponentsModel!.data.map((e) => SearchFieldListItem(e.name!,item: e)).toList(),
+                                      onSuggestionTap: (searchItem) {
+                                        int index = AppCubit.get(context).searchListOfInventoryComponentsModel?.data.indexOf(searchItem.item!)??-1;
+                                        if(index != -1){
+                                          components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].id;
+                                          components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].name;
+                                          //print(components[i]);
+                                          setState(() {
+                                            componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data[index].name!);
+                                            componentsFocusNodes[i].unfocus();
+                                          });
+                                        }
+                                      },
+                                      onSubmit: (searchQuery) {
+                                        int index = AppCubit.get(context).searchListOfInventoryComponentsModel?.data.indexWhere((element) => element.name == searchQuery)??-1;
+                                        if(index != -1){
+                                          components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].id;
+                                          components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].name;
+                                          //print(components[i]);
+                                          setState(() {
+                                            componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data[index].name!);
+                                            componentsFocusNodes[i].unfocus();
+                                          });
+                                        } else {
+                                          components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data.first.id;
+                                          components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data.first.name;
+                                          //print(components[i]);
+                                          setState(() {
+                                            componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data.first.name!);
+                                            componentsFocusNodes[i].unfocus();
+                                          });
+                                        }
+                                      },
+                                      onTapOutside: (_) {
+                                        int index = AppCubit.get(context).searchListOfInventoryComponentsModel?.data.indexWhere((element) => element.name == componentsControllers[i].text)??-1;
+                                        if(index != -1){
+                                          components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].id;
+                                          components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].name;
+                                          //print(components[i]);
+                                          setState(() {
+                                            componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data[index].name!);
+                                            componentsFocusNodes[i].unfocus();
+                                          });
+                                        } else {
+                                          components[i]['id']='';
+                                          components[i]['name']='';
+                                          //print(components[i]);
+                                          setState(() {
+                                            componentsControllers[i] = TextEditingController();
+                                            componentsFocusNodes[i].unfocus();
+                                          });
+                                        }
+                                      },
+                                      controller: componentsControllers[i],
+                                      searchInputDecoration: SearchInputDecoration(
+                                        labelText: 'Search',
+                                        labelStyle: FlutterFlowTheme
+                                            .of(context)
+                                            .bodySmall
+                                            .override(
+                                          fontFamily: 'Outfit',
+                                          color: const Color(0xFFF68B1E),
                                         ),
-                                        suggestions: AppCubit.get(context).searchListOfInventoryComponentsModel!.data.map((e) => SearchFieldListItem(e.name!,item: e)).toList(),
-                                        onSuggestionTap: (searchItem) {
-                                          int index = AppCubit.get(context).searchListOfInventoryComponentsModel?.data.indexOf(searchItem.item!)??-1;
-                                          if(index != -1){
-                                            components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].id;
-                                            components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].name;
-                                            //print(components[i]);
-                                            setState(() {
-                                              componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data[index].name!);
-                                              componentsFocusNodes[i].unfocus();
-                                            });
-                                          }
-                                        },
-                                        onSubmit: (searchQuery) {
-                                          int index = AppCubit.get(context).searchListOfInventoryComponentsModel?.data.indexWhere((element) => element.name == searchQuery)??-1;
-                                          if(index != -1){
-                                            components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].id;
-                                            components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].name;
-                                            //print(components[i]);
-                                            setState(() {
-                                              componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data[index].name!);
-                                              componentsFocusNodes[i].unfocus();
-                                            });
-                                          } else {
-                                            components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data.first.id;
-                                            components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data.first.name;
-                                            //print(components[i]);
-                                            setState(() {
-                                              componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data.first.name!);
-                                              componentsFocusNodes[i].unfocus();
-                                            });
-                                          }
-                                        },
-                                        onTapOutside: (_) {
-                                          int index = AppCubit.get(context).searchListOfInventoryComponentsModel?.data.indexWhere((element) => element.name == componentsControllers[i].text)??-1;
-                                          if(index != -1){
-                                            components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].id;
-                                            components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].name;
-                                            //print(components[i]);
-                                            setState(() {
-                                              componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data[index].name!);
-                                              componentsFocusNodes[i].unfocus();
-                                            });
-                                          } else {
-                                            components[i]['id']='';
-                                            components[i]['name']='';
-                                            //print(components[i]);
-                                            setState(() {
-                                              componentsControllers[i] = TextEditingController();
-                                              componentsFocusNodes[i].unfocus();
-                                            });
-                                          }
-                                        },
-                                        controller: componentsControllers[i],
-                                        searchInputDecoration: SearchInputDecoration(
-                                          labelText: 'Search',
-                                          labelStyle: FlutterFlowTheme
-                                              .of(context)
-                                              .bodySmall
-                                              .override(
-                                            fontFamily: 'Outfit',
-                                            color: const Color(0xFFF68B1E),
+                                        hintStyle:
+                                        FlutterFlowTheme
+                                            .of(context)
+                                            .bodySmall,
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme
+                                                .of(context)
+                                                .alternate,
+                                            width: 2,
                                           ),
-                                          hintStyle:
-                                          FlutterFlowTheme
-                                              .of(context)
-                                              .bodySmall,
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: FlutterFlowTheme
-                                                  .of(context)
-                                                  .alternate,
-                                              width: 2,
-                                            ),
-                                            borderRadius: BorderRadius.circular(8),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0xFFF68B1E),
-                                              width: 2,
-                                            ),
-                                            borderRadius: BorderRadius.circular(8),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Colors.red,
-                                              width: 2,
-                                            ),
-                                            borderRadius: BorderRadius.circular(8),
-                                          ),
-                                          focusedErrorBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Colors.red,
-                                              width: 2,
-                                            ),
-                                            borderRadius: BorderRadius.circular(8),
-                                          ),
-                                          /*filled: true,*/
-                                          /*fillColor: Colors.white,*/
-                                          contentPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              16, 24, 0, 24),
-                                        ),
-                                        showEmpty: false,
-                                        suggestionsDecoration: SuggestionDecoration(
-                                          border: Border.all(color: FlutterFlowTheme.of(context).primaryText),
                                           borderRadius: BorderRadius.circular(8),
-                                          padding: const EdgeInsets.all(8),
-                                          hoverColor: Theme.of(context).hoverColor,
                                         ),
-                                        focusNode: componentsFocusNodes[i],
-                                      )
-                                    ),
-                                    const SizedBox(width: 16.0),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        FloatingActionButton(
-                                          mini: true,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          onPressed: () {
-                                            setState(() {
-                                              if (components[i]['quantity'] > 1) {
-                                                components[i]['quantity']--;
-                                              }
-                                            });
-                                          },
-                                          heroTag: 'remove component',
-                                          child: const Icon(Icons.remove,
-                                              color: Colors.white),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Color(0xFFF68B1E),
+                                            width: 2,
+                                          ),
+                                          borderRadius: BorderRadius.circular(8),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                              '${components[i]['quantity']}',
-                                              style: const TextStyle(fontSize: 30)),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Colors.red,
+                                            width: 2,
+                                          ),
+                                          borderRadius: BorderRadius.circular(8),
                                         ),
-                                        FloatingActionButton(
-                                          mini: true,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          onPressed: () {
-                                            setState(() {
-                                              components[i]['quantity'] += 1;
-                                            });
-                                          },
-                                          heroTag: 'add component',
-                                          child: const Icon(Icons.add,
-                                              color: Colors.white),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Colors.red,
+                                            width: 2,
+                                          ),
+                                          borderRadius: BorderRadius.circular(8),
                                         ),
-                                      ],
-                                    ),
-                                    const SizedBox(width: 16.0),
+                                        /*filled: true,*/
+                                        /*fillColor: Colors.white,*/
+                                        contentPadding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            16, 24, 0, 24),
+                                      ),
+                                      showEmpty: false,
+                                      suggestionsDecoration: SuggestionDecoration(
+                                        border: Border.all(color: FlutterFlowTheme.of(context).primaryText),
+                                        borderRadius: BorderRadius.circular(8),
+                                        padding: const EdgeInsets.all(8),
+                                        hoverColor: Theme.of(context).hoverColor,
+                                      ),
+                                      focusNode: componentsFocusNodes[i],
+                                    )
+                                ),
+                                const SizedBox(width: 16.0),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
                                     FloatingActionButton(
+                                      mini: true,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(20)),
+                                      onPressed: () {
+                                        setState(() {
+                                          if (components[i]['quantity'] > 1) {
+                                            components[i]['quantity']--;
+                                          }
+                                        });
+                                      },
+                                      heroTag: 'remove component',
+                                      child: const Icon(Icons.remove,
+                                          color: Colors.white),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                          '${components[i]['quantity']}',
+                                          style: const TextStyle(fontSize: 30)),
+                                    ),
+                                    FloatingActionButton(
+                                      mini: true,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(20)),
+                                      onPressed: () {
+                                        setState(() {
+                                          components[i]['quantity'] += 1;
+                                        });
+                                      },
+                                      heroTag: 'add component',
+                                      child: const Icon(Icons.add,
+                                          color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(width: 16.0),
+                                FloatingActionButton(
                                   mini: true,
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
@@ -500,7 +537,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                   child: const Icon(Icons.delete_forever_rounded,
                                       color: Colors.white),
                                 ),
-                                  ],
+                              ],
 
 
                             );
@@ -547,10 +584,10 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Outfit',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                        ),
+                                      fontFamily: 'Outfit',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
                                     initialValue: services[index]['name'],
                                     onChanged: (value) {
                                       setState(() {
@@ -573,12 +610,12 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Outfit',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                        ),
+                                      fontFamily: 'Outfit',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
                                     initialValue:
-                                        services[index]['price'].toString(),
+                                    services[index]['price'].toString(),
                                     onChanged: (value) {
                                       setState(() {
                                         services[index]['price'] =
@@ -595,10 +632,10 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Outfit',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                        ),
+                                      fontFamily: 'Outfit',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
                                     value: services[index]['state'],
                                     onChanged: (value) {
                                       setState(() {
@@ -608,11 +645,11 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                     items: ['completed', 'repairing']
                                         .map<DropdownMenuItem<String>>(
                                             (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(value),
-                                      );
-                                    }).toList(),
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(value),
+                                          );
+                                        }).toList(),
                                   ),
                                 ),
                                 const SizedBox(width: 16.0),
@@ -681,10 +718,10 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Outfit',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                        ),
+                                      fontFamily: 'Outfit',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
                                     initialValue: additions[index]['name'],
                                     onChanged: (value) {
                                       setState(() {
@@ -707,12 +744,12 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Outfit',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                        ),
+                                      fontFamily: 'Outfit',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
                                     initialValue:
-                                        additions[index]['price'].toString(),
+                                    additions[index]['price'].toString(),
                                     onChanged: (value) {
                                       setState(() {
                                         additions[index]['price'] =
@@ -769,10 +806,10 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Outfit',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                    ),
+                                  fontFamily: 'Outfit',
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryText,
+                                ),
                                 value: serviceType,
                                 onChanged: (value) {
                                   setState(() {
@@ -782,11 +819,11 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                 items: ['nonPeriodic', 'periodic']
                                     .map<DropdownMenuItem<String>>(
                                         (String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
                               ),
                             ),
                             const SizedBox(width: 16.0),
@@ -800,14 +837,14 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                 },
                                 decoration: CustomInputDecoration
                                     .customInputDecoration(
-                                        context, 'Discount'),
+                                    context, 'Discount'),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Outfit',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                    ),
+                                  fontFamily: 'Outfit',
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryText,
+                                ),
                                 initialValue: discount.toString(),
                                 onChanged: (value) {
                                   setState(() {
@@ -827,14 +864,14 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                 },
                                 decoration: CustomInputDecoration
                                     .customInputDecoration(
-                                        context, 'Days It Takes'),
+                                    context, 'Days It Takes'),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Outfit',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                    ),
+                                  fontFamily: 'Outfit',
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryText,
+                                ),
                                 initialValue: daysItTake.toString(),
                                 onChanged: (value) {
                                   setState(() {

@@ -43,6 +43,66 @@ class AppCubit extends Cubit<AppCubitStates> {
   GetAllTypesModel? getAllTypesModel = GetAllTypesModel();
   var time = DateTime.now();
 
+
+
+
+  void UpdateRepair(
+      context, {
+        required List<Map<String, dynamic>> components,
+        required List<Map<String, dynamic>> services,
+        required List<Map<String, dynamic>> additions,
+        required String type,
+        required double discount,
+        required int daysItTake,
+        required bool manually,
+        required String id,
+        String note1 = "",
+        String note2 = "",
+        required distance,
+        required nextRepairDate,
+      }) {
+    emit(AppUpdateRepairLoadingState());
+    final body = jsonEncode({
+      'components': components,
+      'services': services,
+      'additions': additions,
+      'type': type,
+      'discount': discount,
+      'daysItTake': daysItTake,
+      "manually":manually,
+      "Note1":note1,
+      "Note2":note2,
+      "distance":distance,
+      "nextRepairDate":nextRepairDate,
+    });
+
+    post(Uri.parse(UPDATEREPAIR+id), headers: headers, body: body).then((response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        showToast(context, "Repair updated successfully");
+        emit(AppUpdateRepairSuccessState());
+        Navigator.pop(context);
+      } else {
+        String id = extractIdFromJson(response.body);
+        if(id.isNotEmpty) {
+          int index =  components.indexWhere((element) => element['id'] == id);
+          String name = components[index]['name'];
+          showToast(context, 'Not enough $name.');
+        } else {
+          showToast(context, response.body);
+        }
+        emit(AppUpdateRepairErrorState());
+      }
+      // if (forgetPasswordModel!.status != 'fail') {
+      //   emit(AppForgetPasswordSuccessState());
+      //   showToast('password sent to your email');
+      // } else {
+      //   emit(AppForgetPasswordErrorState(forgetPasswordModel?.message ?? ''));
+      // }
+    });
+  }
+
+
+
   Future<String> getTheNextClientCode(String type) async {
     var data= await read(
       Uri.parse(GETNEXTCARCODE+type),
@@ -710,6 +770,7 @@ class AppCubit extends Cubit<AppCubitStates> {
         String note1 = "",
         String note2 = "",
         required distance,
+        required nextRepairDate,
   }) {
     emit(AppAddRepairLoadingState());
     final body = jsonEncode({
@@ -725,6 +786,7 @@ class AppCubit extends Cubit<AppCubitStates> {
       "Note1":note1,
       "Note2":note2,
       "distance":distance,
+      "nextRepairDate":nextRepairDate,
     });
 
     post(Uri.parse(ADDREPAIR), headers: headers, body: body).then((response) {
@@ -751,6 +813,9 @@ class AppCubit extends Cubit<AppCubitStates> {
       // }
     });
   }
+
+
+
 
   void getAllRepairsForSpecificCar({
     required String carId,

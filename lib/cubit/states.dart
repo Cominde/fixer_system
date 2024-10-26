@@ -139,6 +139,14 @@ class AppAddRepairSuccessState extends AppCubitStates{}
 class AppAddRepairErrorState extends AppCubitStates{}
 
 
+
+
+class AppUpdateRepairLoadingState extends AppCubitStates{}
+class AppUpdateRepairSuccessState extends AppCubitStates{}
+class AppUpdateRepairErrorState extends AppCubitStates{}
+
+
+
 class AppGetAllRepairsForSpecificCarLoadingState extends AppCubitStates{}
 class AppGetAllRepairsForSpecificCarSuccessState extends AppCubitStates{}
 class AppGetAllRepairsForSpecificCarErrorState extends AppCubitStates{}

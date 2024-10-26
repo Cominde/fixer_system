@@ -4,6 +4,7 @@ import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 
 import '../cubit/cubit.dart';
 import '../models/get_specific_car_model.dart';
+import '../screens/car_profile_page/edit_repair_screen.dart';
 
 Widget repairItemBuilder(context, RepairData? model) {
   return Padding(
@@ -314,6 +315,12 @@ Widget repairItemBuilder(context, RepairData? model) {
 
               ],
             ),
+            SizedBox(height: 10,),
+            FloatingActionButton(onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateRepairScreen(model),));
+            },
+            child:Icon(Icons.edit) ,
+            )
           ],
 
         ),

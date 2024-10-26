@@ -109,6 +109,9 @@ class RepairData {
   String?note2;
   int ? distance;
 
+
+  DateTime?nextRepairDate;
+
   RepairData.fromJson(Map<String, dynamic>?json)
   {
    id = json?["_id"];
@@ -129,6 +132,10 @@ class RepairData {
 
    if (json?["expectedDate"]!=null) {
      expectedDate= DateTime.tryParse(json?["expectedDate"]);
+   }
+
+   if (json?["nextRepairDate"]!=null) {
+     nextRepairDate= DateTime.tryParse(json?["nextRepairDate"]);
    }
    json?["Services"].forEach((element){
      if (element!=null) {
