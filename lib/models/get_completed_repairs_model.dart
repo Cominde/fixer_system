@@ -3,9 +3,12 @@ class GetCompletedRepairsModel {
   GetCompletedRepairsModel();
   int ?results;
   List<CompletedRepairData>completedRepairs=[];
+  int pages = 1;
+  int current = 1;
   GetCompletedRepairsModel.fromJson(Map<String,dynamic>?json)
   {
     results = json?['results'];
+    pages=json?['paginationResult']['numberOfPages'];
     json?['data'].forEach((element){
       completedRepairs.add(CompletedRepairData.fromJson(element));
     });

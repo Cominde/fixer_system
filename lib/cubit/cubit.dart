@@ -76,7 +76,7 @@ class AppCubit extends Cubit<AppCubitStates> {
       "nextRepairDate":nextRepairDate,
     });
 
-    post(Uri.parse(UPDATEREPAIR+id), headers: headers, body: body).then((response) {
+    put(Uri.parse(UPDATEREPAIR+id), headers: headers, body: body).then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
         showToast(context, "Repair updated successfully");
         emit(AppUpdateRepairSuccessState());
@@ -357,6 +357,52 @@ class AppCubit extends Cubit<AppCubitStates> {
     required String serviceId,
     required String state,
   }) {
+    emit(AppChangeServiceStateLoadingState());
+    final body = jsonEncode({
+      'newState': state,
+    });
+    put(Uri.parse(CHANGESERVICE + serviceId), headers: headers, body: body)
+        .then((response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        showToast(context, 'Service state changed successfully');
+        emit(AppChangeServiceStateSuccessState());
+      } else {
+        emit(AppChangeServiceStateErrorState(''));
+        showToast(context, response.body);
+      }
+    }).catchError((error) {
+      emit(AppChangeServiceStateErrorState(error.toString()));
+    });
+  }
+
+  void changeServiceImportantThings(
+      context, {
+        required String serviceId,
+        required String importantThings,
+      }) {
+    emit(AppChangeServiceStateLoadingState());
+    final body = jsonEncode({
+      'newState': state,
+    });
+    put(Uri.parse(CHANGESERVICE + serviceId), headers: headers, body: body)
+        .then((response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        showToast(context, 'Service state changed successfully');
+        emit(AppChangeServiceStateSuccessState());
+      } else {
+        emit(AppChangeServiceStateErrorState(''));
+        showToast(context, response.body);
+      }
+    }).catchError((error) {
+      emit(AppChangeServiceStateErrorState(error.toString()));
+    });
+  }
+
+  void changeServiceNotes(
+      context, {
+        required String serviceId,
+        required String notes,
+      }) {
     emit(AppChangeServiceStateLoadingState());
     final body = jsonEncode({
       'newState': state,
@@ -970,12 +1016,12 @@ class AppCubit extends Cubit<AppCubitStates> {
     });
   }
 
-  void getCompletedRepairs() {
+  void getCompletedRepairs({int page = 1}) {
     getCompletedRepairsModel = GetCompletedRepairsModel();
     emit(AppGetCompletedRepairsLoadingState());
 
     read(
-      Uri.parse(GETCOMPLETEDREPAIRS),
+      Uri.parse(GETCOMPLETEDREPAIRS+page.toString()),
       headers: headers,
     ).then((value) {
       getCompletedRepairsModel =

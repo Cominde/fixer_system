@@ -27,37 +27,49 @@ Widget repairItemBuilder(context, RepairData? model) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             Visibility(
-              visible: (model?.complete)??true,
-              replacement:Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
+             Row(
+               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+               children: [
+                 Visibility(
+                  visible: (model?.complete)??true,
+                  replacement:Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                        decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        border: Border.all(color: Colors.red,width: 1)
+                      ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text('Processing',style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+                        ),
+                    ),
+                  ) ,
+                  child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
                     decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                    border: Border.all(color: Colors.red,width: 1)
-                  ),
+                        borderRadius: BorderRadius.circular(8),
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        border: Border.all(color: Colors.green,width: 1)
+                    ),
                     child: const Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Text('Processing',style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+                      child: Text('Completed',style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
                     ),
-                ),
-              ) ,
-              child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                    border: Border.all(color: Colors.green,width: 1)
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Completed',style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
-                ),
-              ),
-              ),
-            ),
+                  ),
+                  ),
+                             ),
+                 FloatingActionButton(
+                   onPressed: () {
+                   Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateRepairScreen(model),));
+                   },
+                   child:Icon(Icons.edit) ,
+                   heroTag: 'edit repair',
+                 )
+               ],
+             ),
             const Text(
               'General Info',
               style: TextStyle(
@@ -100,15 +112,22 @@ Widget repairItemBuilder(context, RepairData? model) {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Discount'),
-                      Text('${model?.discount}%',style: const TextStyle(fontWeight: FontWeight.bold),),
+                      const Text('Total Price'),
+                      Text('${model?.totalPrice} EGP',style: const TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Total Price'),
-                      Text('${model?.totalPrice} EGP',style: const TextStyle(fontWeight: FontWeight.bold),),
+                      const Text('Discount'),
+                      Text('${model?.discount} EGP',style: const TextStyle(fontWeight: FontWeight.bold),),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Total Price After Discount'),
+                      Text('${(int.tryParse(model?.totalPrice??'')??0)-(model?.discount??0)} EGP',style: const TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                   Row(
@@ -316,11 +335,6 @@ Widget repairItemBuilder(context, RepairData? model) {
               ],
             ),
             SizedBox(height: 10,),
-            FloatingActionButton(onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateRepairScreen(model),));
-            },
-            child:Icon(Icons.edit) ,
-            )
           ],
 
         ),

@@ -457,7 +457,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                               }
                                             });
                                           },
-                                          heroTag: 'remove component',
+                                          heroTag: 'remove component $i',
                                           child: const Icon(Icons.remove,
                                               color: Colors.white),
                                         ),
@@ -477,7 +477,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                               components[i]['quantity'] += 1;
                                             });
                                           },
-                                          heroTag: 'add component',
+                                          heroTag: 'add component $i',
                                           child: const Icon(Icons.add,
                                               color: Colors.white),
                                         ),
@@ -496,7 +496,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                       componentsControllers.removeAt(i);
                                     });
                                   },
-                                  heroTag: 'delete component',
+                                  heroTag: 'delete component $i',
                                   child: const Icon(Icons.delete_forever_rounded,
                                       color: Colors.white),
                                 ),
@@ -626,7 +626,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                       services.removeAt(index);
                                     });
                                   },
-                                  heroTag: 'delete service',
+                                  heroTag: 'delete service $index',
                                   child: const Icon(Icons.delete_forever_rounded,
                                       color: Colors.white),
                                 ),
@@ -732,7 +732,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                       additions.removeAt(index);
                                     });
                                   },
-                                  heroTag: 'delete addition',
+                                  heroTag: 'delete addition $index',
                                   child: const Icon(Icons.delete_forever_rounded,
                                       color: Colors.white),
                                 ),

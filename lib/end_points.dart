@@ -29,7 +29,7 @@ const GETALLREPAIRSFORSPECIFICAR='${baseUrl}repairing/getById/';
 const UPDATECAR='${baseUrl}Garage/update/';
 const GETMAINPRAMS='${baseUrl}MonthlyReport/';
 const UPDATEWORKER='${baseUrl}Worker/withoutNID/';
-const GETCOMPLETEDREPAIRS ='${baseUrl}repairing';
+const GETCOMPLETEDREPAIRS ='${baseUrl}repairing?page=';
 const GETCOMPLETEDREPAIRDETAILS='${baseUrl}repairing/report/';
 const GETMONTHWORK='${baseUrl}MonthlyReport/home/work/';
 const SEARCHCOMPONENTS='${baseUrl}Inventort/search/';

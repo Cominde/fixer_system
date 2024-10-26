@@ -88,11 +88,11 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
     components=[];
     componentsControllers=[];
     componentsFocusNodes=[];
-    widget.model!.components.forEach((element) {
+    for (var element in widget.model!.components) {
       components.add( {'id': element.id, 'quantity': element.quantity, 'name':element.name});
       componentsControllers.add(TextEditingController(text: element.name));
       componentsFocusNodes.add(FocusNode());
-    },);
+    }
 
 
     services=[];
@@ -128,12 +128,7 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
   Widget build(BuildContext context) {
 
     return BlocConsumer<AppCubit, AppCubitStates>(
-        listener: (context, state) {
-          if (state is AppAddRepairSuccessState)
-          {
-            Navigator.pop(context);
-          }
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           return Focus(
             onKey: (node, event) {
@@ -162,7 +157,7 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                 ),
               ),
               floatingActionButton: ConditionalBuilder(
-                condition: state is AppAddRepairLoadingState,
+                condition: state is AppUpdateRepairLoadingState,
                 builder: (context) => const CircularProgressIndicator(),
                 fallback: (context) => FFButtonWidget(
                   onPressed: () {
@@ -180,7 +175,6 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                         note1: note1Controller.text,
                         note2: note2Controller.text,
                         distance:distanceController.text,
-
                         nextRepairDate: nextRepairDateController.text,
                       );
                     }
@@ -494,7 +488,7 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                           }
                                         });
                                       },
-                                      heroTag: 'remove component',
+                                      heroTag: 'remove updating repair component $i',
                                       child: const Icon(Icons.remove,
                                           color: Colors.white),
                                     ),
@@ -514,7 +508,7 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                           components[i]['quantity'] += 1;
                                         });
                                       },
-                                      heroTag: 'add component',
+                                      heroTag: 'add updating repair component $i',
                                       child: const Icon(Icons.add,
                                           color: Colors.white),
                                     ),
@@ -533,7 +527,7 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                       componentsControllers.removeAt(i);
                                     });
                                   },
-                                  heroTag: 'delete component',
+                                  heroTag: 'delete updating repair component $i',
                                   child: const Icon(Icons.delete_forever_rounded,
                                       color: Colors.white),
                                 ),
@@ -663,7 +657,7 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                       services.removeAt(index);
                                     });
                                   },
-                                  heroTag: 'delete service',
+                                  heroTag: 'delete updating repair service $index',
                                   child: const Icon(Icons.delete_forever_rounded,
                                       color: Colors.white),
                                 ),
@@ -769,7 +763,7 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                       additions.removeAt(index);
                                     });
                                   },
-                                  heroTag: 'delete addition',
+                                  heroTag: 'delete updating repair addition $index',
                                   child: const Icon(Icons.delete_forever_rounded,
                                       color: Colors.white),
                                 ),
@@ -892,7 +886,7 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                 },
                                 decoration: CustomInputDecoration
                                     .customInputDecoration(
-                                    context, 'Distance'),
+                                    context, 'Next Repair Distance'),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(

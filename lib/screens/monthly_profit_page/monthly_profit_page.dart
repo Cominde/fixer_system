@@ -380,6 +380,33 @@ class _MonthlyProfitPageState extends State<MonthlyProfitPage> {
                                                 ],
                                               ),
                                             ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: FlutterFlowIconButton(
+                                                borderColor:
+                                                FlutterFlowTheme.of(
+                                                    context)
+                                                    .lineColor,
+                                                borderRadius: 12,
+                                                borderWidth: 1,
+                                                buttonSize: 50,
+                                                fillColor: FlutterFlowTheme
+                                                    .of(context)
+                                                    .secondaryBackground,
+                                                icon: Icon(
+                                                  Icons.refresh_rounded,
+                                                  color:
+                                                  FlutterFlowTheme.of(
+                                                      context)
+                                                      .secondaryText,
+                                                  size: 24,
+                                                ),
+                                                onPressed: () {
+                                                  AppCubit.get(context).getMainPrams(year: _model.dropDownValue1!.toString(), month: _model.dropDownValue2!.toString());
+                                                  AppCubit.get(context).getMonthWork(year: _model.dropDownValue1!.toString(), month: _model.dropDownValue2!.toString());
+                                                },
+                                              ),
+                                            ),
                                           ],
                                         ),
                                         Padding(

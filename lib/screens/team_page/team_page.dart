@@ -295,6 +295,32 @@ class _TeamPageState extends State<TeamPage> {
                                               ],
                                             ),
                                           ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: FlutterFlowIconButton(
+                                              borderColor:
+                                              FlutterFlowTheme.of(
+                                                  context)
+                                                  .lineColor,
+                                              borderRadius: 12,
+                                              borderWidth: 1,
+                                              buttonSize: 50,
+                                              fillColor: FlutterFlowTheme
+                                                  .of(context)
+                                                  .secondaryBackground,
+                                              icon: Icon(
+                                                Icons.refresh_rounded,
+                                                color:
+                                                FlutterFlowTheme.of(
+                                                    context)
+                                                    .secondaryText,
+                                                size: 24,
+                                              ),
+                                              onPressed: () {
+                                                AppCubit.get(context).getWorkers(page: AppCubit.get(context).getWorkersModel!.current);
+                                              },
+                                            ),
+                                          ),
                                         ],
                                       ),
                                       if (responsiveVisibility(

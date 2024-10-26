@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pager/pager.dart';
 
 import 'bills_page_model.dart';
 export 'bills_page_model.dart';
@@ -185,7 +186,32 @@ class _BillsPageState extends State<BillsPage> {
                                                 ),
                                               ),
                                             ),
-
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: FlutterFlowIconButton(
+                                                borderColor:
+                                                FlutterFlowTheme.of(
+                                                    context)
+                                                    .lineColor,
+                                                borderRadius: 12,
+                                                borderWidth: 1,
+                                                buttonSize: 50,
+                                                fillColor: FlutterFlowTheme
+                                                    .of(context)
+                                                    .secondaryBackground,
+                                                icon: Icon(
+                                                  Icons.refresh_rounded,
+                                                  color:
+                                                  FlutterFlowTheme.of(
+                                                      context)
+                                                      .secondaryText,
+                                                  size: 24,
+                                                ),
+                                                onPressed: () {
+                                                  AppCubit.get(context).getCompletedRepairs();
+                                                },
+                                              ),
+                                            ),
                                           ],
                                         ),
                                         if (responsiveVisibility(
@@ -485,6 +511,19 @@ class _BillsPageState extends State<BillsPage> {
                                                           ),
                                                     ),
                                                   ),
+                                                  Center(
+                                                    child: Pager(
+                                                      currentPage: AppCubit.get(context).getCompletedRepairsModel!.current>0?AppCubit.get(context).getCompletedRepairsModel!.current:1,
+                                                      totalPages: AppCubit.get(context).getCompletedRepairsModel!.pages>0?AppCubit.get(context).getCompletedRepairsModel!.pages:1,
+                                                      onPageChanged: (page) {
+                                                        setState(() {
+                                                          AppCubit.get(context).getCompletedRepairsModel!.current = page;
+                                                          AppCubit.get(context).getCompletedRepairs(page: page);
+                                                        });
+                                                      },
+                                                      numberButtonSelectedColor: const Color(0xffF68B1E),
+                                                    ),
+                                                  )
                                                 ],
                                               ),
                                             ),
