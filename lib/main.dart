@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:fixer_system/cubit/states.dart';
 import 'package:fixer_system/screens/login/login.dart';
+import 'package:fixer_system/screens/new_update.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 import 'cubit/cubit.dart';
 
@@ -12,10 +16,26 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  bool? updatedApp;
+  @override
+  void initState() {
+    get(Uri.parse('https://fixer-backend-rtw4.onrender.com/api/V1/appVersion')).then((value) {
+      setState(() {
+        updatedApp = json.decode(value.body)[1]['version'].toString() == "1.4.0";
+      });
+    },);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     FlutterFlowTheme.of(context).primary = const Color(0xFFF68B1E);
@@ -46,7 +66,13 @@ class MyApp extends StatelessWidget {
               theme: theme,
               darkTheme: darkTheme,
               debugShowCheckedModeBanner: false,
-              home: const Login(),
+              home: updatedApp == null ? const Center(
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: CircularProgressIndicator(),
+                ),
+              ) : (updatedApp! ? const Login() : const NewUpdateScreen()),
             ),
           );
         },

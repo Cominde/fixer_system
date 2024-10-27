@@ -9,6 +9,8 @@ class Assets {
   static const String imagesAndroidAppIcon = 'assets/images/android_app_icon.png';
   static const String imagesCar = 'assets/images/car.png';
   static const String imagesEi1693592425619RemovebgPreview = 'assets/images/ei_1693592425619-removebg-preview.png';
+  static const String imagesLogo = 'assets/images/logo.png';
   static const String imagesMan = 'assets/images/man.png';
+  static const String imagesNewUpdate = 'assets/images/new_update.png';
 
 }
