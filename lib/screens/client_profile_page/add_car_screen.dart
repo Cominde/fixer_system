@@ -271,7 +271,7 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                                       controller: codeController,
                                       obscureText: false,
 
-                                      decoration:CustomInputDecoration.customInputDecoration(context, 'code',pref: Text('${typesController.text}')),
+                                      decoration:CustomInputDecoration.customInputDecoration(context, 'code',pref: Text(typesController.text)),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(

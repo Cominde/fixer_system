@@ -21,7 +21,7 @@ Widget updateTypePage(context,Type model) {
   nameController=TextEditingController(text: model.category);
   keyController=TextEditingController(text: model.code.toString());
 
-  final ScrollController _controller = ScrollController();
+  final ScrollController controller = ScrollController();
 
   return BlocConsumer<AppCubit, AppCubitStates>(
     listener: (context, state) {},
@@ -92,10 +92,10 @@ Widget updateTypePage(context,Type model) {
             bool isTextFieldFocused = currentFocus.focusedChild is Focus && currentFocus.focusedChild!.context?.widget is EditableText;
             if (event is RawKeyDownEvent) {
               if (event.logicalKey == LogicalKeyboardKey.arrowUp && !isTextFieldFocused) {
-                _controller.animateTo(_controller.offset - 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
+                controller.animateTo(controller.offset - 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
                 return KeyEventResult.handled;
               } else if (event.logicalKey == LogicalKeyboardKey.arrowDown && !isTextFieldFocused) {
-                _controller.animateTo(_controller.offset + 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
+                controller.animateTo(controller.offset + 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
                 return KeyEventResult.handled;
               }
             }
@@ -106,7 +106,7 @@ Widget updateTypePage(context,Type model) {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: SingleChildScrollView(
-                controller: _controller,
+                controller: controller,
                 child: Container(
                   padding: const EdgeInsets.all(30),
                   child: Column(

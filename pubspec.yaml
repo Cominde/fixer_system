@@ -41,6 +41,8 @@ dependencies:
 
 
 
+  google_fonts: any
+  flutter_animate: any
 dev_dependencies:
   flutter_launcher_icons: ^0.14.1
 

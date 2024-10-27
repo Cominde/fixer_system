@@ -65,8 +65,8 @@ Widget repairItemBuilder(context, RepairData? model) {
                    onPressed: () {
                    Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateRepairScreen(model),));
                    },
-                   child:Icon(Icons.edit) ,
                    heroTag: 'edit repair',
+                   child:const Icon(Icons.edit) ,
                  )
                ],
              ),
@@ -177,7 +177,7 @@ Widget repairItemBuilder(context, RepairData? model) {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('Completed Services Ratio'),
-                      Text('${(model?.completedServicesRatio)}',style: const TextStyle(fontWeight: FontWeight.bold),),
+                      Text('${(model?.completedServicesRatio*100)} %',style: const TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                   Row(
@@ -307,6 +307,7 @@ Widget repairItemBuilder(context, RepairData? model) {
               ],
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
                   'Important Things',
@@ -316,11 +317,12 @@ Widget repairItemBuilder(context, RepairData? model) {
                   ),
                 ),
 
-                AutoSizeText("${model?.note1??'_'}")
+                AutoSizeText(model?.note1??'_')
 
               ],
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
                   'Notes',
@@ -330,11 +332,11 @@ Widget repairItemBuilder(context, RepairData? model) {
                   ),
                 ),
 
-                AutoSizeText("${model?.note2??'_'}")
+                AutoSizeText(model?.note2??'_')
 
               ],
             ),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
           ],
 
         ),

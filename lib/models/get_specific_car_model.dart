@@ -125,8 +125,8 @@ class RepairData {
    type= json?["type"];
 
 
-   note1=json?['note1'];
-   note2=json?['note2'];
+   note1=json?['Note1'];
+   note2=json?['Note2'];
    distance=json?['distance'];
 
 

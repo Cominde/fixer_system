@@ -326,7 +326,7 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
                                         ),
                                         Visibility(
                                           visible: !automatic,
-                                          replacement: Text('Code assigned automatically',style: TextStyle(color: Colors.deepOrange,fontWeight: FontWeight.bold),),
+                                          replacement: const Text('Code assigned automatically',style: TextStyle(color: Colors.deepOrange,fontWeight: FontWeight.bold),),
 
                                           child: TextFormField(
                                             controller: codeController,
