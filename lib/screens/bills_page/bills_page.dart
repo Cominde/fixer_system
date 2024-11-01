@@ -504,7 +504,7 @@ class _BillsPageState extends State<BillsPage> {
                                                               primary: false,
                                                               shrinkWrap: true,
                                                               scrollDirection: Axis.vertical,
-                                                              itemBuilder: (context, index) => billItemBuilder(context,AppCubit.get(context).getCompletedRepairsModel?.completedRepairs[index],AppCubit.get(context)),
+                                                              itemBuilder: (context, index) => BillItem(model: AppCubit.get(context).getCompletedRepairsModel!.completedRepairs[index],),
 
                                                               itemCount:AppCubit.get(context).getCompletedRepairsModel?.completedRepairs.length ,
                                                             ),

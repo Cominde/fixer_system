@@ -108,6 +108,7 @@ class RepairData {
   String? note1;
   String?note2;
   int ? distance;
+  int ? nextRepairDistance;
 
 
   DateTime?nextRepairDate;
@@ -128,6 +129,7 @@ class RepairData {
    note1=json?['Note1'];
    note2=json?['Note2'];
    distance=json?['distance'];
+   nextRepairDistance=json?['nextRepairDistance'];
 
 
    if (json?["expectedDate"]!=null) {

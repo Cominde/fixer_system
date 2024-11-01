@@ -61,13 +61,17 @@ Widget repairItemBuilder(context, RepairData? model) {
                   ),
                   ),
                              ),
-                 FloatingActionButton(
+                 FlutterFlowIconButton(
+                   borderRadius: 16,
+                   buttonSize: 56,
+                   fillColor: Theme
+                       .of(context)
+                       .primaryColor,
+                   icon: const Icon(Icons.edit),
                    onPressed: () {
-                   Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateRepairScreen(model),));
+                     Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateRepairScreen(model),));
                    },
-                   heroTag: 'edit repair',
-                   child:const Icon(Icons.edit) ,
-                 )
+                 ),
                ],
              ),
             const Text(

@@ -72,6 +72,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
 
 
   var distanceController=TextEditingController();
+  var nextRepairDistanceController = TextEditingController();
 
   final ScrollController _controller = ScrollController();
   final FocusNode _focusNode = FocusNode();
@@ -135,7 +136,6 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                         additions: additions,
                         components: components,
                         daysItTake: daysItTake,
-
                         discount: discount,
                         services: services,
                         type: serviceType,
@@ -144,7 +144,8 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                         note1: note1Controller.text,
                         note2: note2Controller.text,
                         distance:distanceController.text,
-                        nextRepairDate: nextRepairDateController.text
+                        nextRepairDate: nextRepairDateController.text,
+                        nextRepairDistance: nextRepairDistanceController.text,
                       );
                     }
                   },
@@ -445,11 +446,14 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        FloatingActionButton(
-                                          mini: true,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
+                                        FlutterFlowIconButton(
+                                          borderRadius: 12,
+                                          buttonSize: 40,
+                                          fillColor: Theme
+                                              .of(context)
+                                              .primaryColor,
+                                          icon: const Icon(Icons.remove,
+                                              color: Colors.white),
                                           onPressed: () {
                                             setState(() {
                                               if (components[i]['quantity'] > 1) {
@@ -457,9 +461,6 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                               }
                                             });
                                           },
-                                          heroTag: 'remove component $i',
-                                          child: const Icon(Icons.remove,
-                                              color: Colors.white),
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
@@ -467,28 +468,31 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                               '${components[i]['quantity']}',
                                               style: const TextStyle(fontSize: 30)),
                                         ),
-                                        FloatingActionButton(
-                                          mini: true,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
+                                        FlutterFlowIconButton(
+                                          borderRadius: 12,
+                                          buttonSize: 40,
+                                          fillColor: Theme
+                                              .of(context)
+                                              .primaryColor,
+                                          icon: const Icon(Icons.add,
+                                              color: Colors.white),
                                           onPressed: () {
                                             setState(() {
                                               components[i]['quantity'] += 1;
                                             });
                                           },
-                                          heroTag: 'add component $i',
-                                          child: const Icon(Icons.add,
-                                              color: Colors.white),
                                         ),
                                       ],
                                     ),
                                     const SizedBox(width: 16.0),
-                                    FloatingActionButton(
-                                  mini: true,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius.circular(8)),
+                                FlutterFlowIconButton(
+                                  borderRadius: 12,
+                                  buttonSize: 40,
+                                  fillColor: Theme
+                                      .of(context)
+                                      .primaryColor,
+                                  icon: const Icon(Icons.delete_forever_rounded,
+                                      color: Colors.white),
                                   onPressed: () {
                                     setState(() {
                                       components.removeAt(i);
@@ -496,9 +500,6 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                       componentsControllers.removeAt(i);
                                     });
                                   },
-                                  heroTag: 'delete component $i',
-                                  child: const Icon(Icons.delete_forever_rounded,
-                                      color: Colors.white),
                                 ),
                                   ],
 
@@ -616,19 +617,19 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                   ),
                                 ),
                                 const SizedBox(width: 16.0),
-                                FloatingActionButton(
-                                  mini: true,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius.circular(8)),
+                                FlutterFlowIconButton(
+                                  borderRadius: 12,
+                                  buttonSize: 40,
+                                  fillColor: Theme
+                                      .of(context)
+                                      .primaryColor,
+                                  icon: const Icon(Icons.delete_forever_rounded,
+                                      color: Colors.white),
                                   onPressed: () {
                                     setState(() {
                                       services.removeAt(index);
                                     });
                                   },
-                                  heroTag: 'delete service $index',
-                                  child: const Icon(Icons.delete_forever_rounded,
-                                      color: Colors.white),
                                 ),
                               ],
                             );
@@ -722,19 +723,19 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                   ),
                                 ),
                                 const SizedBox(width: 16.0),
-                                FloatingActionButton(
-                                  mini: true,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius.circular(8)),
+                                FlutterFlowIconButton(
+                                  borderRadius: 12,
+                                  buttonSize: 40,
+                                  fillColor: Theme
+                                      .of(context)
+                                      .primaryColor,
+                                  icon: const Icon(Icons.delete_forever_rounded,
+                                      color: Colors.white),
                                   onPressed: () {
                                     setState(() {
                                       additions.removeAt(index);
                                     });
                                   },
-                                  heroTag: 'delete addition $index',
-                                  child: const Icon(Icons.delete_forever_rounded,
-                                      color: Colors.white),
                                 ),
                               ],
                             );
@@ -816,6 +817,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                 },
                               ),
                             ),
+
                             const SizedBox(width: 16.0),
                             Expanded(
                               child: TextFormField(
@@ -843,6 +845,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                 },
                               ),
                             ),
+
                             const SizedBox(width: 16.0),
                             Expanded(
                               child: TextFormField(
@@ -866,8 +869,32 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
 
                               ),
                             ),
-                            const SizedBox(width: 16.0),
 
+                            const SizedBox(width: 16.0),
+                            Expanded(
+                              child: TextFormField(
+                                controller: nextRepairDistanceController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'please fill this field';
+                                  }
+                                  return null;
+                                },
+                                decoration: CustomInputDecoration
+                                    .customInputDecoration(
+                                    context, 'Next Repair Distance'),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                  fontFamily: 'Outfit',
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryText,
+                                ),
+
+                              ),
+                            ),
+
+                            const SizedBox(width: 16.0),
                             Expanded(
                               child: TextFormField(
                                 onTap: (){

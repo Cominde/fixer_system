@@ -14,11 +14,15 @@ class CustomInputDecoration extends InputDecoration {
             .override(
           fontFamily: 'Outfit',
           color: const Color(0xFFF68B1E),
+          fontSize: 18
         ),
         hintStyle:
         FlutterFlowTheme
             .of(context)
-            .bodySmall,
+            .bodySmall.override(
+            fontFamily: 'Outfit',
+            fontSize: 18
+        ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: FlutterFlowTheme

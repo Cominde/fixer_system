@@ -196,7 +196,18 @@ class _CarProfilePageState extends State<CarProfilePage> {
             child: ConditionalBuilder(
               condition: state is AppUpdateCarLoadingState,
               builder: (context) => const CircularProgressIndicator(),
-              fallback: (context) => FloatingActionButton(
+              fallback: (context) => FlutterFlowIconButton(
+                borderRadius: 16,
+                buttonSize: 56,
+                fillColor: Theme
+                    .of(context)
+                    .primaryColor,
+                icon: readOnly == true
+                    ? const Icon(Icons.edit_outlined)
+                    : const Icon(
+                  Icons.done,
+                  size: 30,
+                ),
                 onPressed: () {
                   if (readOnly == true) {
                     setState(() {
@@ -223,16 +234,6 @@ class _CarProfilePageState extends State<CarProfilePage> {
                     );
                   }
                 },
-                shape: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide.none),
-                heroTag: 'edit car info',
-                child: readOnly == true
-                    ? const Icon(Icons.edit_outlined)
-                    : const Icon(
-                        Icons.done,
-                        size: 30,
-                      ),
               ),
             ),
           ),

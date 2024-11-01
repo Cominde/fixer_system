@@ -59,6 +59,7 @@ class AppCubit extends Cubit<AppCubitStates> {
         String note1 = "",
         String note2 = "",
         required distance,
+        required nextRepairDistance,
         required nextRepairDate,
       }) {
     emit(AppUpdateRepairLoadingState());
@@ -73,6 +74,7 @@ class AppCubit extends Cubit<AppCubitStates> {
       "Note1":note1,
       "Note2":note2,
       "distance":distance,
+      "nextRepairDistance":nextRepairDistance,
       "nextRepairDate":nextRepairDate,
     });
 
@@ -816,6 +818,7 @@ class AppCubit extends Cubit<AppCubitStates> {
         String note1 = "",
         String note2 = "",
         required distance,
+        required nextRepairDistance,
         required nextRepairDate,
   }) {
     emit(AppAddRepairLoadingState());
@@ -832,6 +835,7 @@ class AppCubit extends Cubit<AppCubitStates> {
       "Note1":note1,
       "Note2":note2,
       "distance":distance,
+      "nextRepairDistance":nextRepairDistance,
       "nextRepairDate":nextRepairDate,
     });
 
@@ -1036,24 +1040,24 @@ class AppCubit extends Cubit<AppCubitStates> {
     });
   }
 
-  void getCompletedRepairDetails({
+  Future<void> getCompletedRepairDetails({
     required String repairId,
-  }) {
+  }) async {
     emit(AppGetSpecificUserLoadingState());
 
-    read(
+    final value = await read(
       Uri.parse(GETCOMPLETEDREPAIRDETAILS + repairId),
       headers: headers,
-    ).then((value) {
-      getCompletedRepairDetailsModel = GetCompletedRepairDetailsModel.fromJson(jsonDecode(value));
-      if (getCompletedRepairDetailsModel?.name != null) {
-        emit(AppGetSpecificUserSuccessState());
-      } else {
-        emit(AppGetSpecificUserErrorState());
-      }
-    }).catchError((error) {
+    ).catchError((error) {
       emit(AppGetSpecificUserErrorState());
     });
+
+    getCompletedRepairDetailsModel = GetCompletedRepairDetailsModel.fromJson(jsonDecode(value));
+    if (getCompletedRepairDetailsModel?.name != null) {
+      emit(AppGetSpecificUserSuccessState());
+    } else {
+      emit(AppGetSpecificUserErrorState());
+    }
   }
 
   void getMonthWork({

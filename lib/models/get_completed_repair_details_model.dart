@@ -16,6 +16,7 @@ class GetCompletedRepairDetailsModel {
   {
     visit = Visit.fromJson(json?['repair']);
 
+
     name = json?['data']['name'];
     phone = json?['data']['phone'];
     carNumber = json?['data']['carNumber'];
@@ -59,7 +60,9 @@ class Visit{
     discount=json?['discount'];
     carNumber=json?['carNumber'];
     type=json?['type'];
-    expectedDate=DateTime.parse(json?['expectedDate']);
+    if (json?['expectedDate']!=null) {
+      expectedDate=DateTime.parse(json!['expectedDate'].toString());
+    }
     json?['Services'].forEach((element){
       services.add(Service.fromJson(element));
     });
@@ -75,8 +78,8 @@ class Visit{
       completedServicesRatio=double.parse(json!['completedServicesRatio'].toString());
     }
     state=json?['State'];
-    note1=json?['note1'];
-    note2=json?['note2'];
+    note1=json?['Note1'];
+    note2=json?['Note2'];
     distance=json?['distance'];
     createdAt=DateTime.parse(json?['createdAt']);
     updatedAt=DateTime.parse(json?['updatedAt']);

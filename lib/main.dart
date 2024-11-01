@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     get(Uri.parse('https://fixer-backend-rtw4.onrender.com/api/V1/appVersion')).then((value) {
       setState(() {
-        updatedApp = json.decode(value.body)[1]['version'].toString() == "1.4.0";
+        updatedApp = json.decode(value.body)[1]['version'].toString() == "1.4.2";
       });
     },);
     super.initState();
@@ -57,7 +57,6 @@ class _MyAppState extends State<MyApp> {
               useMaterial3: true,
               brightness: Brightness.dark,
               colorScheme: const ColorScheme.dark(primary: Colors.deepOrange),
-
 
             ),
             initial: AdaptiveThemeMode.light,

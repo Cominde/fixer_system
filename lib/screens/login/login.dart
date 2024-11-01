@@ -240,34 +240,20 @@ class _LoginState extends State<Login> {
                             obscureText: !_model.passwordVisibility,
                             decoration: InputDecoration(
                               labelText: 'password',
-                              labelStyle:
-                              FlutterFlowTheme
+                              labelStyle: FlutterFlowTheme
                                   .of(context)
-                                  .labelMedium
+                                  .bodySmall
                                   .override(
-                                fontFamily: FlutterFlowTheme
-                                    .of(context)
-                                    .labelMediumFamily,
-                                color: const Color(0xFFF68B1E),
-                                letterSpacing: 0,
-                                useGoogleFonts: GoogleFonts.asMap()
-                                    .containsKey(FlutterFlowTheme
-                                    .of(context)
-                                    .labelMediumFamily),
+                                  fontFamily: 'Outfit',
+                                  color: const Color(0xFFF68B1E),
+                                  fontSize: 18
                               ),
                               hintStyle:
                               FlutterFlowTheme
                                   .of(context)
-                                  .labelMedium
-                                  .override(
-                                fontFamily: FlutterFlowTheme
-                                    .of(context)
-                                    .labelMediumFamily,
-                                letterSpacing: 0,
-                                useGoogleFonts: GoogleFonts.asMap()
-                                    .containsKey(FlutterFlowTheme
-                                    .of(context)
-                                    .labelMediumFamily),
+                                  .bodySmall.override(
+                                  fontFamily: 'Outfit',
+                                  fontSize: 18
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(

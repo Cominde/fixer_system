@@ -98,7 +98,18 @@ class _ClientDetailsState extends State<ClientProfilePage> {
                 child: ConditionalBuilder(
                   condition: state is AppUpdateUsersLoadingState,
                   builder: (context) => const CircularProgressIndicator(),
-                  fallback: (context) => FloatingActionButton(
+                  fallback: (context) => FlutterFlowIconButton(
+                    borderRadius: 16,
+                    buttonSize: 56,
+                    fillColor: Theme
+                        .of(context)
+                        .primaryColor,
+                    icon: readOnly == true
+                        ? const Icon(Icons.edit_outlined)
+                        : const Icon(
+                      Icons.done,
+                      size: 30,
+                    ),
                     onPressed: () {
                       if (readOnly == true) {
                         setState(() {
@@ -114,15 +125,6 @@ class _ClientDetailsState extends State<ClientProfilePage> {
                         );
                       }
                     },
-                    shape: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide.none),
-                    child: readOnly == true
-                        ? const Icon(Icons.edit_outlined)
-                        : const Icon(
-                            Icons.done,
-                            size: 30,
-                          ),
                   ),
                 ),
               ),
