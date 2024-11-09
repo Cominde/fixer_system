@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:fixer_system/components/year_picker_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,6 +35,7 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
 
   var categoryController = TextEditingController();
 
+  var modelController = TextEditingController();
 
   var nextRepairDateController = TextEditingController();
 
@@ -58,6 +58,24 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
 
   final ScrollController _controller = ScrollController();
   final FocusNode _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    carNumberController = TextEditingController(text: AppCubit.get(context).loadAddCarOldValues('carNumberController'));
+    colorController = TextEditingController(text: AppCubit.get(context).loadAddCarOldValues('colorController'));
+    brandController = TextEditingController(text: AppCubit.get(context).loadAddCarOldValues('brandController'));
+    categoryController = TextEditingController(text: AppCubit.get(context).loadAddCarOldValues('categoryController'));
+    modelController = TextEditingController(text: AppCubit.get(context).loadAddCarOldValues('modelController'));
+    distanceController = TextEditingController(text: AppCubit.get(context).loadAddCarOldValues('distanceController'));
+    chassisNumberController = TextEditingController(text: AppCubit.get(context).loadAddCarOldValues('chassisNumberController'));
+    nextRepairDateController  = TextEditingController(text: AppCubit.get(context).loadAddCarOldValues('nextRepairDateController'));
+    lastRepairDateController  = TextEditingController(text: AppCubit.get(context).loadAddCarOldValues('lastRepairDateController'));
+    periodicRepairsController  = TextEditingController(text: AppCubit.get(context).loadAddCarOldValues('periodicRepairsController').isEmpty ? '0' : AppCubit.get(context).loadAddCarOldValues('periodicRepairsController'));
+    nonPeriodicRepairsController  = TextEditingController(text: AppCubit.get(context).loadAddCarOldValues('nonPeriodicRepairsController').isEmpty ? '0' : AppCubit.get(context).loadAddCarOldValues('nonPeriodicRepairsController'));
+    motorNumberController  = TextEditingController(text: AppCubit.get(context).loadAddCarOldValues('motorNumberController'));
+
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -85,7 +103,7 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
           icon:IconButton(
             onPressed: () {
 
-              carNumberController = TextEditingController();
+              /*carNumberController = TextEditingController();
 
               chassisNumberController = TextEditingController();
 
@@ -106,8 +124,22 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
 
               distanceController = TextEditingController();
 
-              motorNumberController = TextEditingController();
+              motorNumberController = TextEditingController();*/
 
+              AppCubit.get(context).saveAddCarOldValues(
+                  carNumberController: carNumberController.text,
+                  colorController: colorController.text,
+                  brandController: brandController.text,
+                  categoryController: categoryController.text,
+                  modelController: modelController.text,
+                  distanceController: distanceController.text,
+                  chassisNumberController: chassisNumberController.text,
+                  nextRepairDateController: nextRepairDateController.text,
+                  lastRepairDateController: lastRepairDateController.text,
+                  periodicRepairsController: periodicRepairsController.text,
+                  nonPeriodicRepairsController: nonPeriodicRepairsController.text,
+                  motorNumberController: motorNumberController.text
+              );
 
               Navigator.of(context).pop();
             },
@@ -134,6 +166,7 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                       color: colorController.text,
                       brand: brandController.text,
                       category: categoryController.text,
+                      model: modelController.text,
                       distance:distanceController.text,
                       chassisNumber: chassisNumberController.text,
                       nextRepairDate: nextRepairDateController.text,
@@ -176,10 +209,10 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
               bool isTextFieldFocused = currentFocus.focusedChild is Focus && currentFocus.focusedChild!.context?.widget is EditableText;
               if (event is RawKeyDownEvent) {
                 if (event.logicalKey == LogicalKeyboardKey.arrowUp && !isTextFieldFocused) {
-                  _controller.animateTo(_controller.offset - 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
+                  _controller.animateTo(_controller.offset - 50, duration: const Duration(milliseconds: 300), curve: Curves.ease);
                   return KeyEventResult.handled;
                 } else if (event.logicalKey == LogicalKeyboardKey.arrowDown && !isTextFieldFocused) {
-                  _controller.animateTo(_controller.offset + 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
+                  _controller.animateTo(_controller.offset + 50, duration: const Duration(milliseconds: 300), curve: Curves.ease);
                   return KeyEventResult.handled;
                 }
               }
@@ -252,7 +285,7 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                                     onChanged: (value) {
                                       setState(() {
                                         automatic = value;
-                                        print(automatic);// Toggle the mode
+                                        //print(automatic);// Toggle the mode
                                       });
                                     },
                                     activeColor: Colors.black, // Background for dark mode
@@ -420,7 +453,25 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                                   const SizedBox(
                                     height: 10,
                                   ),
-                                  YearPickerFormField(
+                                  TextFormField(
+                                    controller: modelController,
+                                    obscureText: false,
+                                    decoration:CustomInputDecoration.customInputDecoration(context, 'Model'),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                      fontFamily: 'Outfit',
+                                      color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'please enter the model';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  /*YearPickerFormField(
                                     firstDate: DateTime(1970),
                                     lastDate: DateTime.now(),
                                     selectedDate: DateTime(2020),
@@ -428,7 +479,7 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                                       AppCubit.get(context).changDatePicker(value);
                                       // Handle year change here
                                     },
-                                  ),
+                                  ),*/
                                 ],
                               ),
                             ),

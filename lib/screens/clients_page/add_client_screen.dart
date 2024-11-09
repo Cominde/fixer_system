@@ -1,5 +1,4 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:fixer_system/components/year_picker_form_field.dart';
 import 'package:fixer_system/services/email_faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,7 +39,7 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
 
   var categoryController = TextEditingController();
 
-
+  var modelController = TextEditingController();
 
   var distanceController = TextEditingController();
 
@@ -61,6 +60,27 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
 
   final ScrollController _controller = ScrollController();
   final FocusNode _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    nameController = TextEditingController(text: AppCubit.get(context).loadAddClientOldValues('nameController'));
+    emailController = TextEditingController(text: AppCubit.get(context).loadAddClientOldValues('emailController'));
+    carNumberController = TextEditingController(text: AppCubit.get(context).loadAddClientOldValues('carNumberController'));
+    phoneNumberController = TextEditingController(text: AppCubit.get(context).loadAddClientOldValues('phoneNumberController'));
+    colorController = TextEditingController(text: AppCubit.get(context).loadAddClientOldValues('colorController'));
+    brandController = TextEditingController(text: AppCubit.get(context).loadAddClientOldValues('brandController'));
+    categoryController = TextEditingController(text: AppCubit.get(context).loadAddClientOldValues('categoryController'));
+    modelController = TextEditingController(text: AppCubit.get(context).loadAddClientOldValues('modelController'));
+    distanceController = TextEditingController(text: AppCubit.get(context).loadAddClientOldValues('distanceController'));
+    chassisNumberController = TextEditingController(text: AppCubit.get(context).loadAddClientOldValues('chassisNumberController'));
+    nextRepairDateController  = TextEditingController(text: AppCubit.get(context).loadAddClientOldValues('nextRepairDateController'));
+    lastRepairDateController  = TextEditingController(text: AppCubit.get(context).loadAddClientOldValues('lastRepairDateController'));
+    periodicRepairsController  = TextEditingController(text: AppCubit.get(context).loadAddClientOldValues('periodicRepairsController').isEmpty ? '0' : AppCubit.get(context).loadAddClientOldValues('periodicRepairsController'));
+    nonPeriodicRepairsController  = TextEditingController(text: AppCubit.get(context).loadAddClientOldValues('nonPeriodicRepairsController').isEmpty ? '0' : AppCubit.get(context).loadAddClientOldValues('nonPeriodicRepairsController'));
+    motorNumberController  = TextEditingController(text: AppCubit.get(context).loadAddClientOldValues('motorNumberController'));
+
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -94,7 +114,25 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
                 icon: IconButton(
                   onPressed: () {
 
-                    nameController = TextEditingController();
+                    AppCubit.get(context).saveAddClientOldValues(
+                        nameController: nameController.text,
+                        emailController: emailController.text,
+                        carNumberController: carNumberController.text,
+                        phoneNumberController: phoneNumberController.text,
+                        colorController: colorController.text,
+                        brandController: brandController.text,
+                        categoryController: categoryController.text,
+                        modelController: modelController.text,
+                        distanceController: distanceController.text,
+                        chassisNumberController: chassisNumberController.text,
+                        nextRepairDateController: nextRepairDateController.text,
+                        lastRepairDateController: lastRepairDateController.text,
+                        periodicRepairsController: periodicRepairsController.text,
+                        nonPeriodicRepairsController: nonPeriodicRepairsController.text,
+                        motorNumberController: motorNumberController.text
+                    );
+
+                    /*nameController = TextEditingController();
 
                     emailController = TextEditingController();
 
@@ -117,7 +155,7 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
                     lastRepairDateController  = TextEditingController();
                     periodicRepairsController  = TextEditingController(text: '0');
                     nonPeriodicRepairsController  = TextEditingController(text: '0');
-                    motorNumberController  = TextEditingController();
+                    motorNumberController  = TextEditingController();*/
 
                     Navigator.of(context).pop();
                   },
@@ -148,6 +186,7 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
                             color: colorController.text,
                             brand: brandController.text,
                             category: categoryController.text,
+                            model: modelController.text,
                             distance: distanceController.text,
                             chassisNumber:chassisNumberController.text,
                             nextRepairDate:nextRepairDateController.text,
@@ -189,10 +228,10 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
                     bool isTextFieldFocused = currentFocus.focusedChild is Focus && currentFocus.focusedChild!.context?.widget is EditableText;
                     if (event is RawKeyDownEvent) {
                       if (event.logicalKey == LogicalKeyboardKey.arrowUp && !isTextFieldFocused) {
-                        _controller.animateTo(_controller.offset - 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
+                        _controller.animateTo(_controller.offset - 50, duration: const Duration(milliseconds: 300), curve: Curves.ease);
                         return KeyEventResult.handled;
                       } else if (event.logicalKey == LogicalKeyboardKey.arrowDown && !isTextFieldFocused) {
-                        _controller.animateTo(_controller.offset + 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
+                        _controller.animateTo(_controller.offset + 50, duration: const Duration(milliseconds: 300), curve: Curves.ease);
                         return KeyEventResult.handled;
                       }
                     }
@@ -313,7 +352,7 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
                                           onChanged: (value) {
                                             setState(() {
                                               automatic = value;
-                                              print(automatic);// Toggle the mode
+                                              //print(automatic);// Toggle the mode
                                             });
                                           },
                                           activeColor: Colors.black, // Background for dark mode
@@ -480,7 +519,25 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
                                         const SizedBox(
                                           height: 10,
                                         ),
-                                        YearPickerFormField(
+                                        TextFormField(
+                                          controller: modelController,
+                                          obscureText: false,
+                                          decoration:CustomInputDecoration.customInputDecoration(context, 'Model'),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                            fontFamily: 'Outfit',
+                                            color:
+                                            FlutterFlowTheme.of(context).primaryText,
+                                          ),
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'please enter the model';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                        /*YearPickerFormField(
                                           firstDate: DateTime(1970),
                                           lastDate: DateTime.now(),
                                           selectedDate: DateTime(2020),
@@ -488,7 +545,7 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
                                             AppCubit.get(context).changDatePicker(value);
                                             // Handle year change here
                                           },
-                                        ),
+                                        ),*/
                                       ],
                                     ),
                                   ),

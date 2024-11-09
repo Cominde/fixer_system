@@ -104,10 +104,10 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
               bool isTextFieldFocused = currentFocus.focusedChild is Focus && currentFocus.focusedChild!.context?.widget is EditableText;
               if (event is RawKeyDownEvent) {
                 if (event.logicalKey == LogicalKeyboardKey.arrowUp && !isTextFieldFocused) {
-                  _controller.animateTo(_controller.offset - 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
+                  _controller.animateTo(_controller.offset - 50, duration: const Duration(milliseconds: 300), curve: Curves.ease);
                   return KeyEventResult.handled;
                 } else if (event.logicalKey == LogicalKeyboardKey.arrowDown && !isTextFieldFocused) {
-                  _controller.animateTo(_controller.offset + 200, duration: const Duration(milliseconds: 30), curve: Curves.ease);
+                  _controller.animateTo(_controller.offset + 50, duration: const Duration(milliseconds: 300), curve: Curves.ease);
                   return KeyEventResult.handled;
                 }
               }
@@ -839,9 +839,12 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                     ),
                                 initialValue: daysItTake.toString(),
                                 onChanged: (value) {
-                                  setState(() {
-                                    daysItTake = int.parse(value);
-                                  });
+                                  if (value.isNotEmpty) {
+                                    //print(value);
+                                    setState(() {
+                                      daysItTake = int.tryParse(value)??0;
+                                    });
+                                  }
                                 },
                               ),
                             ),

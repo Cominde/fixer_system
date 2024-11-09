@@ -43,10 +43,85 @@ class AppCubit extends Cubit<AppCubitStates> {
   GetAllTypesModel? getAllTypesModel = GetAllTypesModel();
   var time = DateTime.now();
 
+  Map<String, String> addClientOldValues = {};
 
+  void saveAddClientOldValues({
+    nameController,
+    emailController,
+    carNumberController,
+    phoneNumberController,
+    colorController,
+    brandController,
+    categoryController,
+    modelController,
+    distanceController,
+    chassisNumberController,
+    nextRepairDateController,
+    lastRepairDateController,
+    periodicRepairsController,
+    nonPeriodicRepairsController,
+    motorNumberController
+  }) {
+    addClientOldValues = {
+      'nameController': nameController,
+      'emailController': emailController,
+      'carNumberController': carNumberController,
+      'phoneNumberController': phoneNumberController,
+      'colorController': colorController,
+      'brandController': brandController,
+      'categoryController': categoryController,
+      'modelController': modelController,
+      'distanceController': distanceController,
+      'chassisNumberController': chassisNumberController,
+      'nextRepairDateController': nextRepairDateController,
+      'lastRepairDateController': lastRepairDateController,
+      'periodicRepairsController': periodicRepairsController,
+      'nonPeriodicRepairsController': nonPeriodicRepairsController,
+      'motorNumberController': motorNumberController,
+    };
+  }
 
+  loadAddClientOldValues(key) {
+    return addClientOldValues[key]??'';
+  }
 
-  void UpdateRepair(
+  Map<String, String> addCarOldValues = {};
+
+  void saveAddCarOldValues({
+    carNumberController,
+    colorController,
+    brandController,
+    categoryController,
+    modelController,
+    distanceController,
+    chassisNumberController,
+    nextRepairDateController,
+    lastRepairDateController,
+    periodicRepairsController,
+    nonPeriodicRepairsController,
+    motorNumberController
+  }) {
+    addCarOldValues = {
+      'carNumberController': carNumberController,
+      'colorController': colorController,
+      'brandController': brandController,
+      'categoryController': categoryController,
+      'modelController': modelController,
+      'distanceController': distanceController,
+      'chassisNumberController': chassisNumberController,
+      'nextRepairDateController': nextRepairDateController,
+      'lastRepairDateController': lastRepairDateController,
+      'periodicRepairsController': periodicRepairsController,
+      'nonPeriodicRepairsController': nonPeriodicRepairsController,
+      'motorNumberController': motorNumberController,
+    };
+  }
+
+  loadAddCarOldValues(key) {
+    return addCarOldValues[key]??'';
+  }
+
+  void updateRepair(
       context, {
         required List<Map<String, dynamic>> components,
         required List<Map<String, dynamic>> services,
@@ -288,6 +363,7 @@ class AppCubit extends Cubit<AppCubitStates> {
     required String color,
     required String brand,
     required String category,
+    required String model,
     required String distance,
     required String chassisNumber,
     required String nextRepairDate,
@@ -295,8 +371,8 @@ class AppCubit extends Cubit<AppCubitStates> {
     required String periodicRepairs,
     required String nonPeriodicRepairs,
     required String motorNumber,
-        required String manually,
-        required String carCode,
+    required String manually,
+    required String carCode,
   }) {
     emit(AppAddClientLoadingState());
 
@@ -310,7 +386,7 @@ class AppCubit extends Cubit<AppCubitStates> {
       'color': color,
       'brand': brand,
       'category': category,
-      'model': time.year.toString(),
+      'model': model,
       "role": "user",
       'distances': distance,
       'chassisNumber': chassisNumber,
@@ -329,6 +405,8 @@ class AppCubit extends Cubit<AppCubitStates> {
         showToast(context, "User added successfully");
         getUsersModel?.users
             .add(User.fromJson(jsonDecode(response.body)['data']));
+
+        addClientOldValues = {};
 
         emit(AppAddClientSuccessState());
         Navigator.pop(context);
@@ -686,6 +764,7 @@ class AppCubit extends Cubit<AppCubitStates> {
     required String color,
     required String brand,
     required String category,
+    required String model,
     required String distance,
     required String chassisNumber,
     required String nextRepairDate,
@@ -706,12 +785,12 @@ class AppCubit extends Cubit<AppCubitStates> {
       'color': color,
       'brand': brand,
       'category': category,
-      'model': time.year.toString(),
+      'model': model,
       'distance': distance,
       'motorNumber': motorNumber,
       'repairing': false,
-      "periodicRepairs": 0,
-      "nonPeriodicRepairs": 0,
+      "periodicRepairs": periodicRepairs,
+      "nonPeriodicRepairs": nonPeriodicRepairs,
       'clientType': type,
       "manually":manually,
       "carCode":carCode,
