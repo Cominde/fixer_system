@@ -671,12 +671,12 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                               children: [
                                 Expanded(
                                   child: TextFormField(
-                                    validator: (value) {
+                                    /*validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'please fill this field';
                                       }
                                       return null;
-                                    },
+                                    },*/
                                     decoration: CustomInputDecoration
                                         .customInputDecoration(context, 'Name'),
                                     style: FlutterFlowTheme.of(context)
@@ -697,12 +697,12 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                 const SizedBox(width: 16.0),
                                 Expanded(
                                   child: TextFormField(
-                                    validator: (value) {
+                                    /*validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'please fill this field';
                                       }
                                       return null;
-                                    },
+                                    },*/
                                     decoration: CustomInputDecoration
                                         .customInputDecoration(context, 'Price'),
                                     style: FlutterFlowTheme.of(context)
@@ -793,12 +793,12 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                             const SizedBox(width: 16.0),
                             Expanded(
                               child: TextFormField(
-                                validator: (value) {
+                                /*validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'please fill this field';
                                   }
                                   return null;
-                                },
+                                },*/
                                 decoration: CustomInputDecoration
                                     .customInputDecoration(
                                         context, 'Discount'),
@@ -821,12 +821,12 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                             const SizedBox(width: 16.0),
                             Expanded(
                               child: TextFormField(
-                                validator: (value) {
+                                /*validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'please fill this field';
                                   }
                                   return null;
-                                },
+                                },*/
                                 decoration: CustomInputDecoration
                                     .customInputDecoration(
                                         context, 'Days It Takes'),
@@ -853,12 +853,12 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                             Expanded(
                               child: TextFormField(
                                 controller: distanceController,
-                                validator: (value) {
+                                /*validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'please fill this field';
                                   }
                                   return null;
-                                },
+                                },*/
                                 decoration: CustomInputDecoration
                                     .customInputDecoration(
                                     context, 'Distance'),
@@ -877,12 +877,12 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                             Expanded(
                               child: TextFormField(
                                 controller: nextRepairDistanceController,
-                                validator: (value) {
+                                /*validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'please fill this field';
                                   }
                                   return null;
-                                },
+                                },*/
                                 decoration: CustomInputDecoration
                                     .customInputDecoration(
                                     context, 'Next Repair Distance'),

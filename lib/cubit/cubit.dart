@@ -138,6 +138,9 @@ class AppCubit extends Cubit<AppCubitStates> {
         required nextRepairDate,
       }) {
     emit(AppUpdateRepairLoadingState());
+    components.removeWhere((element) => element['id'] == '',);
+    services.removeWhere((element) => element['name'] == '',);
+    additions.removeWhere((element) => element['name'] == '',);
     final body = jsonEncode({
       'components': components,
       'services': services,
@@ -901,6 +904,9 @@ class AppCubit extends Cubit<AppCubitStates> {
         required nextRepairDate,
   }) {
     emit(AppAddRepairLoadingState());
+    components.removeWhere((element) => element['id'] == '',);
+    services.removeWhere((element) => element['name'] == '',);
+    additions.removeWhere((element) => element['name'] == '',);
     final body = jsonEncode({
       'components': components,
       'services': services,
