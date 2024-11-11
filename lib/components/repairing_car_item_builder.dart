@@ -115,7 +115,7 @@ Widget repairingCarItemBuilder(context, RepairingCarData model) {
           ),
           Expanded(
             child: AutoSizeText(
-              '${(model.completedServicesRatio)??'-'}',
+              '% ${(((model.completedServicesRatio??0)*100.0) as double).toStringAsFixed(2)}',
               style: FlutterFlowTheme.of(
                   context)
                   .bodyMedium

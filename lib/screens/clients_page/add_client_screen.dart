@@ -613,7 +613,7 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
                                               setState(() {
                                                 if (value!=null) {
                                                   nextRepairDateController.text =
-                                                  '${value.day.toString()}/${value.month.toString()}/${value.year.toString()}';
+                                                  '${value.year.toString()}-${value.month.toString()}-${value.day.toString()}';
                                                 }
                                               });
                                             });
@@ -637,14 +637,14 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
                                           onTap: (){
                                             showDatePicker(
                                               context: context,
-                                              firstDate: DateTime.now(),
+                                              firstDate: DateTime(2021),
                                               lastDate: DateTime(2999),
                                               initialDate: DateTime.now(),
                                             ).then((value) {
                                               setState(() {
                                                 if (value!=null) {
                                                   lastRepairDateController.text =
-                                                  '${value.day.toString()}/${value.month.toString()}/${value.year.toString()}';
+                                                  '${value.year.toString()}-${value.month.toString()}-${value.day.toString()}';
                                                 }
                                               });
                                             });

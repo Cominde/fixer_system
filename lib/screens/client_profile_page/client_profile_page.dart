@@ -89,125 +89,125 @@ class _ClientDetailsState extends State<ClientProfilePage> {
             }
             return KeyEventResult.ignored;
           },
-          child: Form(
-            key: formKey,
-            child: Scaffold(
-              backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-              floatingActionButton: Container(
-                alignment: Alignment.bottomRight,
-                child: ConditionalBuilder(
-                  condition: state is AppUpdateUsersLoadingState,
-                  builder: (context) => const CircularProgressIndicator(),
-                  fallback: (context) => FlutterFlowIconButton(
-                    borderRadius: 16,
-                    buttonSize: 56,
-                    fillColor: Theme
-                        .of(context)
-                        .primaryColor,
-                    icon: readOnly == true
-                        ? const Icon(Icons.edit_outlined)
-                        : const Icon(
-                      Icons.done,
-                      size: 30,
-                    ),
-                    onPressed: () {
-                      if (readOnly == true) {
-                        setState(() {
-                          readOnly = false;
-                        });
-                      } else if (formKey.currentState!.validate()) {
-                        AppCubit.get(context).updateUser(
-                          context,
-                          email: emailController.text.toString(),
-                          name: nameController.text.toString(),
-                          phone: phoneNumberController.text.toString(),
-                          id: widget.userId,
-                        );
-                      }
-                    },
+          child: Scaffold(
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            floatingActionButton: Container(
+              alignment: Alignment.bottomRight,
+              child: ConditionalBuilder(
+                condition: state is AppUpdateUsersLoadingState,
+                builder: (context) => const CircularProgressIndicator(),
+                fallback: (context) => FlutterFlowIconButton(
+                  borderRadius: 16,
+                  buttonSize: 56,
+                  fillColor: Theme
+                      .of(context)
+                      .primaryColor,
+                  icon: readOnly == true
+                      ? const Icon(Icons.edit_outlined)
+                      : const Icon(
+                    Icons.done,
+                    size: 30,
                   ),
+                  onPressed: () {
+                    if (readOnly == true) {
+                      setState(() {
+                        readOnly = false;
+                      });
+                    } else if (formKey.currentState!.validate()) {
+                      AppCubit.get(context).updateUser(
+                        context,
+                        email: emailController.text.toString(),
+                        name: nameController.text.toString(),
+                        phone: phoneNumberController.text.toString(),
+                        id: widget.userId,
+                      );
+                    }
+                  },
                 ),
               ),
-              appBar: PreferredSize(
-                preferredSize: const Size.fromHeight(66),
-                child: AppBar(
-                  toolbarHeight: 66,
-                  leadingWidth: 66,
-                  backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-                  actions: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: FlutterFlowIconButton(
-                        borderColor: FlutterFlowTheme.of(context).lineColor,
-                        borderRadius: 12,
-                        borderWidth: 1,
-                        buttonSize: 50,
-                        fillColor:
-                            FlutterFlowTheme.of(context).secondaryBackground,
-                        icon: Icon(
-                          Icons.car_repair_rounded,
-                          color: FlutterFlowTheme.of(context).secondaryText,
-                          size: 24,
-                        ),
-                        onPressed: () async {
-                          AppCubit.get(context).getAllTypes();
-
-                          showDialog(
-                              context: context,
-                              builder: (context) =>
-                                  AddNewCarScreen(userId: widget.userId,allTypes: AppCubit.get(context).getAllTypesModel!.types));
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: FlutterFlowIconButton(
-                        borderColor:
-                        FlutterFlowTheme.of(
-                            context)
-                            .lineColor,
-                        borderRadius: 12,
-                        borderWidth: 1,
-                        buttonSize: 50,
-                        fillColor: FlutterFlowTheme
-                            .of(context)
-                            .secondaryBackground,
-                        icon: Icon(
-                          Icons.refresh_rounded,
-                          color:
-                          FlutterFlowTheme.of(
-                              context)
-                              .secondaryText,
-                          size: 24,
-                        ),
-                        onPressed: () {
-                          AppCubit.get(context).getSpecificUser(userId: widget.userId);
-                        },
-                      ),
-                    ),
-                  ],
-                  title: const Text("Client Profile"),
-                  leading: Padding(
+            ),
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(66),
+              child: AppBar(
+                toolbarHeight: 66,
+                leadingWidth: 66,
+                backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+                actions: [
+                  Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: FlutterFlowIconButton(
                       borderColor: FlutterFlowTheme.of(context).lineColor,
                       borderRadius: 12,
                       borderWidth: 1,
                       buttonSize: 50,
-                      fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                      fillColor:
+                          FlutterFlowTheme.of(context).secondaryBackground,
                       icon: Icon(
-                        Icons.arrow_back_rounded,
+                        Icons.add_rounded,
                         color: FlutterFlowTheme.of(context).secondaryText,
                         size: 24,
                       ),
-                      onPressed: () {
-                        Navigator.pop(context);
+                      onPressed: () async {
+                        AppCubit.get(context).getAllTypes();
+
+                        showDialog(
+                            context: context,
+                            builder: (context) =>
+                                AddNewCarScreen(userId: widget.userId,allTypes: AppCubit.get(context).getAllTypesModel!.types));
                       },
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FlutterFlowIconButton(
+                      borderColor:
+                      FlutterFlowTheme.of(
+                          context)
+                          .lineColor,
+                      borderRadius: 12,
+                      borderWidth: 1,
+                      buttonSize: 50,
+                      fillColor: FlutterFlowTheme
+                          .of(context)
+                          .secondaryBackground,
+                      icon: Icon(
+                        Icons.refresh_rounded,
+                        color:
+                        FlutterFlowTheme.of(
+                            context)
+                            .secondaryText,
+                        size: 24,
+                      ),
+                      onPressed: () {
+                        AppCubit.get(context).getSpecificUser(userId: widget.userId);
+                      },
+                    ),
+                  ),
+                ],
+                title: const Text("Client Profile"),
+                leading: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: FlutterFlowIconButton(
+                    borderColor: FlutterFlowTheme.of(context).lineColor,
+                    borderRadius: 12,
+                    borderWidth: 1,
+                    buttonSize: 50,
+                    fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                    icon: Icon(
+                      Icons.arrow_back_rounded,
+                      color: FlutterFlowTheme.of(context).secondaryText,
+                      size: 24,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
               ),
-              body: ConditionalBuilder(
+            ),
+            body: Form(
+              key: formKey,
+              child: ConditionalBuilder(
                 condition: state is AppGetSpecificUserLoadingState,
                 builder: (context) => const Center(
                   child: Padding(
@@ -215,11 +215,13 @@ class _ClientDetailsState extends State<ClientProfilePage> {
                     child: CircularProgressIndicator(),
                   ),
                 ),
-                fallback: (context) => SingleChildScrollView(
-                  controller: _controller,
-                  child: Container(
-                    padding: const EdgeInsets.all(30),
+                fallback: (context) => Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    controller: _controller,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           mainAxisSize: MainAxisSize.max,
@@ -375,7 +377,7 @@ class _ClientDetailsState extends State<ClientProfilePage> {
                             ),
                           ],
                         ),
-                        Row(
+                        /*Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             ConditionalBuilder(
@@ -417,6 +419,75 @@ class _ClientDetailsState extends State<ClientProfilePage> {
                               ),
                             ),
                           ],
+                        ),*/
+                        Container(
+                          padding: const EdgeInsets.all(35),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+
+                              const Padding(
+                                padding: EdgeInsets.all(18.0),
+                                child: Text(
+                                  'All Cars',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                ),
+                              ),
+                              ConditionalBuilder(
+                                condition: state is AppGetAllCarsLoadingState,
+                                builder: (context) => const Center(
+                                    child: CircularProgressIndicator()),
+                                fallback: (context) =>  Column(
+                                  children: List.generate(
+                                    (AppCubit.get(context).getSpecificUserModel!.cars.length + 4) ~/ 5, // Number of rows needed
+                                        (rowIndex) {
+                                      int firstItemIndex = rowIndex * 5;
+                                      int secondItemIndex = firstItemIndex + 1;
+                                      int thirdItemIndex = secondItemIndex + 1;
+                                      int fourthItemIndex = thirdItemIndex + 1;
+                                      int fifthItemIndex = fourthItemIndex + 1;
+
+                                      return Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: clientCarItemBuilder(context, AppCubit.get(context).getSpecificUserModel!.cars[firstItemIndex]),
+                                          ),
+                                          if (secondItemIndex < AppCubit.get(context).getSpecificUserModel!.cars.length) ...[
+                                            const SizedBox(width: 25),
+                                            Expanded(
+                                              child: clientCarItemBuilder(context, AppCubit.get(context).getSpecificUserModel!.cars[secondItemIndex]),
+                                            ),
+                                          ],
+                                          if (thirdItemIndex < AppCubit.get(context).getSpecificUserModel!.cars.length) ...[
+                                            const SizedBox(width: 25),
+                                            Expanded(
+                                              child: clientCarItemBuilder(context, AppCubit.get(context).getSpecificUserModel!.cars[thirdItemIndex]),
+                                            ),
+                                          ],
+                                          if (fourthItemIndex < AppCubit.get(context).getSpecificUserModel!.cars.length) ...[
+                                            const SizedBox(width: 25),
+                                            Expanded(
+                                              child: clientCarItemBuilder(context, AppCubit.get(context).getSpecificUserModel!.cars[fourthItemIndex]),
+                                            ),
+                                          ],
+                                          if (fifthItemIndex < AppCubit.get(context).getSpecificUserModel!.cars.length) ...[
+                                            const SizedBox(width: 25),
+                                            Expanded(
+                                              child: clientCarItemBuilder(context, AppCubit.get(context).getSpecificUserModel!.cars[fifthItemIndex]),
+                                            ),
+                                          ],
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

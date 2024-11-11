@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -6,6 +8,9 @@ FToast fToast=FToast();
 
 
 showToast(context,text) {
+
+  log(text);
+
   fToast.init(context);
 
   Widget toast = Container(
@@ -15,7 +20,7 @@ showToast(context,text) {
       color: Colors.grey[600],
 
     ),
-    child: Row(
+    child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(text,style: const TextStyle(color: Colors.white),),

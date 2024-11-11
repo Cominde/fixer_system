@@ -151,10 +151,10 @@ class _CarProfilePageState extends State<CarProfilePage> {
                 ?.carData
                 ?.motorNumber);
         nextRepairDateController = TextEditingController(
-          text: '${(AppCubit.get(context).getSpecificCarModel?.carData?.nextRepairDate?.day)??'-'}/${(AppCubit.get(context).getSpecificCarModel?.carData?.nextRepairDate?.month)??'-'}/${(AppCubit.get(context).getSpecificCarModel?.carData?.nextRepairDate?.year)??'-'}',
+          text: '${(AppCubit.get(context).getSpecificCarModel?.carData?.nextRepairDate?.year)??0000}-${(AppCubit.get(context).getSpecificCarModel?.carData?.nextRepairDate?.month)??00}-${(AppCubit.get(context).getSpecificCarModel?.carData?.nextRepairDate?.day)??00}',
         );
         lastRepairDateController = TextEditingController(
-            text: '${(AppCubit.get(context).getSpecificCarModel?.carData?.lastRepairDate?.day)??'-'}/${(AppCubit.get(context).getSpecificCarModel?.carData?.lastRepairDate?.month)??'-'}/${(AppCubit.get(context).getSpecificCarModel?.carData?.lastRepairDate?.year)??'-'}',
+            text: '${(AppCubit.get(context).getSpecificCarModel?.carData?.lastRepairDate?.year)??0000}-${(AppCubit.get(context).getSpecificCarModel?.carData?.lastRepairDate?.month)??00}-${(AppCubit.get(context).getSpecificCarModel?.carData?.lastRepairDate?.day)??00}',
         );
         nextRepairDate=AppCubit.get(context).getSpecificCarModel?.carData?.nextRepairDate;
         lastRepairDate=AppCubit.get(context).getSpecificCarModel?.carData?.lastRepairDate;
@@ -623,7 +623,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
                                           if (value!=null) {
                                             lastRepairDate=value;
                                             lastRepairDateController.text =
-                                          '${value.day.toString()}/${value.month.toString()}/${value.year.toString()}';
+                                          '${value.year.toString()}-${value.month.toString()}-${value.day.toString()}';
                                           }
                                         });
                                       });
@@ -654,7 +654,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
                                       ).then((value) {
                                         setState(() {
                                           if (value!=null) {
-                                            nextRepairDateController.text ='${value.day.toString()}/${value.month.toString()}/${value.year.toString()}';
+                                            nextRepairDateController.text ='${value.year.toString()}-${value.month.toString()}-${value.day.toString()}';
                                             nextRepairDate=value;
                                           }
                                         });
@@ -688,7 +688,7 @@ class _CarProfilePageState extends State<CarProfilePage> {
                             const Padding(
                               padding: EdgeInsets.all(18.0),
                               child: Text(
-                                'All Repaires',
+                                'All Repairs',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20),

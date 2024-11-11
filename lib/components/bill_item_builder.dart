@@ -53,8 +53,18 @@ class _BillItemState extends State<BillItem> {
         final AppCubit cubit = AppCubit.get(context);
         await cubit.getCompletedRepairDetails(repairId: widget.model.id!);
 
-        int totalServices = cubit.getCompletedRepairDetailsModel?.visit?.services.map((service) => service.price).reduce((a, b) => a! + b!)??0;
-        int totalComponents = cubit.getCompletedRepairDetailsModel?.visit?.components.map((component) => component.price).reduce((a, b) => a! + b!)??0;
+        int totalServices = 0;
+        if (cubit.getCompletedRepairDetailsModel!.visit!.services.isNotEmpty) {
+          totalServices = cubit.getCompletedRepairDetailsModel?.visit?.services.map((service) => service.price).reduce((a, b) => a! + b!)??0;
+        }
+        int totalComponents = 0;
+        if (cubit.getCompletedRepairDetailsModel!.visit!.components.isNotEmpty) {
+          totalComponents = cubit.getCompletedRepairDetailsModel?.visit?.components.map((component) => component.price).reduce((a, b) => a! + b!)??0;
+        }
+        int totalAdditions = 0;
+        if (cubit.getCompletedRepairDetailsModel!.visit!.additions.isNotEmpty) {
+          totalComponents = cubit.getCompletedRepairDetailsModel?.visit?.additions.map((component) => component.price).reduce((a, b) => a! + b!)??0;
+        }
 
         const int itemsPerPage = 13; // Set the number of items per page
         final visitComponents = cubit.getCompletedRepairDetailsModel?.visit?.components;
@@ -686,12 +696,12 @@ class _BillItemState extends State<BillItem> {
                                                                   ),
                                                                   children: [
                                                                     normalText(
-                                                                        totalComponents.toString(),myFont
+                                                                        (totalComponents+totalAdditions).toString(),myFont
                                                                     ),
                                                                     pw.Container(
                                                                       color: const PdfColor(0.90196,0.90196,0.90196),
                                                                       child: normalText(
-                                                                          'صافي قطع الغيار',myFont
+                                                                          'صافي قطع الغيار و الاعمال الخارجية',myFont
                                                                       ),
                                                                     ),
                                                                   ]
@@ -1115,7 +1125,7 @@ class _BillItemState extends State<BillItem> {
                             .start,
                         children: [
                           AutoSizeText(
-                            '${(widget.model.paidOn)?.day??'-'}/${(widget.model.paidOn)?.month??'-'}/${(widget.model.paidOn)?.year??'-'}',
+                            '${(widget.model.paidOn)?.year??0000}-${(widget.model.paidOn)?.month??00}-${(widget.model.paidOn)?.day??00}',
                             style:
                             FlutterFlowTheme.of(
                                 context)

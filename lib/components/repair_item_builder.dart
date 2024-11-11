@@ -153,7 +153,7 @@ Widget repairItemBuilder(context, RepairData? model) {
                     children: [
                       const Text('Expected Date'),
                       Text(
-                          '${(model?.expectedDate?.day) ?? '-'}/${(model?.expectedDate?.month) ?? '-'}/${(model?.expectedDate?.year) ?? '-'}',style: const TextStyle(fontWeight: FontWeight.bold),),
+                          '${(model?.expectedDate?.year) ?? 0000}-${(model?.expectedDate?.month) ?? 00}-${(model?.expectedDate?.day) ?? 00}',style: const TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                 ],
@@ -181,7 +181,7 @@ Widget repairItemBuilder(context, RepairData? model) {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('Completed Services Ratio'),
-                      Text('${(model?.completedServicesRatio*100)} %',style: const TextStyle(fontWeight: FontWeight.bold),),
+                      Text('% ${(((model?.completedServicesRatio??0)*100.0) as double).toStringAsFixed(2)}',style: const TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                   Row(
@@ -196,7 +196,7 @@ Widget repairItemBuilder(context, RepairData? model) {
                     children: [
                       const Text('Created At'),
                       Text(
-                          '${(model?.createdAt?.day) ?? '-'}/${(model?.createdAt?.month) ?? '-'}/${(model?.createdAt?.year) ?? '-'}',style: const TextStyle(fontWeight: FontWeight.bold),),
+                          '${(model?.createdAt?.year) ?? 0000}-${(model?.createdAt?.month) ?? 00}-${(model?.createdAt?.day) ?? 00}',style: const TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                   Row(
@@ -204,7 +204,7 @@ Widget repairItemBuilder(context, RepairData? model) {
                     children: [
                       const Text('Updated At'),
                       Text(
-                          '${(model?.updatedAt?.day) ?? '-'}/${(model?.updatedAt?.month) ?? '-'}/${(model?.updatedAt?.year) ?? '-'}',style: const TextStyle(fontWeight: FontWeight.bold),),
+                          '${(model?.updatedAt?.year) ?? 0000}-${(model?.updatedAt?.month) ?? 00}/${(model?.updatedAt?.day) ?? 00}',style: const TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                 ],

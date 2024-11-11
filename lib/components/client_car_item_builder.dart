@@ -30,7 +30,7 @@ Widget clientCarItemBuilder(context,SpecificUserCarData model){
       ),
       padding: const EdgeInsets.all(5),
       width: MediaQuery.sizeOf(context).width * 0.15,
-      height: MediaQuery.sizeOf(context).width * 0.13,
+      height: MediaQuery.sizeOf(context).width * 0.18,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

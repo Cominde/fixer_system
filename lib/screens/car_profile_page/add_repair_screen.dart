@@ -36,7 +36,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
 
   final _formKey = GlobalKey<FormState>();
   List<Map<String, dynamic>> components = [
-    {'id': '', 'quantity': 0, 'name':''}
+    {'id': '', 'quantity': 0, 'name':'', 'price': 0, 'totalQuantity': 0}
   ];
   List<TextEditingController> componentsControllers = [TextEditingController()];
   List<FocusNode> componentsFocusNodes = [FocusNode()];
@@ -51,13 +51,12 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
   String searchValue = '';
 
 
-  double discount = 0;
+  int discount = 0;
   int daysItTake = 0;
   String nextPerDate = '';
   var nextRepairDateController = TextEditingController();
 
-
-
+  int totalBalance = 0;
 
   var idController = TextEditingController();
 
@@ -68,8 +67,6 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
   bool automatic=true;
 
   String nextCode='';
-
-
 
   var distanceController=TextEditingController();
   var nextRepairDistanceController = TextEditingController();
@@ -84,11 +81,23 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
     super.dispose();
   }
 
+  void calculateTotalBalance() {
+    totalBalance = 0;
+    for (var component in components) {
+      totalBalance += ((component['quantity'] as int) * (component['price']*1.0 as double)).toInt();
+    }
+    for (var service in services) {
+      totalBalance += service['price'] as int;
+    }
+    for (var addition in additions) {
+      totalBalance += addition['price'] as int;
+    }
+    totalBalance -= discount;
+  }
+
 
   @override
   Widget build(BuildContext context) {
-
-
     return BlocConsumer<AppCubit, AppCubitStates>(
         listener: (context, state) {
           if (state is AppAddRepairSuccessState)
@@ -180,77 +189,103 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
-                        Container(
-                          width: 250,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 2,
-                                blurRadius: 5,
-                                offset: const Offset(0, 3),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              width: 250,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 2,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              const Text(
-                                "EGYPT           مصر",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 2,
-                                  color: Colors.black,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  const Text(
+                                    "EGYPT           مصر",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: 2,
+                                      color: Colors.black,
 
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.bottomCenter,
-                                width: 250,
-                                height: 71,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(10),
-                                      bottomRight: Radius.circular(10)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 2,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 3),
                                     ),
-                                  ],
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    AutoSizeText(
-                                      widget.carNumber,
-                                      maxLines: 1,
-                                      style: const TextStyle(
-                                        fontSize: 45,
-                                        fontWeight: FontWeight.bold,
-                                        letterSpacing: 2,
-                                        color: Colors.black,
-
-                                      ),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.bottomCenter,
+                                    width: 250,
+                                    height: 71,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: const BorderRadius.only(
+                                          bottomLeft: Radius.circular(10),
+                                          bottomRight: Radius.circular(10)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 2,
+                                          blurRadius: 5,
+                                          offset: const Offset(0, 3),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        AutoSizeText(
+                                          widget.carNumber,
+                                          maxLines: 1,
+                                          style: const TextStyle(
+                                            fontSize: 45,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 2,
+                                            color: Colors.black,
+
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  'Total Price',
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 2,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                SizedBox(height: 8,),
+                                Text(
+                                  totalBalance.toString(),
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    letterSpacing: 2,
+                                    color: Color(0xFFF68B1E),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
                         ),
                         const SizedBox(height: 16.0),
-
-
                         const SizedBox(
                           height: 10,
                         ),
@@ -301,9 +336,6 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-
-
-
                         const Padding(
                           padding: EdgeInsets.all(12.0),
                           child: Text('Components',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25),),
@@ -314,177 +346,191 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                           itemCount: components.length,
                           separatorBuilder: (context, index) => const SizedBox(height: 15,),
                           itemBuilder: (context, i) {
-                            //AppCubit.get(context).getListOfComponents();
-
                             return Row(
                               children: <Widget>[
-                                    Expanded(
-                                      child: SearchField(
-                                        onSearchTextChanged: (searchQuery) {
-                                          //print(searchQuery);
-                                          AppCubit.get(context).searchComponents(word: searchQuery);
-                                          return AppCubit.get(context).searchListOfInventoryComponentsModel!.data.map((e) => SearchFieldListItem(e.name!,item: e)).toList();
-                                        },
-                                        emptyWidget: const Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Text("No Results"),
+                                Expanded(
+                                    child: SearchField(
+                                      onSearchTextChanged: (searchQuery) {
+                                        //print(searchQuery);
+                                        AppCubit.get(context).searchComponents(word: searchQuery);
+                                        return AppCubit.get(context).searchListOfInventoryComponentsModel!.data.map((e) => SearchFieldListItem(e.name!,item: e)).toList();
+                                      },
+                                      emptyWidget: const Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text("No Results"),
+                                      ),
+                                      suggestions: AppCubit.get(context).searchListOfInventoryComponentsModel!.data.map((e) => SearchFieldListItem(e.name!,item: e)).toList(),
+                                      onSuggestionTap: (searchItem) {
+                                        int index = AppCubit.get(context).searchListOfInventoryComponentsModel?.data.indexOf(searchItem.item!)??-1;
+                                        if(index != -1){
+                                          components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].id;
+                                          components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].name;
+                                          components[i]['quantity'] = 1;
+                                          components[i]['price'] = AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].price;
+                                          components[i]['totalQuantity'] = AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].quantity;
+                                          calculateTotalBalance();
+                                          setState(() {
+                                            componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data[index].name!);
+                                            componentsFocusNodes[i].unfocus();
+                                          });
+                                        }
+                                      },
+                                      onSubmit: (searchQuery) {
+                                        int index = AppCubit.get(context).searchListOfInventoryComponentsModel?.data.indexWhere((element) => element.name == searchQuery)??-1;
+                                        if(index != -1){
+                                          components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].id;
+                                          components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].name;
+                                          components[i]['quantity'] = 1;
+                                          components[i]['price'] = AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].price;
+                                          components[i]['totalQuantity'] = AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].quantity;
+                                          calculateTotalBalance();
+                                          setState(() {
+                                            componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data[index].name!);
+                                            componentsFocusNodes[i].unfocus();
+                                          });
+                                        } else {
+                                          components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data.first.id;
+                                          components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data.first.name;
+                                          //print(components[i]);
+                                          setState(() {
+                                            componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data.first.name!);
+                                            componentsFocusNodes[i].unfocus();
+                                          });
+                                        }
+                                      },
+                                      onTapOutside: (_) {
+                                        int index = AppCubit.get(context).searchListOfInventoryComponentsModel?.data.indexWhere((element) => element.name == componentsControllers[i].text)??-1;
+                                        if(index != -1){
+                                          components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].id;
+                                          components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].name;
+                                          components[i]['quantity'] = 1;
+                                          components[i]['price'] = AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].price;
+                                          components[i]['totalQuantity'] = AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].quantity;
+                                          calculateTotalBalance();
+                                          setState(() {
+                                            componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data[index].name!);
+                                            componentsFocusNodes[i].unfocus();
+                                          });
+                                        } else {
+                                          components[i]['id']='';
+                                          components[i]['name']='';
+                                          components[i]['quantity'] = 0;
+                                          components[i]['price'] = 0;
+                                          components[i]['totalQuantity'] = 0;
+                                          calculateTotalBalance();
+                                          setState(() {
+                                            componentsControllers[i] = TextEditingController();
+                                            componentsFocusNodes[i].unfocus();
+                                          });
+                                        }
+                                      },
+                                      controller: componentsControllers[i],
+                                      searchInputDecoration: SearchInputDecoration(
+                                        labelText: 'Search',
+                                        labelStyle: FlutterFlowTheme
+                                            .of(context)
+                                            .bodySmall
+                                            .override(
+                                          fontFamily: 'Outfit',
+                                          color: const Color(0xFFF68B1E),
                                         ),
-                                        suggestions: AppCubit.get(context).searchListOfInventoryComponentsModel!.data.map((e) => SearchFieldListItem(e.name!,item: e)).toList(),
-                                        onSuggestionTap: (searchItem) {
-                                          int index = AppCubit.get(context).searchListOfInventoryComponentsModel?.data.indexOf(searchItem.item!)??-1;
-                                          if(index != -1){
-                                            components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].id;
-                                            components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].name;
-                                            //print(components[i]);
-                                            setState(() {
-                                              componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data[index].name!);
-                                              componentsFocusNodes[i].unfocus();
-                                            });
-                                          }
-                                        },
-                                        onSubmit: (searchQuery) {
-                                          int index = AppCubit.get(context).searchListOfInventoryComponentsModel?.data.indexWhere((element) => element.name == searchQuery)??-1;
-                                          if(index != -1){
-                                            components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].id;
-                                            components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].name;
-                                            //print(components[i]);
-                                            setState(() {
-                                              componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data[index].name!);
-                                              componentsFocusNodes[i].unfocus();
-                                            });
-                                          } else {
-                                            components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data.first.id;
-                                            components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data.first.name;
-                                            //print(components[i]);
-                                            setState(() {
-                                              componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data.first.name!);
-                                              componentsFocusNodes[i].unfocus();
-                                            });
-                                          }
-                                        },
-                                        onTapOutside: (_) {
-                                          int index = AppCubit.get(context).searchListOfInventoryComponentsModel?.data.indexWhere((element) => element.name == componentsControllers[i].text)??-1;
-                                          if(index != -1){
-                                            components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].id;
-                                            components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data[index].name;
-                                            //print(components[i]);
-                                            setState(() {
-                                              componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data[index].name!);
-                                              componentsFocusNodes[i].unfocus();
-                                            });
-                                          } else {
-                                            components[i]['id']='';
-                                            components[i]['name']='';
-                                            //print(components[i]);
-                                            setState(() {
-                                              componentsControllers[i] = TextEditingController();
-                                              componentsFocusNodes[i].unfocus();
-                                            });
-                                          }
-                                        },
-                                        controller: componentsControllers[i],
-                                        searchInputDecoration: SearchInputDecoration(
-                                          labelText: 'Search',
-                                          labelStyle: FlutterFlowTheme
-                                              .of(context)
-                                              .bodySmall
-                                              .override(
-                                            fontFamily: 'Outfit',
-                                            color: const Color(0xFFF68B1E),
+                                        hintStyle:
+                                        FlutterFlowTheme
+                                            .of(context)
+                                            .bodySmall,
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme
+                                                .of(context)
+                                                .alternate,
+                                            width: 2,
                                           ),
-                                          hintStyle:
-                                          FlutterFlowTheme
-                                              .of(context)
-                                              .bodySmall,
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: FlutterFlowTheme
-                                                  .of(context)
-                                                  .alternate,
-                                              width: 2,
-                                            ),
-                                            borderRadius: BorderRadius.circular(8),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0xFFF68B1E),
-                                              width: 2,
-                                            ),
-                                            borderRadius: BorderRadius.circular(8),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Colors.red,
-                                              width: 2,
-                                            ),
-                                            borderRadius: BorderRadius.circular(8),
-                                          ),
-                                          focusedErrorBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Colors.red,
-                                              width: 2,
-                                            ),
-                                            borderRadius: BorderRadius.circular(8),
-                                          ),
-                                          /*filled: true,*/
-                                          /*fillColor: Colors.white,*/
-                                          contentPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              16, 24, 0, 24),
-                                        ),
-                                        showEmpty: false,
-                                        suggestionsDecoration: SuggestionDecoration(
-                                          border: Border.all(color: FlutterFlowTheme.of(context).primaryText),
                                           borderRadius: BorderRadius.circular(8),
-                                          padding: const EdgeInsets.all(8),
-                                          hoverColor: Theme.of(context).hoverColor,
                                         ),
-                                        focusNode: componentsFocusNodes[i],
-                                      )
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Color(0xFFF68B1E),
+                                            width: 2,
+                                          ),
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Colors.red,
+                                            width: 2,
+                                          ),
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Colors.red,
+                                            width: 2,
+                                          ),
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        /*filled: true,*/
+                                        /*fillColor: Colors.white,*/
+                                        contentPadding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            16, 24, 0, 24),
+                                      ),
+                                      showEmpty: false,
+                                      suggestionsDecoration: SuggestionDecoration(
+                                        border: Border.all(color: FlutterFlowTheme.of(context).primaryText),
+                                        borderRadius: BorderRadius.circular(8),
+                                        padding: const EdgeInsets.all(8),
+                                        hoverColor: Theme.of(context).hoverColor,
+                                      ),
+                                      focusNode: componentsFocusNodes[i],
+                                    )
+                                ),
+                                const SizedBox(width: 16.0),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    FlutterFlowIconButton(
+                                      borderRadius: 12,
+                                      buttonSize: 40,
+                                      fillColor: Theme
+                                          .of(context)
+                                          .primaryColor,
+                                      icon: const Icon(Icons.remove,
+                                          color: Colors.white),
+                                      onPressed: () {
+                                        setState(() {
+                                          if (components[i]['quantity'] > 1) {
+                                            components[i]['quantity']--;
+                                            calculateTotalBalance();
+                                          }
+                                        });
+                                      },
                                     ),
-                                    const SizedBox(width: 16.0),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        FlutterFlowIconButton(
-                                          borderRadius: 12,
-                                          buttonSize: 40,
-                                          fillColor: Theme
-                                              .of(context)
-                                              .primaryColor,
-                                          icon: const Icon(Icons.remove,
-                                              color: Colors.white),
-                                          onPressed: () {
-                                            setState(() {
-                                              if (components[i]['quantity'] > 1) {
-                                                components[i]['quantity']--;
-                                              }
-                                            });
-                                          },
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                              '${components[i]['quantity']}',
-                                              style: const TextStyle(fontSize: 30)),
-                                        ),
-                                        FlutterFlowIconButton(
-                                          borderRadius: 12,
-                                          buttonSize: 40,
-                                          fillColor: Theme
-                                              .of(context)
-                                              .primaryColor,
-                                          icon: const Icon(Icons.add,
-                                              color: Colors.white),
-                                          onPressed: () {
-                                            setState(() {
-                                              components[i]['quantity'] += 1;
-                                            });
-                                          },
-                                        ),
-                                      ],
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                          '${components[i]['quantity']}',
+                                          style: const TextStyle(fontSize: 30)),
                                     ),
-                                    const SizedBox(width: 16.0),
+                                    FlutterFlowIconButton(
+                                      borderRadius: 12,
+                                      buttonSize: 40,
+                                      fillColor: Theme
+                                          .of(context)
+                                          .primaryColor,
+                                      icon: const Icon(Icons.add,
+                                          color: Colors.white),
+                                      onPressed: () {
+                                        setState(() {
+                                          if (components[i]['quantity'] < components[i]['totalQuantity']) {
+                                            components[i]['quantity'] += 1;
+                                            calculateTotalBalance();
+                                          }
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(width: 16.0),
                                 FlutterFlowIconButton(
                                   borderRadius: 12,
                                   buttonSize: 40,
@@ -498,12 +544,11 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                       components.removeAt(i);
                                       componentsFocusNodes.removeAt(i);
                                       componentsControllers.removeAt(i);
+                                      calculateTotalBalance();
                                     });
                                   },
                                 ),
-                                  ],
-
-
+                              ],
                             );
                           },
                         ),
@@ -513,9 +558,10 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                             onPressed: () {
                               if (components.isEmpty || components.last['id'].toString().isNotEmpty) {
                                 setState(() {
-                                  components.add({'id': '', 'quantity': 0, 'name': ''});
+                                  components.add({'id': '', 'quantity': 0, 'name': '', 'price': 0, 'totalQuantity': 0});
                                   componentsControllers.add(TextEditingController());
                                   componentsFocusNodes.add(FocusNode());
+                                  calculateTotalBalance();
                                 });
                               }
                             },
@@ -523,7 +569,6 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                           ),
                         ),
                         const SizedBox(height: 16.0),
-
                         const Padding(
                           padding: EdgeInsets.all(12.0),
                           child: Text('Services',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25),),
@@ -556,6 +601,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                     onChanged: (value) {
                                       setState(() {
                                         services[index]['name'] = value;
+                                        calculateTotalBalance();
                                       });
                                     },
                                   ),
@@ -581,10 +627,13 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                     initialValue:
                                         services[index]['price'].toString(),
                                     onChanged: (value) {
-                                      setState(() {
-                                        services[index]['price'] =
-                                            int.parse(value);
-                                      });
+                                      if(value.isNotEmpty) {
+                                        setState(() {
+                                          services[index]['price'] =
+                                              int.parse(value);
+                                          calculateTotalBalance();
+                                        });
+                                      }
                                     },
                                   ),
                                 ),
@@ -628,6 +677,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                   onPressed: () {
                                     setState(() {
                                       services.removeAt(index);
+                                      calculateTotalBalance();
                                     });
                                   },
                                 ),
@@ -635,7 +685,6 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                             );
                           },
                           separatorBuilder: (context, index) => const SizedBox(height: 15,),
-
                         ),
                         if (services.isEmpty || services.last['name'].toString().isNotEmpty)Padding(
                           padding: const EdgeInsets.all(12.0),
@@ -648,6 +697,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                     'price': 0,
                                     'state': 'repairing'
                                   });
+                                  calculateTotalBalance();
                                 });
                               }
                             },
@@ -655,7 +705,6 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                           ),
                         ),
                         const SizedBox(height: 16.0),
-
                         const Padding(
                           padding: EdgeInsets.all(12.0),
                           child: Text('Additions',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25),),
@@ -665,7 +714,6 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: additions.length,
                           separatorBuilder: (context, index) => const SizedBox(height: 15,),
-
                           itemBuilder: (context, index) {
                             return Row(
                               children: [
@@ -715,10 +763,13 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                     initialValue:
                                         additions[index]['price'].toString(),
                                     onChanged: (value) {
-                                      setState(() {
-                                        additions[index]['price'] =
-                                            int.parse(value);
-                                      });
+                                      if(value.isNotEmpty) {
+                                        setState(() {
+                                          additions[index]['price'] =
+                                              int.parse(value);
+                                          calculateTotalBalance();
+                                        });
+                                      }
                                     },
                                   ),
                                 ),
@@ -734,6 +785,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                   onPressed: () {
                                     setState(() {
                                       additions.removeAt(index);
+                                      calculateTotalBalance();
                                     });
                                   },
                                 ),
@@ -748,6 +800,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                               if (additions.isEmpty || additions.last['name'].toString().isNotEmpty) {
                                 setState(() {
                                   additions.add({'name': '', 'price': 0});
+                                  calculateTotalBalance();
                                 });
                               }
                             },
@@ -755,12 +808,10 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                           ),
                         ),
                         const SizedBox(height: 16.0),
-
                         const Padding(
                           padding: EdgeInsets.all(12.0),
                           child: Text('Properties',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25),),
                         ),
-
                         Row(
                           children: [
                             Expanded(
@@ -811,9 +862,12 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                     ),
                                 initialValue: discount.toString(),
                                 onChanged: (value) {
-                                  setState(() {
-                                    discount = double.parse(value);
-                                  });
+                                  if(value.isNotEmpty) {
+                                    setState(() {
+                                      discount = int.parse(value);
+                                      calculateTotalBalance();
+                                    });
+                                  }
                                 },
                               ),
                             ),

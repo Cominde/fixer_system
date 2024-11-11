@@ -517,6 +517,22 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                                     height: 10,
                                   ),
                                   TextFormField(
+                                    onTap: (){
+                                      showDatePicker(
+                                        context: context,
+                                        firstDate: DateTime.now(),
+                                        lastDate: DateTime(2999),
+                                        initialDate: DateTime.now(),
+                                      ).then((value) {
+                                        setState(() {
+                                          if (value!=null) {
+                                            nextRepairDateController.text =
+                                            '${value.year.toString()}-${value.month.toString()}-${value.day.toString()}';
+                                          }
+                                        });
+                                      });
+                                    },
+
                                     controller: nextRepairDateController,
                                     obscureText: false,
                                     decoration:CustomInputDecoration.customInputDecoration(context, 'Next Repair Date'),
@@ -532,6 +548,21 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                                     height: 10,
                                   ),
                                   TextFormField(
+                                    onTap: (){
+                                      showDatePicker(
+                                        context: context,
+                                        firstDate: DateTime(2021),
+                                        lastDate: DateTime(2999),
+                                        initialDate: DateTime.now(),
+                                      ).then((value) {
+                                        setState(() {
+                                          if (value!=null) {
+                                            lastRepairDateController.text =
+                                            '${value.year.toString()}-${value.month.toString()}-${value.day.toString()}';
+                                          }
+                                        });
+                                      });
+                                    },
                                     controller: lastRepairDateController,
                                     obscureText: false,
                                     decoration:CustomInputDecoration.customInputDecoration(context, 'Last Repair Date'),

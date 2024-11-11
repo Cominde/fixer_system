@@ -939,7 +939,7 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                     setState(() {
                                       if (value!=null) {
                                         nextRepairDateController.text =
-                                        '${value.day.toString()}/${value.month.toString()}/${value.year.toString()}';
+                                        '${value.year.toString()}-${value.month.toString()}-${value.day.toString()}';
                                       }
                                     });
                                   });

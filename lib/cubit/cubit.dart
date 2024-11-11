@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:fixer_system/cubit/states.dart';
 import 'package:fixer_system/models/get_all_types_model.dart';
@@ -403,6 +404,8 @@ class AppCubit extends Cubit<AppCubitStates> {
       "carCode":carCode,
     });
 
+    log(body.toString());
+
     post(Uri.parse(ADDCLIENT), headers: headers, body: body).then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
         showToast(context, "User added successfully");
@@ -789,7 +792,7 @@ class AppCubit extends Cubit<AppCubitStates> {
       'brand': brand,
       'category': category,
       'model': model,
-      'distance': distance,
+      'distances': distance,
       'motorNumber': motorNumber,
       'repairing': false,
       "periodicRepairs": periodicRepairs,
@@ -798,6 +801,8 @@ class AppCubit extends Cubit<AppCubitStates> {
       "manually":manually,
       "carCode":carCode,
     });
+
+    log(body.toString());
 
     post(Uri.parse(ADDCAR + id), headers: headers, body: body).then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
@@ -893,12 +898,12 @@ class AppCubit extends Cubit<AppCubitStates> {
         required List<Map<String, dynamic>> services,
         required List<Map<String, dynamic>> additions,
         required String type,
-        required double discount,
+        required int discount,
         required int daysItTake,
         required bool manually,
         required String id,
-        String note1 = "",
-        String note2 = "",
+        required String note1,
+        required String note2,
         required distance,
         required nextRepairDistance,
         required nextRepairDate,
@@ -923,6 +928,8 @@ class AppCubit extends Cubit<AppCubitStates> {
       "nextRepairDistance":nextRepairDistance,
       "nextRepairDate":nextRepairDate,
     });
+
+    log(body.toString());
 
     post(Uri.parse(ADDREPAIR), headers: headers, body: body).then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
