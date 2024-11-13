@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fixer_system/components/show_toast_function/show_toast_function.dart';
 import 'package:fixer_system/cubit/cubit.dart';
 import 'package:fixer_system/models/get_completed_repair_details_model.dart';
 import 'package:fixer_system/models/get_completed_repairs_model.dart';
@@ -43,7 +44,24 @@ class _BillItemState extends State<BillItem> {
   }
 
   Future<void> printArabicPdf (pw.Document pdf) async{
-    await Printing.layoutPdf(onLayout: (PdfPageFormat format) async => pdf.save());
+    try {
+      await Printing.layoutPdf(onLayout: (PdfPageFormat format) async => pdf.save());
+    } catch (e) {
+      showToast(context, e.toString());
+    }
+  }
+
+  String cleanString(String input) {
+    // Trim any trailing spaces
+    String trimmedString = input.trimRight();
+
+    // Check if the last character is a space and ensure it's not
+    if (trimmedString.isNotEmpty && trimmedString[trimmedString.length - 1] == ' ') {
+      // Remove the last character if it's a space
+      trimmedString = trimmedString.substring(0, trimmedString.length - 1);
+    }
+
+    return trimmedString;
   }
 
   @override
@@ -52,6 +70,8 @@ class _BillItemState extends State<BillItem> {
       onTap: () async {
         final AppCubit cubit = AppCubit.get(context);
         await cubit.getCompletedRepairDetails(repairId: widget.model.id!);
+
+        print(cleanString(cubit.getCompletedRepairDetailsModel!.carNumber!));
 
         int totalServices = 0;
         if (cubit.getCompletedRepairDetailsModel!.visit!.services.isNotEmpty) {
@@ -157,7 +177,7 @@ class _BillItemState extends State<BillItem> {
                                                                     mainAxisSize: pw.MainAxisSize.max,
                                                                     children: [
                                                                       boldText(
-                                                                          cubit.getCompletedRepairDetailsModel?.visit?.invoiceID??"***",myFont
+                                                                          cleanString(cubit.getCompletedRepairDetailsModel?.visit?.invoiceID??"***"),myFont
                                                                       ),
                                                                     ]
                                                                 ),
@@ -263,21 +283,21 @@ class _BillItemState extends State<BillItem> {
                                                               pw.TableRow(
                                                                   children: [
                                                                     normalText(
-                                                                        cubit.getCompletedRepairDetailsModel?.phone??'***',myFont
+                                                                        cleanString(cubit.getCompletedRepairDetailsModel?.phone??'***'),myFont
                                                                     ),
                                                                   ]
                                                               ),
                                                               pw.TableRow(
                                                                   children: [
                                                                     normalText(
-                                                                        cubit.getCompletedRepairDetailsModel?.model??'***' ,myFont
+                                                                        cleanString(cubit.getCompletedRepairDetailsModel?.model??'***'),myFont
                                                                     ),
                                                                   ]
                                                               ),
                                                               pw.TableRow(
                                                                   children: [
                                                                     normalText(
-                                                                        cubit.getCompletedRepairDetailsModel?.clientCode??'***' ,myFont
+                                                                        cleanString(cubit.getCompletedRepairDetailsModel?.clientCode??'***'),myFont
                                                                     ),
                                                                   ]
                                                               ),
@@ -333,28 +353,28 @@ class _BillItemState extends State<BillItem> {
                                                               pw.TableRow(
                                                                   children: [
                                                                     normalText(
-                                                                        cubit.getCompletedRepairDetailsModel?.name??'***' ,myFont
+                                                                        cleanString(cubit.getCompletedRepairDetailsModel?.name??'***'),myFont
                                                                     ),
                                                                   ]
                                                               ),
                                                               pw.TableRow(
                                                                   children: [
                                                                     normalText(
-                                                                        cubit.getCompletedRepairDetailsModel?.chassisNumber??'***' ,myFont
+                                                                        cleanString(cubit.getCompletedRepairDetailsModel?.chassisNumber??'***'),myFont
                                                                     ),
                                                                   ]
                                                               ),
                                                               pw.TableRow(
                                                                   children: [
                                                                     normalText(
-                                                                        cubit.getCompletedRepairDetailsModel?.brand??'***' ,myFont
+                                                                        cleanString(cubit.getCompletedRepairDetailsModel?.brand??'***'),myFont
                                                                     ),
                                                                   ]
                                                               ),
                                                               pw.TableRow(
                                                                   children: [
                                                                     normalText(
-                                                                        (cubit.getCompletedRepairDetailsModel?.visit?.distance??cubit.getCompletedRepairDetailsModel?.distances??'***').toString() ,myFont
+                                                                        cleanString((cubit.getCompletedRepairDetailsModel?.visit?.distance??cubit.getCompletedRepairDetailsModel?.distances??'***').toString()),myFont
                                                                     ),
                                                                   ]
                                                               ),
@@ -410,14 +430,14 @@ class _BillItemState extends State<BillItem> {
                                                               pw.TableRow(
                                                                   children: [
                                                                     normalText(
-                                                                        (cubit.getCompletedRepairDetailsModel?.visit?.invoiceID != null ? cubit.getCompletedRepairDetailsModel?.visit?.invoiceID!.substring(2) : "***")??"***" ,myFont
+                                                                        cleanString((cubit.getCompletedRepairDetailsModel?.visit?.invoiceID != null ? cubit.getCompletedRepairDetailsModel?.visit?.invoiceID!.substring(2) : "***")??"***"),myFont
                                                                     ),
                                                                   ]
                                                               ),
                                                               pw.TableRow(
                                                                   children: [
                                                                     normalText(
-                                                                        cubit.getCompletedRepairDetailsModel?.carNumber??'***' ,myFont
+                                                                        cleanString(cubit.getCompletedRepairDetailsModel?.carNumber??'***'),myFont
                                                                     ),
                                                                   ]
                                                               ),
@@ -431,7 +451,7 @@ class _BillItemState extends State<BillItem> {
                                                               pw.TableRow(
                                                                   children: [
                                                                     normalText(
-                                                                        cubit.getCompletedRepairDetailsModel?.color??'***' ,myFont
+                                                                        cleanString(cubit.getCompletedRepairDetailsModel?.color??'***'),myFont
                                                                     ),
                                                                   ]
                                                               ),
@@ -526,16 +546,16 @@ class _BillItemState extends State<BillItem> {
                                                               ),
                                                               children: [
                                                                 normalText(
-                                                                    (components[i].price!*components[i].quantity!).toString(),myFont
+                                                                    cleanString((components[i].price!*components[i].quantity!).toString()),myFont
                                                                 ),
                                                                 normalText(
-                                                                    components[i].price.toString(),myFont
+                                                                    cleanString(components[i].price.toString()),myFont
                                                                 ),
                                                                 normalText(
-                                                                    components[i].quantity.toString(),myFont
+                                                                    cleanString(components[i].quantity.toString()),myFont
                                                                 ),
                                                                 normalText(
-                                                                    components[i].name!,myFont
+                                                                    cleanString(components[i].name!),myFont
                                                                 ),
                                                               ]
                                                           ),
@@ -550,16 +570,16 @@ class _BillItemState extends State<BillItem> {
                                                               ),
                                                               children: [
                                                                 normalText(
-                                                                    additions[i].price!.toString(),myFont
+                                                                    cleanString(additions[i].price!.toString()),myFont
                                                                 ),
                                                                 normalText(
-                                                                    additions[i].price.toString(),myFont
+                                                                    cleanString(additions[i].price.toString()),myFont
                                                                 ),
                                                                 normalText(
                                                                     '1',myFont
                                                                 ),
                                                                 normalText(
-                                                                    additions[i].name!,myFont
+                                                                    cleanString(additions[i].name!),myFont
                                                                 ),
                                                               ]
                                                           ),
@@ -618,16 +638,16 @@ class _BillItemState extends State<BillItem> {
                                                               ),
                                                               children: [
                                                                 normalText(
-                                                                    services[i].price!.toString(),myFont
+                                                                    cleanString(services[i].price!.toString()),myFont
                                                                 ),
                                                                 normalText(
-                                                                    services[i].price.toString(),myFont
+                                                                    cleanString(services[i].price.toString()),myFont
                                                                 ),
                                                                 normalText(
                                                                     '1',myFont
                                                                 ),
                                                                 normalText(
-                                                                    services[i].name!,myFont
+                                                                    cleanString(services[i].name!),myFont
                                                                 ),
                                                               ]
                                                           ),
@@ -832,7 +852,9 @@ class _BillItemState extends State<BillItem> {
                                                                     ),
                                                                     color: const PdfColor(1,1,1),
                                                                   ),
-                                                                  child: normalText(cubit.getCompletedRepairDetailsModel?.visit?.note1??'' , myFont,)
+                                                                  child: normalText(
+                                                                    cleanString(cubit.getCompletedRepairDetailsModel?.visit?.note1??''), myFont,
+                                                                  )
                                                               )
                                                           ),
                                                           boldText('اعمال هامة لم تتم بالسيارة', myFont),
@@ -856,7 +878,9 @@ class _BillItemState extends State<BillItem> {
                                                                     ),
                                                                     color: const PdfColor(1,1,1),
                                                                   ),
-                                                                  child: normalText(cubit.getCompletedRepairDetailsModel?.visit?.note2??'' , myFont)
+                                                                  child: normalText(
+                                                                      cleanString(cubit.getCompletedRepairDetailsModel?.visit?.note2??''), myFont
+                                                                  )
                                                               )
                                                           ),
                                                           boldText('ملاحظات هامة', myFont),
