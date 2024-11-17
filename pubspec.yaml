@@ -1,6 +1,6 @@
 name: fixer_system
 description: A new Flutter project.
-version: 1.4.5
+version: 1.5.0
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -36,6 +36,7 @@ dependencies:
   google_fonts: any
   flutter_animate: any
   pdfrx: ^1.0.88
+  file_picker: ^8.1.4
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.1

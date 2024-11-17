@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:fixer_system/components/show_toast_function/show_toast_function.dart';
 import 'package:fixer_system/cubit/cubit.dart';
 import 'package:fixer_system/models/get_completed_repair_details_model.dart';
@@ -43,9 +44,42 @@ class _BillItemState extends State<BillItem> {
     );
   }
 
-  Future<void> printArabicPdf (pw.Document pdf) async{
+  Future<void> printArabicPdf (pw.Document pdf) async {
     try {
-      await Printing.layoutPdf(onLayout: (PdfPageFormat format) async => pdf.save());
+      await Printing.layoutPdf(onLayout: (PdfPageFormat format) async => await pdf.save());
+    } catch (e) {
+      showToast(context, e.toString());
+    }
+  }
+
+  Future<void> savePdf(pw.Document pdf) async {
+    try {
+      // Create a temporary file in the app's directory
+      final AppCubit cubit = AppCubit.get(context);
+      final output = await getTemporaryDirectory();
+      final filePath = '${output.path}/${cubit.getCompletedRepairDetailsModel!.visit!.invoiceID}.pdf';
+
+      // Save the PDF file temporarily
+      final file = File(filePath);
+      await file.writeAsBytes(await pdf.save());
+
+      // Let the user pick a directory to save the file
+      String? selectedDirectory;
+      if (Platform.isWindows) {
+        selectedDirectory = await FilePicker.platform.getDirectoryPath();
+      } else if (Platform.isAndroid || Platform.isIOS) {
+        selectedDirectory = await FilePicker.platform.getDirectoryPath();
+      }
+
+      // If a directory was selected, move the file there
+      if (selectedDirectory != null) {
+        final newFilePath = '$selectedDirectory/${cubit.getCompletedRepairDetailsModel!.visit!.invoiceID}.pdf';
+        final newFile = await file.copy(newFilePath);
+
+        showToast(context, 'PDF saved to: $newFilePath');
+      } else {
+        //print('No directory selected.');
+      }
     } catch (e) {
       showToast(context, e.toString());
     }
@@ -71,19 +105,25 @@ class _BillItemState extends State<BillItem> {
         final AppCubit cubit = AppCubit.get(context);
         await cubit.getCompletedRepairDetails(repairId: widget.model.id!);
 
-        print(cleanString(cubit.getCompletedRepairDetailsModel!.carNumber!));
+        //print(cleanString(cubit.getCompletedRepairDetailsModel!.carNumber!));
 
         int totalServices = 0;
         if (cubit.getCompletedRepairDetailsModel!.visit!.services.isNotEmpty) {
-          totalServices = cubit.getCompletedRepairDetailsModel?.visit?.services.map((service) => service.price).reduce((a, b) => a! + b!)??0;
+          for(final e in cubit.getCompletedRepairDetailsModel!.visit!.services) {
+            totalServices += e.price??0;
+          }
         }
         int totalComponents = 0;
         if (cubit.getCompletedRepairDetailsModel!.visit!.components.isNotEmpty) {
-          totalComponents = cubit.getCompletedRepairDetailsModel?.visit?.components.map((component) => component.price).reduce((a, b) => a! + b!)??0;
+          for(final e in cubit.getCompletedRepairDetailsModel!.visit!.components) {
+            totalComponents += (e.price??0)*(e.quantity??1);
+          }
         }
         int totalAdditions = 0;
         if (cubit.getCompletedRepairDetailsModel!.visit!.additions.isNotEmpty) {
-          totalComponents = cubit.getCompletedRepairDetailsModel?.visit?.additions.map((component) => component.price).reduce((a, b) => a! + b!)??0;
+          for(final e in cubit.getCompletedRepairDetailsModel!.visit!.additions) {
+            totalAdditions += e.price??0;
+          }
         }
 
         const int itemsPerPage = 13; // Set the number of items per page
@@ -970,11 +1010,22 @@ class _BillItemState extends State<BillItem> {
                               Navigator.pop(context);
                             },
                           ),
-                          IconButton(
-                            icon: const Icon(Icons.print_rounded),
-                            onPressed: () async {
-                              await printArabicPdf(pdf);
-                            },
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.download_rounded),
+                                onPressed: () async {
+                                  await savePdf(pdf);
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.print_rounded),
+                                onPressed: () async {
+                                  await printArabicPdf(pdf);
+                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),
