@@ -227,3 +227,5 @@ class AppUpdateTypeErrorState extends AppCubitStates{}
 class AppSearchTypesLoadingState extends AppCubitStates{}
 class AppSearchTypesSuccessState extends AppCubitStates{}
 class AppSearchTypesErrorState extends AppCubitStates{}
+
+class AppSetNewState extends AppCubitStates{}

@@ -87,6 +87,7 @@ class RepairData {
   RepairData();
 
   String? id;
+  String? genId;
   String? client;
   String? brand;
   String? category;
@@ -115,7 +116,9 @@ class RepairData {
 
   RepairData.fromJson(Map<String, dynamic>?json)
   {
+    print(json);
    id = json?["_id"];
+   genId= json?["genId"];
    client= json?["client"];
    brand= json?["brand"];
    category= json?["category"];

@@ -710,18 +710,18 @@ class _CarProfilePageState extends State<CarProfilePage> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Expanded(
-                                          child: repairItemBuilder(
-                                            context,
-                                            AppCubit.get(context).getAllRepairsForSpecificCarModel!.repairs[firstItemIndex],
+                                          child: RepairItemBuilder(
+                                            model: AppCubit.get(context).getAllRepairsForSpecificCarModel!.repairs[firstItemIndex],
+                                            index: firstItemIndex,
                                           ),
                                         ),
                                         if (secondItemIndex < AppCubit.get(context).getAllRepairsForSpecificCarModel!.repairs.length)
                                           const SizedBox(width: 25), // Add spacing between items
                                         if (secondItemIndex < AppCubit.get(context).getAllRepairsForSpecificCarModel!.repairs.length)
                                           Expanded(
-                                            child: repairItemBuilder(
-                                              context,
-                                              AppCubit.get(context).getAllRepairsForSpecificCarModel!.repairs[secondItemIndex],
+                                            child: RepairItemBuilder(
+                                              model: AppCubit.get(context).getAllRepairsForSpecificCarModel!.repairs[secondItemIndex],
+                                              index: secondItemIndex,
                                             ),
                                           ),
                                       ],

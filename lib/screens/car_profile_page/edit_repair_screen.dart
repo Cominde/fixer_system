@@ -122,6 +122,8 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
 
     nextRepairDateController.text="${widget.model!.nextRepairDate??''}";
 
+    idController.text="${widget.model!.genId}";
+
 
     super.initState();
   }
@@ -173,7 +175,7 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                         services: services,
                         type: serviceType,
                         manually:!automatic,
-                        id: widget.model!.id!,
+                        id: idController.text,
                         note1: note1Controller.text,
                         note2: note2Controller.text,
                         distance:distanceController.text,
@@ -287,54 +289,28 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        // Switch(
-                        //   value: automatic,
-                        //   onChanged: (value) async {
-                        //     if (value==true) {
-                        //       idController.text = await AppCubit.get(context)
-                        //           .getTheNextRepairCode();
-                        //     }
-                        //     setState(() {
-                        //       automatic = value;
-                        //       //print(automatic);// Toggle the mode
-                        //     });
-                        //   },
-                        //   activeColor: Colors.black, // Background for dark mode
-                        //   activeTrackColor: Colors.orange, // Toggle track for dark mode
-                        //   inactiveThumbColor: Colors.black, // Background for light mode
-                        //   inactiveTrackColor: Colors.grey, // Toggle track for light mode
-                        // ),
-                        // const SizedBox(
-                        //   height: 10,
-                        // ),
-                        // Visibility(
-                        //   visible: !automatic,
-                        //   replacement: const Text('ID assigned automatically',style: TextStyle(color: Colors.deepOrange,fontWeight: FontWeight.bold),),
-                        //
-                        //   child: TextFormField(
-                        //     controller: idController,
-                        //     obscureText: false,
-                        //
-                        //     decoration:CustomInputDecoration.customInputDecoration(context, 'code'),
-                        //     style: FlutterFlowTheme.of(context)
-                        //         .bodyMedium
-                        //         .override(
-                        //       fontFamily: 'Outfit',
-                        //       color:
-                        //       FlutterFlowTheme.of(context).primaryText,
-                        //     ),
-                        //     validator: (value) {
-                        //       if (value!.isEmpty) {
-                        //         return 'please enter the code';
-                        //       }
-                        //       return null;
-                        //     },
-                        //   ),
-                        // ),
-                        // const SizedBox(
-                        //   height: 10,
-                        // ),
+                        TextFormField(
+                          controller: idController,
+                          obscureText: false,
 
+                          decoration:CustomInputDecoration.customInputDecoration(context, 'code'),
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                            fontFamily: 'Outfit',
+                            color:
+                            FlutterFlowTheme.of(context).primaryText,
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'please enter the code';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
 
 
                         const Padding(

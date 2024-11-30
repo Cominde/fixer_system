@@ -149,7 +149,8 @@ class AppCubit extends Cubit<AppCubitStates> {
       'type': type,
       'discount': discount,
       'daysItTake': daysItTake,
-      "manually":manually,
+      //"manually":manually,
+      "id":id,
       "Note1":note1,
       "Note2":note2,
       "distance":distance,
@@ -438,27 +439,29 @@ class AppCubit extends Cubit<AppCubitStates> {
     });
   }
 
-  void changeServiceState(
+  Future<bool> changeServiceState(
     context, {
     required String serviceId,
     required String state,
-  }) {
-    emit(AppChangeServiceStateLoadingState());
-    final body = jsonEncode({
-      'newState': state,
-    });
-    put(Uri.parse(CHANGESERVICE + serviceId), headers: headers, body: body)
-        .then((response) {
+  }) async {
+    try {
+      emit(AppChangeServiceStateLoadingState());
+      final body = jsonEncode({
+        'newState': state,
+      });
+      final response = await put(Uri.parse(CHANGESERVICE + serviceId), headers: headers, body: body);
       if (response.statusCode >= 200 && response.statusCode < 300) {
         showToast(context, 'Service state changed successfully');
         emit(AppChangeServiceStateSuccessState());
+        return true;
       } else {
         emit(AppChangeServiceStateErrorState(''));
         showToast(context, response.body);
       }
-    }).catchError((error) {
-      emit(AppChangeServiceStateErrorState(error.toString()));
-    });
+    } catch (e) {
+      emit(AppChangeServiceStateErrorState(e.toString()));
+    }
+    return false;
   }
 
   void changeServiceImportantThings(
@@ -1418,6 +1421,11 @@ class AppCubit extends Cubit<AppCubitStates> {
     }).catchError((error) {
       emit(AppSearchTypesErrorState());
     });
+  }
+
+  void setState(VoidCallback fn) {
+    fn();
+    emit(AppSetNewState());
   }
 
 }
