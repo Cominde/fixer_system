@@ -228,4 +228,11 @@ class AppSearchTypesLoadingState extends AppCubitStates{}
 class AppSearchTypesSuccessState extends AppCubitStates{}
 class AppSearchTypesErrorState extends AppCubitStates{}
 
+
+
+class AppDeleteRepairLoadingState extends AppCubitStates{}
+class AppDeleteRepairSuccessState extends AppCubitStates{}
+class AppDeleteRepairErrorState extends AppCubitStates{}
+
+
 class AppSetNewState extends AppCubitStates{}

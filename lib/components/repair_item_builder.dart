@@ -100,8 +100,30 @@ class RepairItemBuilder extends StatelessWidget {
                                 .of(context)
                                 .primaryColor,
                             icon: const Icon(Icons.delete_rounded),
-                            onPressed: () {
-                              //Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateRepairScreen(model),));
+                            onPressed: () async {
+                              var con=context;
+
+                               showDialog(context: context, builder: (context) => Dialog
+                                 (
+
+                                 child: Container(
+                                   height: 100,
+                                   padding:  EdgeInsets.all(8),
+                                   child: Column(children: [
+                                     Text('Confirm Repair delete ? '),
+                                     Spacer(),
+                                     TextButton(onPressed: () {
+                                       AppCubit.get(context).deleteRepair(con,model.id);
+                                       Navigator.pop(context);
+
+                                     }, child: Text('Delete',style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),))
+                                   ],),
+                                 ),
+                               ),
+                               );
+
+
+
                             },
                           ),
                         ],

@@ -48,4 +48,5 @@ const SEARCHTYPE='${baseUrl}Category/search/';
 const GETNEXTCARCODE='${baseUrl}User/carCode/';
 const GETNEXTREPAIRCODE="${baseUrl}repairing/nextCode/suggestNextCodeNumber";
 const UPDATEREPAIR="${baseUrl}repairing/update/";
+const DELETEREPAIR="${baseUrl}repairing/delete/";
 

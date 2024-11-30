@@ -46,6 +46,39 @@ class AppCubit extends Cubit<AppCubitStates> {
 
   Map<String, String> addClientOldValues = {};
 
+
+
+  Future<bool> deleteRepair(context,id) async {
+
+    emit(AppDeleteRepairLoadingState());
+   var response= await delete(Uri.parse(DELETEREPAIR+id));
+
+    if (response.statusCode==204)
+      {
+        emit(AppDeleteRepairSuccessState());
+
+
+        getAllRepairsForSpecificCarModel?.repairs.removeWhere((element) => element.id==id,);
+
+        showToast(context, 'Repair deleted successfully');
+
+        return true;
+
+      }
+    else
+      {
+        emit(AppDeleteRepairErrorState());
+        showToast(context, 'Failed to delete Repair');
+
+        return false;
+      }
+
+
+
+    
+}
+
+
   void saveAddClientOldValues({
     nameController,
     emailController,
