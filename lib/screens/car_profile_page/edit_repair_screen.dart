@@ -44,9 +44,11 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
   List<Map<String, dynamic>> services = [
     {'name': '', 'price': 0, 'state': 'repairing'}
   ];
+  List<Map<String, dynamic>> removedServices = [];
   List<Map<String, dynamic>> additions = [
     {'name': '', 'price': 0}
   ];
+  List<Map<String, dynamic>> removedAdditions = [];
   String serviceType = 'nonPeriodic';
   String serviceState = 'repairing';
   String searchValue = '';
@@ -99,14 +101,14 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
 
     services=[];
     widget.model?.services.forEach((element) {
-      services.add( {'name': element.name, 'price': element.price, 'state': element.state});
+      services.add( {'name': element.name, 'price': element.price, 'state': element.state, 'id': element.id});
     },);
 
 
     additions=[];
 
     widget.model?.additions.forEach((element) {
-      additions.add( {'name': element.name, 'price': element.price});
+      additions.add( {'name': element.name, 'price': element.price, 'id': element.id});
     },);
 
 
@@ -171,13 +173,21 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                         ...components,
                         ...removedComponents,
                       ];
+                      List<Map<String, dynamic>> allServices = [
+                        ...services,
+                        ...removedServices,
+                      ];
+                      List<Map<String, dynamic>> allAdditions = [
+                        ...additions,
+                        ...removedAdditions,
+                      ];
                       AppCubit.get(context).updateRepair(
                         context,
-                        additions: additions,
+                        additions: allAdditions,
                         components: allComponents,
                         daysItTake: daysItTake,
                         discount: discount,
-                        services: services,
+                        services: allServices,
                         type: serviceType,
                         manually:!automatic,
                         id: widget.model!.id!,
@@ -605,7 +615,7 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                     },
                                   ),
                                 ),
-                                const SizedBox(width: 16.0),
+                                /*const SizedBox(width: 16.0),
                                 Expanded(
                                   child: DropdownButtonFormField<String>(
                                     decoration: CustomInputDecoration
@@ -632,7 +642,7 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                           );
                                         }).toList(),
                                   ),
-                                ),
+                                ),*/
                                 const SizedBox(width: 16.0),
                                 FlutterFlowIconButton(
                                   borderRadius: 12,
@@ -644,6 +654,8 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                       color: Colors.white),
                                   onPressed: () {
                                     setState(() {
+                                      services[index]["remove"]=true;
+                                      removedServices.add(services[index]);
                                       services.removeAt(index);
                                     });
                                   },
@@ -750,6 +762,8 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                       color: Colors.white),
                                   onPressed: () {
                                     setState(() {
+                                      additions[index]["remove"]=true;
+                                      removedAdditions.add(additions[index]);
                                       additions.removeAt(index);
                                     });
                                   },
