@@ -93,7 +93,7 @@ class RepairData {
   String? category;
   String? model;
   int ? discount;
-  String? totalPrice;
+  int? totalPrice;
   String? carNumber;
   String? type;
   DateTime? expectedDate;
@@ -102,7 +102,7 @@ class RepairData {
   List<Component>components = [];
   int ?priceAfterDiscount;
   bool? complete;
-  var  completedServicesRatio;
+  double?  completedServicesRatio;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -116,7 +116,6 @@ class RepairData {
 
   RepairData.fromJson(Map<String, dynamic>?json)
   {
-    print(json);
    id = json?["_id"];
    genId= json?["genId"];
    client= json?["client"];
@@ -133,7 +132,6 @@ class RepairData {
    note2=json?['Note2'];
    distance=json?['distance'];
    nextRepairDistance=json?['nextRepairDistance'];
-
 
    if (json?["expectedDate"]!=null) {
      expectedDate= DateTime.tryParse(json?["expectedDate"]);
@@ -159,9 +157,10 @@ class RepairData {
      }
       });
 
+
    priceAfterDiscount= json?["priceAfterDiscount"];
    complete= json?["complete"];
-   completedServicesRatio= json?["completedServicesRatio"];
+   completedServicesRatio= (json?["completedServicesRatio"]??0)*1.0;
    if(json?["createdAt"]!=null) {
      createdAt= DateTime.tryParse(json?["createdAt"]);
    }

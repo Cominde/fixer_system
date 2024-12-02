@@ -108,9 +108,15 @@ class RepairItemBuilder extends StatelessWidget {
 
                                  child: Container(
                                    height: 100,
-                                   padding:  EdgeInsets.all(8),
+                                   padding:  EdgeInsets.all(16),
                                    child: Column(children: [
-                                     Text('Confirm Repair delete ? '),
+                                     Text(
+                                         'Confirm Repair delete Repair #${model.genId} ?',
+                                         style: TextStyle(
+                                           fontSize: 18,
+                                           fontWeight: FontWeight.bold,
+                                         )
+                                     ),
                                      Spacer(),
                                      TextButton(onPressed: () {
                                        AppCubit.get(context).deleteRepair(con,model.id);
@@ -187,7 +193,7 @@ class RepairItemBuilder extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text('Total Price After Discount'),
-                            Text('${(int.tryParse(model.totalPrice??'')??0)-(model.discount??0)} EGP',style: const TextStyle(fontWeight: FontWeight.bold),),
+                            Text('${(model.totalPrice??0)-(model.discount??0)} EGP',style: const TextStyle(fontWeight: FontWeight.bold),),
                           ],
                         ),
                         Row(
@@ -292,7 +298,7 @@ class RepairItemBuilder extends StatelessWidget {
                                         serviceId: value.id!,
                                         state: 'completed',
                                       );
-                                      print(changed);
+                                      //print(changed);
                                       if(changed) {
                                         AppCubit.get(context).setState(() {
                                           int indexOfService = AppCubit.get(context).getAllRepairsForSpecificCarModel!.repairs[index].services.indexOf(value);

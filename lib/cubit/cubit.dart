@@ -165,6 +165,7 @@ class AppCubit extends Cubit<AppCubitStates> {
         required int daysItTake,
         required bool manually,
         required String id,
+        required String genid,
         String note1 = "",
         String note2 = "",
         required distance,
@@ -183,7 +184,7 @@ class AppCubit extends Cubit<AppCubitStates> {
       'discount': discount,
       'daysItTake': daysItTake,
       //"manually":manually,
-      "id":id,
+      "genId":genid,
       "Note1":note1,
       "Note2":note2,
       "distance":distance,
@@ -902,6 +903,7 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppGetSpecificCarSuccessState());
       }
     }).catchError((error) {
+      log(error.toString());
       emit(AppGetSpecificCarErrorState());
     });
   }

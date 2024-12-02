@@ -38,6 +38,7 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
   List<Map<String, dynamic>> components = [
     {'id': '', 'quantity': 0, 'name':''}
   ];
+  List<Map<String, dynamic>> removedComponents = [];
   List<TextEditingController> componentsControllers = [TextEditingController()];
   List<FocusNode> componentsFocusNodes = [FocusNode()];
   List<Map<String, dynamic>> services = [
@@ -166,16 +167,21 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                 fallback: (context) => FFButtonWidget(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
+                      List<Map<String, dynamic>> allComponents = [
+                        ...components,
+                        ...removedComponents,
+                      ];
                       AppCubit.get(context).updateRepair(
                         context,
                         additions: additions,
-                        components: components,
+                        components: allComponents,
                         daysItTake: daysItTake,
                         discount: discount,
                         services: services,
                         type: serviceType,
                         manually:!automatic,
-                        id: idController.text,
+                        id: widget.model!.id!,
+                        genid: idController.text,
                         note1: note1Controller.text,
                         note2: note2Controller.text,
                         distance:distanceController.text,
@@ -504,6 +510,8 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                       color: Colors.white),
                                   onPressed: () {
                                     setState(() {
+                                      components[i]['quantity'] = 0;
+                                      removedComponents.add(components[i]);
                                       components.removeAt(i);
                                       componentsFocusNodes.removeAt(i);
                                       componentsControllers.removeAt(i);
