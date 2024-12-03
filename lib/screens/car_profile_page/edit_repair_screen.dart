@@ -564,6 +564,7 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                               children: [
                                 Expanded(
                                   child: TextFormField(
+                                    controller: TextEditingController(text: services[index]['name']),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'please fill this field';
@@ -579,7 +580,6 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                     ),
-                                    initialValue: services[index]['name'],
                                     onChanged: (value) {
                                       setState(() {
                                         services[index]['name'] = value;
@@ -590,6 +590,7 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                 const SizedBox(width: 16.0),
                                 Expanded(
                                   child: TextFormField(
+                                    controller: TextEditingController(text: services[index]['price'].toString()),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'please fill this field';
@@ -605,8 +606,6 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                     ),
-                                    initialValue:
-                                    services[index]['price'].toString(),
                                     onChanged: (value) {
                                       setState(() {
                                         services[index]['price'] =
@@ -700,6 +699,7 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                               children: [
                                 Expanded(
                                   child: TextFormField(
+                                    controller: TextEditingController(text: additions[index]['name']),
                                     /*validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'please fill this field';
@@ -715,7 +715,6 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                     ),
-                                    initialValue: additions[index]['name'],
                                     onChanged: (value) {
                                       setState(() {
                                         additions[index]['name'] = value;
@@ -726,6 +725,7 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                 const SizedBox(width: 16.0),
                                 Expanded(
                                   child: TextFormField(
+                                    controller: TextEditingController(text: additions[index]['price'].toString()),
                                     /*validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'please fill this field';
@@ -741,8 +741,6 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                     ),
-                                    initialValue:
-                                    additions[index]['price'].toString(),
                                     onChanged: (value) {
                                       setState(() {
                                         additions[index]['price'] =
