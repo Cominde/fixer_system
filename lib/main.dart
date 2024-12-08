@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     get(Uri.parse('https://fixer-backend-rtw4.onrender.com/api/V1/appVersion')).then((value) {
       setState(() {
-        updatedApp = json.decode(value.body)[1]['version'].toString() == "1.6.2";
+        updatedApp = json.decode(value.body)[1]['version'].toString() == "1.6.3";
       });
     },);
     super.initState();

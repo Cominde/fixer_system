@@ -41,25 +41,36 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
   List<Map<String, dynamic>> removedComponents = [];
   List<TextEditingController> componentsControllers = [TextEditingController()];
   List<FocusNode> componentsFocusNodes = [FocusNode()];
+
   List<Map<String, dynamic>> services = [
     {'name': '', 'price': 0, 'state': 'repairing'}
   ];
+  List<TextEditingController> servicesNameControllers = [TextEditingController()];
+  List<FocusNode> servicesNameFocusNodes = [FocusNode()];
+  List<TextEditingController> servicesPriceControllers = [TextEditingController()];
+  List<FocusNode> servicesPriceFocusNodes = [FocusNode()];
   List<Map<String, dynamic>> removedServices = [];
+
   List<Map<String, dynamic>> additions = [
     {'name': '', 'price': 0}
   ];
+  List<TextEditingController> additionsNameControllers = [TextEditingController()];
+  List<FocusNode> additionsNameFocusNodes = [FocusNode()];
+  List<TextEditingController> additionsPriceControllers = [TextEditingController()];
+  List<FocusNode> additionsPriceFocusNodes = [FocusNode()];
   List<Map<String, dynamic>> removedAdditions = [];
+
   String serviceType = 'nonPeriodic';
   String serviceState = 'repairing';
   String searchValue = '';
 
 
-  double discount = 0;
+  int discount = 0;
   int daysItTake = 0;
   String nextPerDate = '';
   var nextRepairDateController = TextEditingController();
 
-
+  int totalBalance = 0;
 
   var idController = TextEditingController();
 
@@ -78,6 +89,21 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
 
   final ScrollController _controller = ScrollController();
   final FocusNode _focusNode = FocusNode();
+
+  void calculateTotalBalance() {
+    totalBalance = 0;
+    for (var component in components) {
+      totalBalance += ((component['quantity'] as int) * (component['price']*1.0 as double)).toInt();
+    }
+    for (var service in services) {
+
+      totalBalance += (service['price']*1.0 as double).toInt();
+    }
+    for (var addition in additions) {
+      totalBalance += (addition['price']*1.0 as double).toInt();
+    }
+    totalBalance -= (discount*1.0).toInt();
+  }
 
 
   @override
@@ -100,22 +126,37 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
 
 
     services=[];
+    servicesNameControllers=[];
+    servicesNameFocusNodes=[];
+    servicesPriceControllers=[];
+    servicesPriceFocusNodes=[];
     widget.model?.services.forEach((element) {
       services.add( {'name': element.name, 'price': element.price, 'state': element.state, 'id': element.id});
+      servicesNameControllers.add(TextEditingController(text: element.name));
+      servicesPriceControllers.add(TextEditingController(text: '${element.price!.toInt()}'));
+      servicesNameFocusNodes.add(FocusNode());
+      servicesPriceFocusNodes.add(FocusNode());
     },);
 
 
     additions=[];
-
+    additionsNameControllers=[];
+    additionsNameFocusNodes=[];
+    additionsPriceControllers=[];
+    additionsPriceFocusNodes=[];
     widget.model?.additions.forEach((element) {
       additions.add( {'name': element.name, 'price': element.price, 'id': element.id});
+      additionsNameControllers.add(TextEditingController(text: element.name));
+      additionsPriceControllers.add(TextEditingController(text: '${element.price!.toInt()}'));
+      additionsNameFocusNodes.add(FocusNode());
+      additionsPriceFocusNodes.add(FocusNode());
     },);
 
 
      serviceType = widget.model!.type!;
 
 
-     discount = widget.model!.discount!*1.0;
+     discount = widget.model!.discount!;
      daysItTake = widget.model!.expectedDate!.difference(DateTime.now()).inDays;
 
      note1Controller.text=widget.model!.note1??'';
@@ -126,6 +167,8 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
     nextRepairDateController.text="${widget.model!.nextRepairDate??''}";
 
     idController.text="${widget.model!.genId}";
+
+    calculateTotalBalance();
 
 
     super.initState();
@@ -232,72 +275,101 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
 
-                        Container(
-                          width: 250,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 2,
-                                blurRadius: 5,
-                                offset: const Offset(0, 3),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              width: 250,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 2,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              const Text(
-                                "EGYPT           مصر",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 2,
-                                  color: Colors.black,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  const Text(
+                                    "EGYPT           مصر",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: 2,
+                                      color: Colors.black,
 
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.bottomCenter,
-                                width: 250,
-                                height: 71,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(10),
-                                      bottomRight: Radius.circular(10)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 2,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 3),
                                     ),
-                                  ],
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    AutoSizeText(
-                                      widget.model!.carNumber!,
-                                      maxLines: 1,
-                                      style: const TextStyle(
-                                        fontSize: 45,
-                                        fontWeight: FontWeight.bold,
-                                        letterSpacing: 2,
-                                        color: Colors.black,
+                                  ),
+                                  Container(
+                                    alignment: Alignment.bottomCenter,
+                                    width: 250,
+                                    height: 71,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: const BorderRadius.only(
+                                          bottomLeft: Radius.circular(10),
+                                          bottomRight: Radius.circular(10)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 2,
+                                          blurRadius: 5,
+                                          offset: const Offset(0, 3),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        AutoSizeText(
+                                          widget.model!.carNumber!,
+                                          maxLines: 1,
+                                          style: const TextStyle(
+                                            fontSize: 45,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 2,
+                                            color: Colors.black,
 
-                                      ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  'Total Price',
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 2,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                SizedBox(height: 8,),
+                                Text(
+                                  totalBalance.toString(),
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    letterSpacing: 2,
+                                    color: Color(0xFFF68B1E),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
                         ),
                         const SizedBox(height: 16.0),
 
@@ -564,7 +636,8 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                               children: [
                                 Expanded(
                                   child: TextFormField(
-                                    controller: TextEditingController(text: services[index]['name']),
+                                    controller: servicesNameControllers[index],
+                                    focusNode: servicesNameFocusNodes[index],
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'please fill this field';
@@ -582,7 +655,7 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                     ),
                                     onChanged: (value) {
                                       setState(() {
-                                        services[index]['name'] = value;
+                                        services[index]['name'] = servicesNameControllers[index].text;
                                       });
                                     },
                                   ),
@@ -590,7 +663,8 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                 const SizedBox(width: 16.0),
                                 Expanded(
                                   child: TextFormField(
-                                    controller: TextEditingController(text: services[index]['price'].toString()),
+                                    controller: servicesPriceControllers[index],
+                                    focusNode: servicesPriceFocusNodes[index],
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'please fill this field';
@@ -607,10 +681,17 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                           .primaryText,
                                     ),
                                     onChanged: (value) {
-                                      setState(() {
-                                        services[index]['price'] =
-                                            int.parse(value);
-                                      });
+                                      if (value.isEmpty) {
+                                        setState(() {
+                                          services[index]['price'] = 0;
+                                          calculateTotalBalance();
+                                        });
+                                      } else {
+                                        setState(() {
+                                          services[index]['price'] = int.parse(value);
+                                          calculateTotalBalance();
+                                        });
+                                      }
                                     },
                                   ),
                                 ),
@@ -656,6 +737,11 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                       services[index]["remove"]=true;
                                       removedServices.add(services[index]);
                                       services.removeAt(index);
+                                      servicesNameControllers.removeAt(index);
+                                      servicesNameFocusNodes.removeAt(index);
+                                      servicesPriceControllers.removeAt(index);
+                                      servicesPriceFocusNodes.removeAt(index);
+                                      calculateTotalBalance();
                                     });
                                   },
                                 ),
@@ -676,6 +762,11 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                     'price': 0,
                                     'state': 'repairing'
                                   });
+                                  servicesNameControllers.add(TextEditingController());
+                                  servicesNameFocusNodes.add(FocusNode());
+                                  servicesPriceControllers.add(TextEditingController());
+                                  servicesPriceFocusNodes.add(FocusNode());
+                                  calculateTotalBalance();
                                 });
                               }
                             },
@@ -699,7 +790,8 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                               children: [
                                 Expanded(
                                   child: TextFormField(
-                                    controller: TextEditingController(text: additions[index]['name']),
+                                    controller: additionsNameControllers[index],
+                                    focusNode: additionsNameFocusNodes[index],
                                     /*validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'please fill this field';
@@ -717,7 +809,7 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                     ),
                                     onChanged: (value) {
                                       setState(() {
-                                        additions[index]['name'] = value;
+                                        additions[index]['name'] = additionsNameControllers[index].text;
                                       });
                                     },
                                   ),
@@ -725,7 +817,8 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                 const SizedBox(width: 16.0),
                                 Expanded(
                                   child: TextFormField(
-                                    controller: TextEditingController(text: additions[index]['price'].toString()),
+                                    controller: additionsPriceControllers[index],
+                                    focusNode: additionsPriceFocusNodes[index],
                                     /*validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'please fill this field';
@@ -742,10 +835,17 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                           .primaryText,
                                     ),
                                     onChanged: (value) {
-                                      setState(() {
-                                        additions[index]['price'] =
-                                            int.parse(value);
-                                      });
+                                      if (value.isEmpty) {
+                                        setState(() {
+                                          additions[index]['price'] = 0;
+                                          calculateTotalBalance();
+                                        });
+                                      } else {
+                                        setState(() {
+                                          additions[index]['price'] = int.parse(value);
+                                          calculateTotalBalance();
+                                        });
+                                      }
                                     },
                                   ),
                                 ),
@@ -763,6 +863,11 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                       additions[index]["remove"]=true;
                                       removedAdditions.add(additions[index]);
                                       additions.removeAt(index);
+                                      additionsNameControllers.removeAt(index);
+                                      additionsNameFocusNodes.removeAt(index);
+                                      additionsPriceControllers.removeAt(index);
+                                      additionsPriceFocusNodes.removeAt(index);
+                                      calculateTotalBalance();
                                     });
                                   },
                                 ),
@@ -777,6 +882,11 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                               if (additions.isEmpty || additions.last['name'].toString().isNotEmpty) {
                                 setState(() {
                                   additions.add({'name': '', 'price': 0});
+                                  additionsNameControllers.add(TextEditingController());
+                                  additionsNameFocusNodes.add(FocusNode());
+                                  additionsPriceControllers.add(TextEditingController());
+                                  additionsPriceFocusNodes.add(FocusNode());
+                                  calculateTotalBalance();
                                 });
                               }
                             },
@@ -840,9 +950,17 @@ class _UpdateRepairScreenState extends State<UpdateRepairScreen> {
                                 ),
                                 initialValue: discount.toString(),
                                 onChanged: (value) {
-                                  setState(() {
-                                    discount = double.parse(value);
-                                  });
+                                  if (value.isEmpty) {
+                                    setState(() {
+                                      discount = 0;
+                                      calculateTotalBalance();
+                                    });
+                                  } else {
+                                    setState(() {
+                                      discount = int.parse(value);
+                                      calculateTotalBalance();
+                                    });
+                                  }
                                 },
                               ),
                             ),

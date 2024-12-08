@@ -40,12 +40,23 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
   ];
   List<TextEditingController> componentsControllers = [TextEditingController()];
   List<FocusNode> componentsFocusNodes = [FocusNode()];
+
   List<Map<String, dynamic>> services = [
     {'name': '', 'price': 0, 'state': 'repairing'}
   ];
+  List<TextEditingController> servicesNameControllers = [TextEditingController()];
+  List<FocusNode> servicesNameFocusNodes = [FocusNode()];
+  List<TextEditingController> servicesPriceControllers = [TextEditingController()];
+  List<FocusNode> servicesPriceFocusNodes = [FocusNode()];
+
   List<Map<String, dynamic>> additions = [
     {'name': '', 'price': 0}
   ];
+  List<TextEditingController> additionsNameControllers = [TextEditingController()];
+  List<FocusNode> additionsNameFocusNodes = [FocusNode()];
+  List<TextEditingController> additionsPriceControllers = [TextEditingController()];
+  List<FocusNode> additionsPriceFocusNodes = [FocusNode()];
+
   String serviceType = 'nonPeriodic';
   String serviceState = 'repairing';
   String searchValue = '';
@@ -87,14 +98,14 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
       totalBalance += ((component['quantity'] as int) * (component['price']*1.0 as double)).toInt();
     }
     for (var service in services) {
-      totalBalance += service['price'] as int;
+
+      totalBalance += (service['price']*1.0 as double).toInt();
     }
     for (var addition in additions) {
-      totalBalance += addition['price'] as int;
+      totalBalance += (addition['price']*1.0 as double).toInt();
     }
-    totalBalance -= discount;
+    totalBalance -= (discount*1.0).toInt();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -582,7 +593,8 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                               children: [
                                 Expanded(
                                   child: TextFormField(
-                                    controller: TextEditingController(text: services[index]['name']),
+                                    controller: servicesNameControllers[index],
+                                    focusNode: servicesNameFocusNodes[index],
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'please fill this field';
@@ -600,8 +612,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                         ),
                                     onChanged: (value) {
                                       setState(() {
-                                        services[index]['name'] = value;
-                                        calculateTotalBalance();
+                                        services[index]['name'] = servicesNameControllers[index].text;
                                       });
                                     },
                                   ),
@@ -609,7 +620,8 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                 const SizedBox(width: 16.0),
                                 Expanded(
                                   child: TextFormField(
-                                    controller: TextEditingController(text: services[index]['price'].toString()),
+                                    controller: servicesPriceControllers[index],
+                                    focusNode: servicesPriceFocusNodes[index],
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'please fill this field';
@@ -626,10 +638,14 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                               .primaryText,
                                         ),
                                     onChanged: (value) {
-                                      if(value.isNotEmpty) {
+                                      if (value.isEmpty) {
                                         setState(() {
-                                          services[index]['price'] =
-                                              int.parse(value);
+                                          services[index]['price'] = 0;
+                                          calculateTotalBalance();
+                                        });
+                                      } else {
+                                        setState(() {
+                                          services[index]['price'] = int.parse(value);
                                           calculateTotalBalance();
                                         });
                                       }
@@ -676,6 +692,10 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                   onPressed: () {
                                     setState(() {
                                       services.removeAt(index);
+                                      servicesNameControllers.removeAt(index);
+                                      servicesNameFocusNodes.removeAt(index);
+                                      servicesPriceControllers.removeAt(index);
+                                      servicesPriceFocusNodes.removeAt(index);
                                       calculateTotalBalance();
                                     });
                                   },
@@ -696,6 +716,10 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                     'price': 0,
                                     'state': 'repairing'
                                   });
+                                  servicesNameControllers.add(TextEditingController());
+                                  servicesNameFocusNodes.add(FocusNode());
+                                  servicesPriceControllers.add(TextEditingController());
+                                  servicesPriceFocusNodes.add(FocusNode());
                                   calculateTotalBalance();
                                 });
                               }
@@ -718,7 +742,8 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                               children: [
                                 Expanded(
                                   child: TextFormField(
-                                    controller: TextEditingController(text: additions[index]['name']),
+                                    controller: additionsNameControllers[index],
+                                    focusNode: additionsNameFocusNodes[index],
                                     /*validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'please fill this field';
@@ -736,7 +761,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                         ),
                                     onChanged: (value) {
                                       setState(() {
-                                        additions[index]['name'] = value;
+                                        additions[index]['name'] = additionsNameControllers[index].text;
                                       });
                                     },
                                   ),
@@ -744,7 +769,8 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                 const SizedBox(width: 16.0),
                                 Expanded(
                                   child: TextFormField(
-                                    controller: TextEditingController(text: additions[index]['price'].toString()),
+                                    controller: additionsPriceControllers[index],
+                                    focusNode: additionsPriceFocusNodes[index],
                                     /*validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'please fill this field';
@@ -761,10 +787,14 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                               .primaryText,
                                         ),
                                     onChanged: (value) {
-                                      if(value.isNotEmpty) {
+                                      if (value.isEmpty) {
                                         setState(() {
-                                          additions[index]['price'] =
-                                              int.parse(value);
+                                          additions[index]['price'] = 0;
+                                          calculateTotalBalance();
+                                        });
+                                      } else {
+                                        setState(() {
+                                          additions[index]['price'] = int.parse(value);
                                           calculateTotalBalance();
                                         });
                                       }
@@ -783,6 +813,10 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                   onPressed: () {
                                     setState(() {
                                       additions.removeAt(index);
+                                      additionsNameControllers.removeAt(index);
+                                      additionsNameFocusNodes.removeAt(index);
+                                      additionsPriceControllers.removeAt(index);
+                                      additionsPriceFocusNodes.removeAt(index);
                                       calculateTotalBalance();
                                     });
                                   },
@@ -798,6 +832,10 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                               if (additions.isEmpty || additions.last['name'].toString().isNotEmpty) {
                                 setState(() {
                                   additions.add({'name': '', 'price': 0});
+                                  additionsNameControllers.add(TextEditingController());
+                                  additionsNameFocusNodes.add(FocusNode());
+                                  additionsPriceControllers.add(TextEditingController());
+                                  additionsPriceFocusNodes.add(FocusNode());
                                   calculateTotalBalance();
                                 });
                               }
@@ -860,7 +898,12 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                     ),
                                 initialValue: discount.toString(),
                                 onChanged: (value) {
-                                  if(value.isNotEmpty) {
+                                  if (value.isEmpty) {
+                                    setState(() {
+                                      discount = 0;
+                                      calculateTotalBalance();
+                                    });
+                                  } else {
                                     setState(() {
                                       discount = int.parse(value);
                                       calculateTotalBalance();

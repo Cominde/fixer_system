@@ -161,7 +161,7 @@ class AppCubit extends Cubit<AppCubitStates> {
         required List<Map<String, dynamic>> services,
         required List<Map<String, dynamic>> additions,
         required String type,
-        required double discount,
+        required int discount,
         required int daysItTake,
         required bool manually,
         required String id,
