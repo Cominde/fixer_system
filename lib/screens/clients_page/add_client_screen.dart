@@ -191,7 +191,7 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
                             chassisNumber:chassisNumberController.text,
                             nextRepairDate:nextRepairDateController.text,
                             lastRepairDate:lastRepairDateController.text,
-                            periodicRepairs:nonPeriodicRepairsController.text,
+                            periodicRepairs:periodicRepairsController.text,
                             nonPeriodicRepairs:nonPeriodicRepairsController.text,
                             motorNumber:motorNumberController.text,
                             manually:automatic?'False':'True',
@@ -371,7 +371,7 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
                                             controller: codeController,
                                             obscureText: false,
 
-                                            decoration:CustomInputDecoration.customInputDecoration(context, 'code'),
+                                            decoration:CustomInputDecoration.customInputDecoration(context, 'Code',pref: Text(typesController.text)),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(

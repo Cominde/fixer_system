@@ -270,8 +270,8 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                                     },
                                     onChanged: (value) async {
                                       typesController.text = value!;
-
                                       codeController.text=await AppCubit.get(context).getTheNextClientCode(value);
+
                                       //print(typesController.text);
                                     },
                                     autofocus: false,
@@ -304,7 +304,7 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                                       controller: codeController,
                                       obscureText: false,
 
-                                      decoration:CustomInputDecoration.customInputDecoration(context, 'code',pref: Text(typesController.text)),
+                                      decoration:CustomInputDecoration.customInputDecoration(context, 'Code',pref: Text(typesController.text)),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(

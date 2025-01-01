@@ -1,19 +1,32 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:toastification/toastification.dart';
 
-FToast fToast=FToast();
+//FToast fToast=FToast();
+
+enum TType {
+  info,
+  warning,
+  success,
+  error,
+}
 
 
 
-showToast(context,text) {
+showToast(String text, TType type) {
 
-  log(text);
+  ToastificationType tType = type == TType.error ? ToastificationType.error : type == TType.info ? ToastificationType.info : type == TType.success ? ToastificationType.success : ToastificationType.warning;
+  //log(text);
 
-  fToast.init(context);
+  //fToast.init(context);
 
-  Widget toast = Container(
+  toastification.show(
+    title: Text(text),
+    type: tType,
+    style: ToastificationStyle.flatColored,
+    autoCloseDuration: const Duration(seconds: 5),
+  );
+
+  /*Widget toast = Container(
     padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(25.0),
@@ -45,5 +58,5 @@ showToast(context,text) {
           left: 16.0,
           child: child,
         );
-      });
+      });*/
 }

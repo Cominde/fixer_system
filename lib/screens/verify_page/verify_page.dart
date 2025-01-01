@@ -40,7 +40,7 @@ class _VerifyPageState extends State<VerifyPage> {
               }
             else if (state is AppLoginErrorState||state is AppLoginVerifyState){
               Navigator.pop(context);
-              showToast(context, 'Failed to Login');
+              showToast('Failed to Login', TType.error);
             }
         },
         builder:(context, state) {

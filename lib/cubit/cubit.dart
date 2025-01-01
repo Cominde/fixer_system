@@ -60,7 +60,7 @@ class AppCubit extends Cubit<AppCubitStates> {
 
         getAllRepairsForSpecificCarModel?.repairs.removeWhere((element) => element.id==id,);
 
-        showToast(context, 'Repair deleted successfully');
+        showToast('Repair deleted successfully', TType.warning);
 
         return true;
 
@@ -68,7 +68,7 @@ class AppCubit extends Cubit<AppCubitStates> {
     else
       {
         emit(AppDeleteRepairErrorState());
-        showToast(context, 'Failed to delete Repair');
+        showToast('Failed to delete Repair', TType.error);
 
         return false;
       }
@@ -194,7 +194,7 @@ class AppCubit extends Cubit<AppCubitStates> {
 
     put(Uri.parse(UPDATEREPAIR+id), headers: headers, body: body).then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
-        showToast(context, "Repair updated successfully");
+        showToast("Repair updated successfully", TType.success);
         emit(AppUpdateRepairSuccessState());
         Navigator.pop(context);
       } else {
@@ -202,9 +202,9 @@ class AppCubit extends Cubit<AppCubitStates> {
         if(id.isNotEmpty) {
           int index =  components.indexWhere((element) => element['id'] == id);
           String name = components[index]['name'];
-          showToast(context, 'Not enough $name.');
+          showToast('Not enough $name.', TType.warning);
         } else {
-          showToast(context, response.body);
+          showToast(response.body, TType.error);
         }
         emit(AppUpdateRepairErrorState());
       }
@@ -269,7 +269,7 @@ class AppCubit extends Cubit<AppCubitStates> {
             emit(AppLoginFirstTimeState());
           }
         else if (jsonDecode(response.body)['message'] != null) {
-          showToast(context, jsonDecode(response.body)['message']);
+          showToast(jsonDecode(response.body)['message'], TType.info);
           emit(AppLoginVerifyState());
         } else {
           headers = {
@@ -279,7 +279,7 @@ class AppCubit extends Cubit<AppCubitStates> {
           emit(AppLoginSuccessState());
         }
       } else {
-        showToast(context, jsonDecode(response.body)['message']);
+        showToast(jsonDecode(response.body)['message'], TType.error);
         emit(AppLoginErrorState());
       }
     }).catchError((onError) {
@@ -309,13 +309,13 @@ class AppCubit extends Cubit<AppCubitStates> {
       if (response.statusCode >= 200 && response.statusCode < 300) {
 
 
-          showToast(context, jsonDecode(response.body)['message']);
+          showToast(jsonDecode(response.body)['message'], TType.info);
           emit(AppSetFirstTimeSuccessState());
 
 
         }
        else {
-        showToast(context, jsonDecode(response.body)['message']);
+        showToast(jsonDecode(response.body)['message'], TType.error);
         emit(AppSetFirstTimeErrorState());
       }
     }).catchError((onError) {
@@ -342,12 +342,12 @@ class AppCubit extends Cubit<AppCubitStates> {
         body: body)
         .then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
-          showToast(context, jsonDecode(response.body)['message']);
+          showToast(jsonDecode(response.body)['message'], TType.info);
 
           emit(AppForgetPasswordSuccessState());
 
       } else {
-        showToast(context, jsonDecode(response.body)['message']);
+        showToast(jsonDecode(response.body)['message'], TType.error);
         emit(AppForgetPasswordErrorState());
       }
     }).catchError((onError) {
@@ -378,12 +378,12 @@ class AppCubit extends Cubit<AppCubitStates> {
         body: body)
         .then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
-        showToast(context, jsonDecode(response.body)['message']);
+        showToast(jsonDecode(response.body)['message'], TType.info);
 
         emit(AppResetPasswordSuccessState());
 
       } else {
-        showToast(context, jsonDecode(response.body)['message']);
+        showToast(jsonDecode(response.body)['message'], TType.error);
         emit(AppResetPasswordErrorState());
       }
     }).catchError((onError) {
@@ -443,7 +443,7 @@ class AppCubit extends Cubit<AppCubitStates> {
 
     post(Uri.parse(ADDCLIENT), headers: headers, body: body).then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
-        showToast(context, "User added successfully");
+        showToast("User added successfully", TType.success);
         getUsersModel?.users
             .add(User.fromJson(jsonDecode(response.body)['data']));
 
@@ -452,7 +452,7 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppAddClientSuccessState());
         Navigator.pop(context);
       } else {
-        showToast(context, response.body);
+        showToast(response.body, TType.error);
         emit(AppAddClientErrorState());
       }
     });
@@ -485,12 +485,12 @@ class AppCubit extends Cubit<AppCubitStates> {
       });
       final response = await put(Uri.parse(CHANGESERVICE + serviceId), headers: headers, body: body);
       if (response.statusCode >= 200 && response.statusCode < 300) {
-        showToast(context, 'Service state changed successfully');
+        showToast('Service state changed successfully', TType.success);
         emit(AppChangeServiceStateSuccessState());
         return true;
       } else {
         emit(AppChangeServiceStateErrorState(''));
-        showToast(context, response.body);
+        showToast(response.body, TType.error);
       }
     } catch (e) {
       emit(AppChangeServiceStateErrorState(e.toString()));
@@ -510,11 +510,11 @@ class AppCubit extends Cubit<AppCubitStates> {
     put(Uri.parse(CHANGESERVICE + serviceId), headers: headers, body: body)
         .then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
-        showToast(context, 'Service state changed successfully');
+        showToast('Service state changed successfully', TType.success);
         emit(AppChangeServiceStateSuccessState());
       } else {
         emit(AppChangeServiceStateErrorState(''));
-        showToast(context, response.body);
+        showToast(response.body, TType.error);
       }
     }).catchError((error) {
       emit(AppChangeServiceStateErrorState(error.toString()));
@@ -533,11 +533,11 @@ class AppCubit extends Cubit<AppCubitStates> {
     put(Uri.parse(CHANGESERVICE + serviceId), headers: headers, body: body)
         .then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
-        showToast(context, 'Service state changed successfully');
+        showToast('Service state changed successfully', TType.success);
         emit(AppChangeServiceStateSuccessState());
       } else {
         emit(AppChangeServiceStateErrorState(''));
-        showToast(context, response.body);
+        showToast(response.body, TType.error);
       }
     }).catchError((error) {
       emit(AppChangeServiceStateErrorState(error.toString()));
@@ -578,13 +578,13 @@ class AppCubit extends Cubit<AppCubitStates> {
 
     post(Uri.parse(ADDWORKER), headers: headers, body: body).then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
-        showToast(context, 'Worker Added Successfully');
+        showToast('Worker Added Successfully', TType.success);
         getWorkersModel?.workers
             .add(Worker.fromJson(jsonDecode(response.body)['data']));
         emit(AppAddWorkerSuccessState());
         Navigator.pop(context);
       } else {
-        showToast(context, jsonDecode(response.body)['message']);
+        showToast(jsonDecode(response.body)['message'], TType.error);
         emit(AppAddWorkerErrorState());
       }
     });
@@ -721,11 +721,11 @@ class AppCubit extends Cubit<AppCubitStates> {
       if (response.statusCode >= 200 && response.statusCode < 300) {
         getListOfInventoryComponentsModel?.data.add(
             InventoryComponentData.fromJson(jsonDecode(response.body)['data']));
-        showToast(context, "Component added successfully");
+        showToast( "Component added successfully", TType.success);
         emit(AppAddComponentSuccessState());
         Navigator.pop(context);
       } else {
-        showToast(context, response.body);
+        showToast(response.body, TType.error);
         emit(AppAddComponentErrorState());
       }
     });
@@ -769,11 +769,11 @@ class AppCubit extends Cubit<AppCubitStates> {
     put(Uri.parse(EDITCOMPONET + id), headers: headers, body: body)
         .then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
-        showToast(context, "Component edited successfully");
+        showToast("Component edited successfully", TType.success);
         emit(AppEditComponentSuccessState());
         Navigator.pop(context);
       } else {
-        showToast(context, response.body);
+        showToast(response.body, TType.error);
         emit(AppEditComponentErrorState());
       }
     });
@@ -843,7 +843,7 @@ class AppCubit extends Cubit<AppCubitStates> {
 
     post(Uri.parse(ADDCAR + id), headers: headers, body: body).then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
-        showToast(context, "Car added successfully");
+        showToast("Car added successfully", TType.success);
 
         getSpecificUserModel?.cars.add(SpecificUserCarData.fromJson(
             jsonDecode(response.body)['data']['newCar']));
@@ -851,9 +851,36 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppAddCarSuccessState());
         Navigator.pop(context);
       } else {
-        showToast(context, response.body);
+        showToast(response.body, TType.error);
 
         emit(AppAddCarErrorState());
+      }
+    }).catchError((onError) {
+    });
+  }
+
+  void deleteCar(
+      context, {
+        required String id,
+        required int index,
+      }) {
+    emit(AppDeleteCarLoadingState());
+
+    delete(Uri.parse(DELETECAR + id), headers: headers).then((response) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        showToast("Car deleted successfully", TType.warning);
+
+        getSpecificUserModel?.cars.removeAt(index);
+        if(getSpecificUserModel!.cars.isEmpty) {
+          emit(AppDeleteCarSuccessState(userDeleted: true));
+          Navigator.pop(context);
+        } else {
+          emit(AppDeleteCarSuccessState(userDeleted: false));
+        }
+      } else {
+        showToast(response.body, TType.error);
+
+        emit(AppDeleteCarErrorState());
       }
     }).catchError((onError) {
     });
@@ -874,7 +901,7 @@ class AppCubit extends Cubit<AppCubitStates> {
     });
     put(Uri.parse(UPDATEUSER + id), headers: headers, body: body).then((value) {
       if (value.statusCode >= 200 && value.statusCode < 300) {
-        showToast(context, 'user updated successfully');
+        showToast('user updated successfully', TType.success);
         emit(AppUpdateUsersSuccessState());
         Navigator.pop(context);
       } else {
@@ -971,7 +998,7 @@ class AppCubit extends Cubit<AppCubitStates> {
 
     post(Uri.parse(ADDREPAIR), headers: headers, body: body).then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
-        showToast(context, "Repair added successfully");
+        showToast("Repair added successfully", TType.success);
         emit(AppAddRepairSuccessState());
         Navigator.pop(context);
       } else {
@@ -979,9 +1006,9 @@ class AppCubit extends Cubit<AppCubitStates> {
         if(id.isNotEmpty) {
           int index =  components.indexWhere((element) => element['id'] == id);
           String name = components[index]['name'];
-          showToast(context, 'Not enough $name.');
+          showToast('Not enough $name.', TType.warning);
         } else {
-          showToast(context, response.body);
+          showToast(response.body, TType.error);
         }
         emit(AppAddRepairErrorState());
       }
@@ -1077,7 +1104,7 @@ class AppCubit extends Cubit<AppCubitStates> {
         .then((value) {
           // print (value.body.toString());
       if (value.statusCode >= 200 && value.statusCode < 300) {
-        showToast(context, 'car updated successfully');
+        showToast('car updated successfully', TType.success);
         emit(AppUpdateCarSuccessState());
         Navigator.pop(context);
       } else {
@@ -1139,7 +1166,7 @@ class AppCubit extends Cubit<AppCubitStates> {
     put(Uri.parse(UPDATEWORKER + id), headers: headers, body: body)
         .then((value) {
       if (value.statusCode >= 200 && value.statusCode < 300) {
-        showToast(context, 'Worker updated successfully');
+        showToast('Worker updated successfully', TType.success);
         emit(AppUpdateWorkerSuccessState());
         Navigator.pop(context);
       } else {
@@ -1251,11 +1278,11 @@ class AppCubit extends Cubit<AppCubitStates> {
 
     post(Uri.parse(ADDTHING), headers: headers, body: body).then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
-        showToast(context, 'Thing Added Successfully');
+        showToast('Thing Added Successfully', TType.success);
         emit(AppAddThingSuccessState());
         Navigator.pop(context);
       } else {
-        showToast(context, jsonDecode(response.body)['message']);
+        showToast(jsonDecode(response.body)['message'], TType.error);
         emit(AppAddThingErrorState());
       }
     }).catchError((onError) {
@@ -1272,12 +1299,12 @@ class AppCubit extends Cubit<AppCubitStates> {
 
     delete(Uri.parse(DELETEWORKER+id), headers: headers,).then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
-        showToast(context, 'Worker Deleted Successfully');
+        showToast('Worker Deleted Successfully', TType.warning);
         emit(AppDeleteWorkerSuccessState());
         getWorkers();
         Navigator.pop(context);
       } else {
-        showToast(context, jsonDecode(response.body)['message']);
+        showToast(jsonDecode(response.body)['message'], TType.error);
         emit(AppDeleteWorkerErrorState());
       }
     }).catchError((onError) {
@@ -1303,12 +1330,12 @@ class AppCubit extends Cubit<AppCubitStates> {
     post(Uri.parse(ADDREWARDORLOANS+id),headers: headers,body: body).then((value){
       if (value.statusCode>=200 && value.statusCode<300)
       {
-        showToast(context, '$type added successfully');
+        showToast('$type added successfully', TType.success);
         emit(AppAddRepairSuccessState());
         Navigator.pop(context);
       }
       else{
-        showToast(context,'Failed to add $type');
+        showToast('Failed to add $type', TType.error);
 
         emit(AppAddRepairErrorState());
       }
@@ -1334,11 +1361,11 @@ class AppCubit extends Cubit<AppCubitStates> {
     });
     put(Uri.parse('$ADDCONSTANT${year}_$month'), headers: headers, body: body).then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
-        showToast(context, '$title added successfully');
+        showToast('$title added successfully', TType.success);
         emit(AppAddConstantSuccessState());
         Navigator.pop(context);
       } else {
-        showToast(context, 'Failed to add $title');
+        showToast('Failed to add $title', TType.error);
         emit(AppAddConstantErrorState());
       }
     }).catchError((onError) {
@@ -1361,13 +1388,13 @@ class AppCubit extends Cubit<AppCubitStates> {
     post(Uri.parse(CREATECODE),headers: headers,body: body).then((value){
       if (value.statusCode>=200 && value.statusCode<300)
       {
-        showToast(context, '$name added successfully');
+        showToast('$name added successfully', TType.success);
         getTypesModel?.types.add(Type.fromJson(jsonDecode(value.body.toString())['data']));
         emit(AppCreateCodeSuccessState());
         Navigator.pop(context);
       }
       else{
-        showToast(context,'Failed to add $name');
+        showToast('Failed to add $name', TType.error);
 
         emit(AppCreateCodeErrorState());
       }
@@ -1423,13 +1450,13 @@ class AppCubit extends Cubit<AppCubitStates> {
     put(Uri.parse(UPDATETYPE + id), headers: headers, body: body)
         .then((value) {
       if (value.statusCode>= 200 && value.statusCode< 300) {
-        showToast(context, 'Type updated successfully');
+        showToast('Type updated successfully', TType.success);
         emit(AppUpdateTypeSuccessState());
         Navigator.pop(context);
       } else {
 
         emit(AppUpdateTypeErrorState());
-        showToast(context, 'Failed to update Type');
+        showToast('Failed to update Type', TType.error);
 
       }
     }).catchError((error) {

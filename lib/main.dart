@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_ui_pro/flutterflow_ui_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:toastification/toastification.dart';
 
 import 'cubit/cubit.dart';
 
@@ -30,7 +31,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     get(Uri.parse('https://fixer-backend-rtw4.onrender.com/api/V1/appVersion')).then((value) {
       setState(() {
-        updatedApp = json.decode(value.body)[1]['version'].toString() == "1.6.3";
+        updatedApp = json.decode(value.body)[1]['version'].toString() == "1.7.0";
       });
     },);
     super.initState();
@@ -60,18 +61,20 @@ class _MyAppState extends State<MyApp> {
 
             ),
             initial: AdaptiveThemeMode.light,
-            builder: (theme, darkTheme) => MaterialApp(
-              title: 'Fixer',
-              theme: theme,
-              darkTheme: darkTheme,
-              debugShowCheckedModeBanner: false,
-              home: updatedApp == null ? const Center(
-                child: SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: CircularProgressIndicator(),
-                ),
-              ) : (updatedApp! ? const Login() : const NewUpdateScreen()),
+            builder: (theme, darkTheme) => ToastificationWrapper(
+              child: MaterialApp(
+                title: 'Fixer',
+                theme: theme,
+                darkTheme: darkTheme,
+                debugShowCheckedModeBanner: false,
+                home: updatedApp == null ? const Center(
+                  child: SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: CircularProgressIndicator(),
+                  ),
+                ) : (updatedApp! ? const Login() : const NewUpdateScreen()),
+              ),
             ),
           );
         },

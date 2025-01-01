@@ -22,6 +22,7 @@ const SEARCHREPAIRINGCARS='${baseUrl}Garage/search/repairing/';
 const EDITCOMPONET='${baseUrl}Inventort/';
 const GETSPECIFICUSER='${baseUrl}User/';
 const ADDCAR='${baseUrl}Garage/add/';
+const DELETECAR='${baseUrl}Garage/delete/';
 const UPDATEUSER='${baseUrl}User/';
 const GETSPECIFICCARBYID='${baseUrl}Garage/getCar/';
 const ADDREPAIR='${baseUrl}repairing';

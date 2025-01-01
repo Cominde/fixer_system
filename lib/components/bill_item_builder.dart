@@ -48,7 +48,7 @@ class _BillItemState extends State<BillItem> {
     try {
       await Printing.layoutPdf(onLayout: (PdfPageFormat format) async => await pdf.save());
     } catch (e) {
-      showToast(context, e.toString());
+      showToast(e.toString(), TType.error);
     }
   }
 
@@ -76,12 +76,12 @@ class _BillItemState extends State<BillItem> {
         final newFilePath = '$selectedDirectory/${cubit.getCompletedRepairDetailsModel!.visit!.invoiceID}.pdf';
         final newFile = await file.copy(newFilePath);
 
-        showToast(context, 'PDF saved to: $newFilePath');
+        showToast('PDF saved to: $newFilePath', TType.success);
       } else {
         //print('No directory selected.');
       }
     } catch (e) {
-      showToast(context, e.toString());
+      showToast(e.toString(), TType.error);
     }
   }
 

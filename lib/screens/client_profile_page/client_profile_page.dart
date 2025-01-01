@@ -71,6 +71,9 @@ class _ClientDetailsState extends State<ClientProfilePage> {
           readOnly = true;
         } else if (state is AppAddCarSuccessState) {
           setState(() {});
+        } else if (state is AppDeleteCarSuccessState) {
+          print(AppCubit.get(context).getSpecificUserModel!.cars.length);
+          setState(() {});
         }
       },
       builder: (context, state) {
@@ -454,30 +457,30 @@ class _ClientDetailsState extends State<ClientProfilePage> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Expanded(
-                                            child: clientCarItemBuilder(context, AppCubit.get(context).getSpecificUserModel!.cars[firstItemIndex]),
+                                            child: clientCarItemBuilder(context, AppCubit.get(context).getSpecificUserModel!.cars[firstItemIndex], firstItemIndex),
                                           ),
                                           if (secondItemIndex < AppCubit.get(context).getSpecificUserModel!.cars.length) ...[
                                             const SizedBox(width: 25),
                                             Expanded(
-                                              child: clientCarItemBuilder(context, AppCubit.get(context).getSpecificUserModel!.cars[secondItemIndex]),
+                                              child: clientCarItemBuilder(context, AppCubit.get(context).getSpecificUserModel!.cars[secondItemIndex], secondItemIndex),
                                             ),
                                           ],
                                           if (thirdItemIndex < AppCubit.get(context).getSpecificUserModel!.cars.length) ...[
                                             const SizedBox(width: 25),
                                             Expanded(
-                                              child: clientCarItemBuilder(context, AppCubit.get(context).getSpecificUserModel!.cars[thirdItemIndex]),
+                                              child: clientCarItemBuilder(context, AppCubit.get(context).getSpecificUserModel!.cars[thirdItemIndex], thirdItemIndex),
                                             ),
                                           ],
                                           if (fourthItemIndex < AppCubit.get(context).getSpecificUserModel!.cars.length) ...[
                                             const SizedBox(width: 25),
                                             Expanded(
-                                              child: clientCarItemBuilder(context, AppCubit.get(context).getSpecificUserModel!.cars[fourthItemIndex]),
+                                              child: clientCarItemBuilder(context, AppCubit.get(context).getSpecificUserModel!.cars[fourthItemIndex], fourthItemIndex),
                                             ),
                                           ],
                                           if (fifthItemIndex < AppCubit.get(context).getSpecificUserModel!.cars.length) ...[
                                             const SizedBox(width: 25),
                                             Expanded(
-                                              child: clientCarItemBuilder(context, AppCubit.get(context).getSpecificUserModel!.cars[fifthItemIndex]),
+                                              child: clientCarItemBuilder(context, AppCubit.get(context).getSpecificUserModel!.cars[fifthItemIndex], fifthItemIndex),
                                             ),
                                           ],
                                         ],

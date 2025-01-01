@@ -123,6 +123,13 @@ class AppAddCarLoadingState extends AppCubitStates{}
 class AppAddCarSuccessState extends AppCubitStates{}
 class AppAddCarErrorState extends AppCubitStates{}
 
+class AppDeleteCarLoadingState extends AppCubitStates{}
+class AppDeleteCarSuccessState extends AppCubitStates{
+  bool userDeleted;
+  AppDeleteCarSuccessState({this.userDeleted = false});
+}
+class AppDeleteCarErrorState extends AppCubitStates{}
+
 
 class AppUpdateUsersLoadingState extends AppCubitStates{}
 class AppUpdateUsersSuccessState extends AppCubitStates{}

@@ -48,7 +48,13 @@ class _ClientsPageState extends State<ClientsPage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppCubitStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is AppDeleteCarSuccessState) {
+          if (state.userDeleted) {
+            AppCubit.get(context).getUsers(page: AppCubit.get(context).getUsersModel!.current);
+          }
+        }
+      },
       builder: (context, state) {
         return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
