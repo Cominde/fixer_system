@@ -309,7 +309,6 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                         }
                         setState(() {
                               automatic = value;
-                              //print(automatic);// Toggle the mode
                             });
                           },
                           activeColor: Colors.black, // Background for dark mode
@@ -362,7 +361,6 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                 Expanded(
                                     child: SearchField(
                                       onSearchTextChanged: (searchQuery) {
-                                        //print(searchQuery);
                                         AppCubit.get(context).searchComponents(word: searchQuery);
                                         return AppCubit.get(context).searchListOfInventoryComponentsModel!.data.map((e) => SearchFieldListItem(e.name!,item: e)).toList();
                                       },
@@ -402,7 +400,6 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                         } else {
                                           components[i]['id']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data.first.id;
                                           components[i]['name']=AppCubit.get(context).searchListOfInventoryComponentsModel?.data.first.name;
-                                          //print(components[i]);
                                           setState(() {
                                             componentsControllers[i] = TextEditingController(text: AppCubit.get(context).searchListOfInventoryComponentsModel!.data.first.name!);
                                             componentsFocusNodes[i].unfocus();
@@ -935,7 +932,6 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                 initialValue: daysItTake.toString(),
                                 onChanged: (value) {
                                   if (value.isNotEmpty) {
-                                    //print(value);
                                     setState(() {
                                       daysItTake = int.tryParse(value)??0;
                                     });

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:fixer_system/cubit/states.dart';
 import 'package:fixer_system/models/get_all_types_model.dart';
@@ -53,12 +52,11 @@ class AppCubit extends Cubit<AppCubitStates> {
     emit(AppDeleteRepairLoadingState());
    var response= await delete(Uri.parse(DELETEREPAIR+id));
 
-    if (response.statusCode==204)
+    if (response.statusCode >= 200 && response.statusCode < 300)
       {
-        emit(AppDeleteRepairSuccessState());
-
-
         getAllRepairsForSpecificCarModel?.repairs.removeWhere((element) => element.id==id,);
+
+        emit(AppDeleteRepairSuccessState());
 
         showToast('Repair deleted successfully', TType.warning);
 
@@ -415,7 +413,6 @@ class AppCubit extends Cubit<AppCubitStates> {
   }) {
     emit(AppAddClientLoadingState());
 
-    // print(type);
     final body = jsonEncode({
       'name': name,
       'email': email,
@@ -438,8 +435,6 @@ class AppCubit extends Cubit<AppCubitStates> {
       "manually":manually,
       "carCode":carCode,
     });
-
-    log(body.toString());
 
     post(Uri.parse(ADDCLIENT), headers: headers, body: body).then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
@@ -839,8 +834,6 @@ class AppCubit extends Cubit<AppCubitStates> {
       "carCode":carCode,
     });
 
-    log(body.toString());
-
     post(Uri.parse(ADDCAR + id), headers: headers, body: body).then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
         showToast("Car added successfully", TType.success);
@@ -930,7 +923,6 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppGetSpecificCarSuccessState());
       }
     }).catchError((error) {
-      log(error.toString());
       emit(AppGetSpecificCarErrorState());
     });
   }
@@ -993,8 +985,6 @@ class AppCubit extends Cubit<AppCubitStates> {
       "nextRepairDistance":nextRepairDistance,
       "nextRepairDate":nextRepairDate,
     });
-
-    log(body.toString());
 
     post(Uri.parse(ADDREPAIR), headers: headers, body: body).then((response) {
       if (response.statusCode >= 200 && response.statusCode < 300) {
@@ -1062,7 +1052,6 @@ class AppCubit extends Cubit<AppCubitStates> {
     required String carId,
     DateTime? lastRepair,
   }) {
-    // print('Updating');
     emit(AppUpdateCarLoadingState());
     String nr='';
     String lr='';
@@ -1099,10 +1088,8 @@ class AppCubit extends Cubit<AppCubitStates> {
       //   }
       // ],
     });
-    // print (body);
     put(Uri.parse(UPDATECAR + carId), headers: headers, body: body)
         .then((value) {
-          // print (value.body.toString());
       if (value.statusCode >= 200 && value.statusCode < 300) {
         showToast('car updated successfully', TType.success);
         emit(AppUpdateCarSuccessState());
@@ -1112,7 +1099,6 @@ class AppCubit extends Cubit<AppCubitStates> {
         emit(AppUpdateCarErrorState());
       }
     }).catchError((error) {
-      // print (error);
       emit(AppUpdateCarErrorState());
     });
   }
@@ -1133,9 +1119,7 @@ class AppCubit extends Cubit<AppCubitStates> {
       headers: headers,
       body: body,
     ).then((value) {
-      //print(value.body);
       mainPramsModel = MainPramsModel.fromJson(jsonDecode(value.body));
-      //print(mainPramsModel!.income);
       if (value.statusCode>=201 && value.statusCode<300) {
         emit(AppGetMainPramsSuccessState());
       } else {
@@ -1228,7 +1212,6 @@ class AppCubit extends Cubit<AppCubitStates> {
       Uri.parse('$GETMONTHWORK${year}_$month'),
       headers: headers,
     ).then((value) {
-      //print(value);
       getMonthWorkModel = GetMonthWorkModel.fromJson(jsonDecode(value));
       emit(AppGetMonthWorkSuccessState());
     }).catchError((error) {

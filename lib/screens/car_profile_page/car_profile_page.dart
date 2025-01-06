@@ -93,7 +93,6 @@ class _CarProfilePageState extends State<CarProfilePage> {
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppCubitStates>(
         listener: (context, state) {
-          // print(state.toString());
       if (state is AppGetSpecificCarSuccessState) {
         idController = TextEditingController(
             text: AppCubit.get(context).getSpecificCarModel?.carData?.id);

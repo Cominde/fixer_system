@@ -271,8 +271,6 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                                     onChanged: (value) async {
                                       typesController.text = value!;
                                       codeController.text=await AppCubit.get(context).getTheNextClientCode(value);
-
-                                      //print(typesController.text);
                                     },
                                     autofocus: false,
                                   ),
@@ -285,7 +283,6 @@ class _AddNewCarScreenState extends State<AddNewCarScreen> {
                                     onChanged: (value) {
                                       setState(() {
                                         automatic = value;
-                                        //print(automatic);// Toggle the mode
                                       });
                                     },
                                     activeColor: Colors.black, // Background for dark mode

@@ -52,7 +52,6 @@ class _LoginState extends State<Login> {
         _savedEmails = savedEmails;
       });
     }
-    //print(savedEmails);
   }
 
   void _saveEmail(String email) async {
@@ -69,7 +68,6 @@ class _LoginState extends State<Login> {
           .where((email) => email.toLowerCase().contains(input.toLowerCase()))
           .toList();
     });
-    //print(_suggestions);
   }
 
   @override

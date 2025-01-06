@@ -78,7 +78,6 @@ class _BillItemState extends State<BillItem> {
 
         showToast('PDF saved to: $newFilePath', TType.success);
       } else {
-        //print('No directory selected.');
       }
     } catch (e) {
       showToast(e.toString(), TType.error);
@@ -104,8 +103,6 @@ class _BillItemState extends State<BillItem> {
       onTap: () async {
         final AppCubit cubit = AppCubit.get(context);
         await cubit.getCompletedRepairDetails(repairId: widget.model.id!);
-
-        //print(cleanString(cubit.getCompletedRepairDetailsModel!.carNumber!));
 
         int totalServices = 0;
         if (cubit.getCompletedRepairDetailsModel!.visit!.services.isNotEmpty) {
@@ -986,12 +983,9 @@ class _BillItemState extends State<BillItem> {
 
                 // Write the PDF bytes to the file
                 file.writeAsBytes(pdfBytes).then((_) {
-                  //print('PDF saved at ${file.path}');
                 }).catchError((error) {
-                  //print('Error writing PDF to file: $error');
                 });
               }).catchError((error) {
-                //print('Error getting documents directory: $error');
               });
 
               showDialog(context: context, builder: (context) => Dialog(

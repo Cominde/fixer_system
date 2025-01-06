@@ -24,7 +24,6 @@ class _ClientDetailsState extends State<ClientProfilePage> {
     //WidgetsFlutterBinding.ensureInitialized();
 
     AppCubit.get(context).getSpecificUser(userId: widget.userId);
-    //print(AppCubit.get(context).getSpecificUserModel?.cars.last.id);
 
     super.initState();
   }
@@ -72,7 +71,6 @@ class _ClientDetailsState extends State<ClientProfilePage> {
         } else if (state is AppAddCarSuccessState) {
           setState(() {});
         } else if (state is AppDeleteCarSuccessState) {
-          print(AppCubit.get(context).getSpecificUserModel!.cars.length);
           setState(() {});
         }
       },

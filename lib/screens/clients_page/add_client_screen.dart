@@ -338,8 +338,6 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
                                           onChanged: (value) async {
                                             typesController.text = value!;
                                             codeController.text=await AppCubit.get(context).getTheNextClientCode(value);
-
-                                            // print(typesController.text);
                                           },
                                           autofocus: false,
                                         ),
@@ -352,7 +350,6 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
                                           onChanged: (value) {
                                             setState(() {
                                               automatic = value;
-                                              //print(automatic);// Toggle the mode
                                             });
                                           },
                                           activeColor: Colors.black, // Background for dark mode

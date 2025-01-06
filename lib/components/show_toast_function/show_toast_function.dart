@@ -15,7 +15,6 @@ enum TType {
 showToast(String text, TType type) {
 
   ToastificationType tType = type == TType.error ? ToastificationType.error : type == TType.info ? ToastificationType.info : type == TType.success ? ToastificationType.success : ToastificationType.warning;
-  //log(text);
 
   //fToast.init(context);
 

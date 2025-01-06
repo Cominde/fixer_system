@@ -298,7 +298,6 @@ class RepairItemBuilder extends StatelessWidget {
                                         serviceId: value.id!,
                                         state: 'completed',
                                       );
-                                      //print(changed);
                                       if(changed) {
                                         AppCubit.get(context).setState(() {
                                           int indexOfService = AppCubit.get(context).getAllRepairsForSpecificCarModel!.repairs[index].services.indexOf(value);
