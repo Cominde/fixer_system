@@ -7,6 +7,7 @@ class GetCarsModel{
   GetCarsModel.fromJson(Map<String,dynamic>?json){
     results=json?['results'];
     pages=json?['paginationResult']['numberOfPages'];
+    current=json?['paginationResult']['currentPage'];
     json?['data'].forEach((element) {
       data.add(CarData.fromJson(element));
     });

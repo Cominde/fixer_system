@@ -8,6 +8,7 @@ class GetWorkersModel{
   GetWorkersModel.fromJson(Map<String,dynamic>?json){
     results=json?['results'];
     pages=json?['paginationResult']['numberOfPages'];
+    current=json?['paginationResult']['currentPage'];
     json?['data'].forEach((element) {
       workers.add(Worker.fromJson(element));
     });

@@ -10,6 +10,7 @@ class GetRepairingCarsModel{
     results=json?['result'];
     page=json?['page'];
     pages=json?['paginationResult']['numberOfPages'];
+    current=json?['paginationResult']['currentPage'];
     json?['data'].forEach((element) {
       data.add(RepairingCarData.fromJson(element));
     });

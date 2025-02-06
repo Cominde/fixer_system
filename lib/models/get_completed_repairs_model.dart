@@ -9,6 +9,7 @@ class GetCompletedRepairsModel {
   {
     results = json?['results'];
     pages=json?['paginationResult']['numberOfPages'];
+    current=json?['paginationResult']['currentPage'];
     json?['data'].forEach((element){
       completedRepairs.add(CompletedRepairData.fromJson(element));
     });

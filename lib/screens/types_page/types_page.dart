@@ -29,7 +29,7 @@ class _TypesPageState extends State<TypesPage> {
 
   @override
   void initState() {
-   AppCubit.get(context).getTypes();
+    AppCubit.get(context).getTypes();
     super.initState();
     _model = createModel(context, () => TypesPageModel());
   }
@@ -48,24 +48,28 @@ class _TypesPageState extends State<TypesPage> {
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppCubitStates>(
       listener: (context, state) {
-        if (state is AppCreateCodeSuccessState)
-          {
-            setState(() {
-
-            });
-          }
+        if (state is AppCreateCodeSuccessState) {
+          setState(() {});
+        }
       },
       builder: (context, state) {
         return Focus(
           onKey: (node, event) {
             FocusScopeNode currentFocus = FocusScope.of(context);
-            bool isTextFieldFocused = currentFocus.focusedChild is Focus && currentFocus.focusedChild!.context?.widget is EditableText;
+            bool isTextFieldFocused = currentFocus.focusedChild is Focus &&
+                currentFocus.focusedChild!.context?.widget is EditableText;
             if (event is RawKeyDownEvent) {
-              if (event.logicalKey == LogicalKeyboardKey.arrowUp && !isTextFieldFocused) {
-                _controller.animateTo(_controller.offset - 50, duration: const Duration(milliseconds: 300), curve: Curves.ease);
+              if (event.logicalKey == LogicalKeyboardKey.arrowUp &&
+                  !isTextFieldFocused) {
+                _controller.animateTo(_controller.offset - 50,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.ease);
                 return KeyEventResult.handled;
-              } else if (event.logicalKey == LogicalKeyboardKey.arrowDown && !isTextFieldFocused) {
-                _controller.animateTo(_controller.offset + 50, duration: const Duration(milliseconds: 300), curve: Curves.ease);
+              } else if (event.logicalKey == LogicalKeyboardKey.arrowDown &&
+                  !isTextFieldFocused) {
+                _controller.animateTo(_controller.offset + 50,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.ease);
                 return KeyEventResult.handled;
               }
             }
@@ -132,59 +136,61 @@ class _TypesPageState extends State<TypesPage> {
                                       Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Expanded(
                                             flex: 5,
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 12, 0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 12, 0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     'Types',
                                                     style: FlutterFlowTheme.of(
-                                                        context)
+                                                            context)
                                                         .displaySmall
                                                         .override(
-                                                      fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                          context)
-                                                          .displaySmallFamily,
-                                                      letterSpacing: 0,
-                                                      useGoogleFonts: GoogleFonts
-                                                          .asMap()
-                                                          .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                              context)
-                                                              .displaySmallFamily),
-                                                    ),
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .displaySmallFamily,
+                                                          letterSpacing: 0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .displaySmallFamily),
+                                                        ),
                                                   ),
                                                   Padding(
                                                     padding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(0, 4, 0, 0),
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                            0, 4, 0, 0),
                                                     child: Text(
                                                       'Manage your types below.',
-                                                      style: FlutterFlowTheme.of(
-                                                          context)
-                                                          .bodySmall
-                                                          .override(
-                                                        fontFamily:
-                                                        FlutterFlowTheme.of(
-                                                            context)
-                                                            .bodySmallFamily,
-                                                        letterSpacing: 0,
-                                                        useGoogleFonts: GoogleFonts
-                                                            .asMap()
-                                                            .containsKey(
-                                                            FlutterFlowTheme.of(
-                                                                context)
-                                                                .bodySmallFamily),
-                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodySmall
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodySmallFamily,
+                                                                letterSpacing:
+                                                                    0,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodySmallFamily),
+                                                              ),
                                                     ),
                                                   ),
                                                 ],
@@ -196,7 +202,7 @@ class _TypesPageState extends State<TypesPage> {
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.end,
+                                                  MainAxisAlignment.end,
                                               children: [
                                                 if (responsiveVisibility(
                                                   context: context,
@@ -204,40 +210,44 @@ class _TypesPageState extends State<TypesPage> {
                                                 ))
                                                   Padding(
                                                     padding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                        0, 0, 12, 0),
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                            0, 0, 12, 0),
                                                     child: SizedBox(
                                                       width: 250,
                                                       height: 50,
                                                       child: TextFormField(
                                                         controller:
-                                                        searchController,
+                                                            searchController,
                                                         obscureText: false,
                                                         decoration:
-                                                        CustomInputDecoration
-                                                            .customInputDecoration(
-                                                            context,
-                                                            'Search'),
+                                                            CustomInputDecoration
+                                                                .customInputDecoration(
+                                                                    context,
+                                                                    'Search'),
                                                         style:
-                                                        FlutterFlowTheme.of(
-                                                            context)
-                                                            .bodyMedium
-                                                            .override(
-                                                          fontFamily:
-                                                          'Outfit',
-                                                          color: FlutterFlowTheme.of(
-                                                              context)
-                                                              .primaryText,
-                                                        ),
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Outfit',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                ),
                                                         onFieldSubmitted:
                                                             (value) {
-                                                          if (value.isNotEmpty) {
-                                                            AppCubit.get(context)
+                                                          if (value
+                                                              .isNotEmpty) {
+                                                            AppCubit.get(
+                                                                    context)
                                                                 .searchTypes(
-                                                                word: value);
+                                                                    word:
+                                                                        value);
                                                           } else {
-                                                            AppCubit.get(context)
+                                                            AppCubit.get(
+                                                                    context)
                                                                 .getTypes();
                                                           }
                                                         },
@@ -246,20 +256,21 @@ class _TypesPageState extends State<TypesPage> {
                                                   ),
                                                 Padding(
                                                   padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 12, 0),
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                          0, 0, 12, 0),
                                                   child: Container(
                                                     width: 50,
                                                     height: 50,
                                                     decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme.of(
-                                                          context)
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
                                                           .secondaryBackground,
                                                       boxShadow: const [
                                                         BoxShadow(
                                                           blurRadius: 4,
                                                           color:
-                                                          Color(0x33000000),
+                                                              Color(0x33000000),
                                                           offset: Offset(
                                                             0,
                                                             2,
@@ -267,26 +278,27 @@ class _TypesPageState extends State<TypesPage> {
                                                         )
                                                       ],
                                                       borderRadius:
-                                                      BorderRadius.circular(
-                                                          16),
+                                                          BorderRadius.circular(
+                                                              16),
                                                     ),
-                                                    child: FlutterFlowIconButton(
+                                                    child:
+                                                        FlutterFlowIconButton(
                                                       borderColor:
-                                                      FlutterFlowTheme.of(
-                                                          context)
-                                                          .lineColor,
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .lineColor,
                                                       borderRadius: 12,
                                                       borderWidth: 1,
                                                       buttonSize: 50,
                                                       fillColor: FlutterFlowTheme
-                                                          .of(context)
+                                                              .of(context)
                                                           .secondaryBackground,
                                                       icon: Icon(
                                                         Icons.add_box_rounded,
                                                         color:
-                                                        FlutterFlowTheme.of(
-                                                            context)
-                                                            .secondaryText,
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
                                                         size: 24,
                                                       ),
                                                       onPressed: () async {
@@ -306,25 +318,26 @@ class _TypesPageState extends State<TypesPage> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: FlutterFlowIconButton(
                                               borderColor:
-                                              FlutterFlowTheme.of(
-                                                  context)
-                                                  .lineColor,
+                                                  FlutterFlowTheme.of(context)
+                                                      .lineColor,
                                               borderRadius: 12,
                                               borderWidth: 1,
                                               buttonSize: 50,
-                                              fillColor: FlutterFlowTheme
-                                                  .of(context)
-                                                  .secondaryBackground,
+                                              fillColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
                                               icon: Icon(
                                                 Icons.refresh_rounded,
                                                 color:
-                                                FlutterFlowTheme.of(
-                                                    context)
-                                                    .secondaryText,
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
                                                 size: 24,
                                               ),
                                               onPressed: () {
-                                                AppCubit.get(context).getTypes(page: AppCubit.get(context).getTypesModel!.current);
+                                                AppCubit.get(context).getTypes(
+                                                    page: AppCubit.get(context)
+                                                        .getTypesModel!
+                                                        .current);
                                               },
                                             ),
                                           ),
@@ -353,19 +366,20 @@ class _TypesPageState extends State<TypesPage> {
                                               .lineColor,
                                         ),
                                       Padding(
-                                        padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            0, 12, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 12, 0, 0),
                                         child: Container(
-                                          width: MediaQuery.sizeOf(context).width,
+                                          width:
+                                              MediaQuery.sizeOf(context).width,
                                           decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryBackground,
                                             borderRadius:
-                                            BorderRadius.circular(8),
+                                                BorderRadius.circular(8),
                                             border: Border.all(
-                                              color: FlutterFlowTheme.of(context)
-                                                  .lineColor,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .lineColor,
                                               width: 1,
                                             ),
                                           ),
@@ -375,64 +389,63 @@ class _TypesPageState extends State<TypesPage> {
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Padding(
                                                   padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                      12, 12, 12, 0),
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                          12, 12, 12, 0),
                                                   child: Row(
                                                     mainAxisSize:
-                                                    MainAxisSize.max,
+                                                        MainAxisSize.max,
                                                     children: [
                                                       Expanded(
                                                         flex: 2,
                                                         child: Text(
                                                           'Name',
-                                                          style:
-                                                          FlutterFlowTheme.of(
-                                                              context)
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
                                                               .bodySmall
                                                               .override(
-                                                            fontFamily: FlutterFlowTheme.of(
-                                                                context)
-                                                                .bodySmallFamily,
-                                                            letterSpacing:
-                                                            0,
-                                                            useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                                .containsKey(
-                                                                FlutterFlowTheme.of(context)
-                                                                    .bodySmallFamily),
-                                                          ),
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodySmallFamily,
+                                                                letterSpacing:
+                                                                    0,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodySmallFamily),
+                                                              ),
                                                         ),
                                                       ),
                                                       Expanded(
-                                                        flex:2,
+                                                        flex: 2,
                                                         child: Align(
                                                           alignment:
-                                                          const AlignmentDirectional(
-                                                              -1, 0),
+                                                              const AlignmentDirectional(
+                                                                  -1, 0),
                                                           child: Text(
                                                             'Key',
                                                             textAlign:
-                                                            TextAlign.end,
+                                                                TextAlign.end,
                                                             style: FlutterFlowTheme
-                                                                .of(context)
+                                                                    .of(context)
                                                                 .bodySmall
                                                                 .override(
-                                                              fontFamily: FlutterFlowTheme.of(
-                                                                  context)
-                                                                  .bodySmallFamily,
-                                                              letterSpacing:
-                                                              0,
-                                                              useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                                  .containsKey(
-                                                                  FlutterFlowTheme.of(context)
-                                                                      .bodySmallFamily),
-                                                            ),
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodySmallFamily,
+                                                                  letterSpacing:
+                                                                      0,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodySmallFamily),
+                                                                ),
                                                           ),
                                                         ),
                                                       ),
@@ -440,25 +453,25 @@ class _TypesPageState extends State<TypesPage> {
                                                         flex: 3,
                                                         child: Align(
                                                           alignment:
-                                                          const AlignmentDirectional(
-                                                              1, 0),
+                                                              const AlignmentDirectional(
+                                                                  1, 0),
                                                           child: Text(
                                                             'Operations',
                                                             style: FlutterFlowTheme
-                                                                .of(context)
+                                                                    .of(context)
                                                                 .bodyMedium
                                                                 .override(
-                                                              fontFamily: FlutterFlowTheme.of(
-                                                                  context)
-                                                                  .bodyMediumFamily,
-                                                              letterSpacing:
-                                                              0,
-                                                              useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                                  .containsKey(
-                                                                  FlutterFlowTheme.of(context)
-                                                                      .bodyMediumFamily),
-                                                            ),
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  letterSpacing:
+                                                                      0,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyMediumFamily),
+                                                                ),
                                                           ),
                                                         ),
                                                       ),
@@ -467,62 +480,62 @@ class _TypesPageState extends State<TypesPage> {
                                                 ),
                                                 ConditionalBuilder(
                                                   condition: state
-                                                  is AppGetTypesLoadingState ||
+                                                          is AppGetTypesLoadingState ||
                                                       state
-                                                      is AppSearchTypesLoadingState,
+                                                          is AppSearchTypesLoadingState,
                                                   builder: (context) =>
-                                                  const Center(
+                                                      const Center(
                                                     child: Padding(
                                                       padding:
-                                                      EdgeInsets.all(40.0),
+                                                          EdgeInsets.all(40.0),
                                                       child:
-                                                      CircularProgressIndicator(),
+                                                          CircularProgressIndicator(),
                                                     ),
                                                   ),
                                                   fallback: (context) =>
                                                       ConditionalBuilder(
-                                                        condition:
+                                                    condition:
                                                         AppCubit.get(context)
                                                             .getTypesModel!
                                                             .types
                                                             .isEmpty,
-                                                        builder: (context) => Text(
-                                                          'No Results',
-                                                          style: TextStyle(
-                                                              fontSize: 50,
-                                                              color:
+                                                    builder: (context) => Text(
+                                                      'No Results',
+                                                      style: TextStyle(
+                                                          fontSize: 50,
+                                                          color:
                                                               Colors.grey[300]),
-                                                        ),
-                                                        fallback: (context) =>
-                                                            Padding(
-                                                              padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                  0, 16, 0, 0),
-                                                              child: ListView.builder(
-                                                                padding: EdgeInsets.zero,
-                                                                shrinkWrap: true,
-                                                                scrollDirection:
-                                                                Axis.vertical,
-                                                                itemCount:
-                                                                AppCubit.get(context)
-                                                                    .getTypesModel
-                                                                    ?.types
-                                                                    .length,
-                                                                physics:
-                                                                const BouncingScrollPhysics(),
-                                                                itemBuilder: (context,
-                                                                    index) =>
-                                                                    typeBuilder(
-                                                                        context,
-                                                                        AppCubit.get(
-                                                                            context)
-                                                                            .getTypesModel!
-                                                                            .types[index]),
-
-                                                              ),
-                                                            ),
+                                                    ),
+                                                    fallback: (context) =>
+                                                        Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                              0, 16, 0, 0),
+                                                      child: ListView.builder(
+                                                        padding:
+                                                            EdgeInsets.zero,
+                                                        shrinkWrap: true,
+                                                        scrollDirection:
+                                                            Axis.vertical,
+                                                        itemCount: AppCubit.get(
+                                                                context)
+                                                            .getTypesModel
+                                                            ?.types
+                                                            .length,
+                                                        physics:
+                                                            const BouncingScrollPhysics(),
+                                                        itemBuilder: (context,
+                                                                index) =>
+                                                            typeBuilder(
+                                                                context,
+                                                                AppCubit.get(
+                                                                        context)
+                                                                    .getTypesModel!
+                                                                    .types[index]),
                                                       ),
+                                                    ),
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -532,19 +545,38 @@ class _TypesPageState extends State<TypesPage> {
                                     ],
                                   ),
                                 ),
-                                Center(
-                                  child: Pager(
-                                    currentPage: AppCubit.get(context).getTypesModel!.current>0?AppCubit.get(context).getTypesModel!.current:1,
-                                    totalPages: AppCubit.get(context).getTypesModel!.pages>0?AppCubit.get(context).getTypesModel!.pages:1,
-                                    onPageChanged: (page) {
-                                      setState(() {
-                                        AppCubit.get(context).getTypesModel!.current = page;
-                                        AppCubit.get(context).getTypes(page: page);
-                                      });
-                                    },
-                                    numberButtonSelectedColor: const Color(0xffF68B1E),
-                                  ),
-                                )
+                                if (state is! AppSearchTypesLoadingState)
+                                  Center(
+                                    child: Pager(
+                                      currentPage: AppCubit.get(context)
+                                                  .getTypesModel!
+                                                  .current >
+                                              0
+                                          ? AppCubit.get(context)
+                                              .getTypesModel!
+                                              .current
+                                          : 1,
+                                      totalPages: AppCubit.get(context)
+                                                  .getTypesModel!
+                                                  .pages >
+                                              0
+                                          ? AppCubit.get(context)
+                                              .getTypesModel!
+                                              .pages
+                                          : 1,
+                                      onPageChanged: (page) {
+                                        setState(() {
+                                          AppCubit.get(context)
+                                              .getTypesModel!
+                                              .current = page;
+                                          AppCubit.get(context)
+                                              .getTypes(page: page);
+                                        });
+                                      },
+                                      numberButtonSelectedColor:
+                                          const Color(0xffF68B1E),
+                                    ),
+                                  )
                               ],
                             ),
                           ),

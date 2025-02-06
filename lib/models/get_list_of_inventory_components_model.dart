@@ -9,6 +9,7 @@ class GetListOfInventoryComponentsModel{
     if(!search) {
       results=json?['results'];
       pages=json?['paginationResult']['numberOfPages'];
+    current=json?['paginationResult']['currentPage'];
     }
     json?['data'].forEach((element) {
       data.add(InventoryComponentData.fromJson(element));

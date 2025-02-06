@@ -8,6 +8,7 @@ class GetUsersModel{
   GetUsersModel.fromJson(Map<String,dynamic>?json){
     results=json?['results'];
     pages=json?['paginationResult']['numberOfPages'];
+    current=json?['paginationResult']['currentPage'];
     json?['data'].forEach((element) {
       users.add(User.fromJson(element));
     });

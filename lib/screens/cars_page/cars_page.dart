@@ -43,24 +43,29 @@ class _CarsPageState extends State<CarsPage> {
     super.dispose();
   }
 
-  var searchController=TextEditingController();
+  var searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit,AppCubitStates>(
-      listener: (context, state) {
-
-      },
+    return BlocConsumer<AppCubit, AppCubitStates>(
+      listener: (context, state) {},
       builder: (context, state) {
         return Focus(
           onKey: (node, event) {
             FocusScopeNode currentFocus = FocusScope.of(context);
-            bool isTextFieldFocused = currentFocus.focusedChild is Focus && currentFocus.focusedChild!.context?.widget is EditableText;
+            bool isTextFieldFocused = currentFocus.focusedChild is Focus &&
+                currentFocus.focusedChild!.context?.widget is EditableText;
             if (event is RawKeyDownEvent) {
-              if (event.logicalKey == LogicalKeyboardKey.arrowUp && !isTextFieldFocused) {
-                _controller.animateTo(_controller.offset - 50, duration: const Duration(milliseconds: 300), curve: Curves.ease);
+              if (event.logicalKey == LogicalKeyboardKey.arrowUp &&
+                  !isTextFieldFocused) {
+                _controller.animateTo(_controller.offset - 50,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.ease);
                 return KeyEventResult.handled;
-              } else if (event.logicalKey == LogicalKeyboardKey.arrowDown && !isTextFieldFocused) {
-                _controller.animateTo(_controller.offset + 50, duration: const Duration(milliseconds: 300), curve: Curves.ease);
+              } else if (event.logicalKey == LogicalKeyboardKey.arrowDown &&
+                  !isTextFieldFocused) {
+                _controller.animateTo(_controller.offset + 50,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.ease);
                 return KeyEventResult.handled;
               }
             }
@@ -69,9 +74,8 @@ class _CarsPageState extends State<CarsPage> {
           child: GestureDetector(
             onTap: () {
               _model.unfocusNode.canRequestFocus
-                ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                : FocusScope.of(context).unfocus();
-
+                  ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+                  : FocusScope.of(context).unfocus();
             },
             child: Scaffold(
               key: scaffoldKey,
@@ -125,66 +129,70 @@ class _CarsPageState extends State<CarsPage> {
                                     ),
                                   Padding(
                                     padding:
-                                    const EdgeInsetsDirectional.fromSTEB(16, 24, 16, 0),
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            16, 24, 16, 0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Expanded(
                                               flex: 5,
                                               child: Padding(
                                                 padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 12, 0),
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0, 0, 12, 0),
                                                 child: Column(
-                                                  mainAxisSize: MainAxisSize.max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
                                                       'Cars',
                                                       style:
-                                                      FlutterFlowTheme.of(context)
-                                                          .displaySmall
-                                                          .override(
-                                                        fontFamily:
-                                                        FlutterFlowTheme.of(
-                                                            context)
-                                                            .displaySmallFamily,
-                                                        letterSpacing: 0,
-                                                        useGoogleFonts: GoogleFonts
-                                                            .asMap()
-                                                            .containsKey(
-                                                            FlutterFlowTheme.of(
-                                                                context)
-                                                                .displaySmallFamily),
-                                                      ),
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .displaySmall
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .displaySmallFamily,
+                                                                letterSpacing:
+                                                                    0,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .displaySmallFamily),
+                                                              ),
                                                     ),
                                                     Padding(
-                                                      padding: const EdgeInsetsDirectional
-                                                          .fromSTEB(0, 4, 0, 0),
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                              0, 4, 0, 0),
                                                       child: Text(
                                                         'Manage your clients\'s cars below.',
-                                                        style: FlutterFlowTheme.of(
-                                                            context)
-                                                            .bodySmall
-                                                            .override(
-                                                          fontFamily:
-                                                          FlutterFlowTheme.of(
-                                                              context)
-                                                              .bodySmallFamily,
-                                                          letterSpacing: 0,
-                                                          useGoogleFonts: GoogleFonts
-                                                              .asMap()
-                                                              .containsKey(
-                                                              FlutterFlowTheme.of(
-                                                                  context)
-                                                                  .bodySmallFamily),
-                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodySmall
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodySmallFamily,
+                                                                  letterSpacing:
+                                                                      0,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodySmallFamily),
+                                                                ),
                                                       ),
                                                     ),
                                                   ],
@@ -196,7 +204,7 @@ class _CarsPageState extends State<CarsPage> {
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.end,
+                                                    MainAxisAlignment.end,
                                                 children: [
                                                   if (responsiveVisibility(
                                                     context: context,
@@ -204,63 +212,78 @@ class _CarsPageState extends State<CarsPage> {
                                                   ))
                                                     Padding(
                                                       padding:
-                                                      const EdgeInsetsDirectional
-                                                          .fromSTEB(
-                                                          0, 0, 12, 0),
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                              0, 0, 12, 0),
                                                       child: SizedBox(
                                                         width: 250,
                                                         height: 50,
-                                                        child:TextFormField(
-                                                          controller: searchController,
+                                                        child: TextFormField(
+                                                          controller:
+                                                              searchController,
                                                           obscureText: false,
-                                                          decoration: CustomInputDecoration.customInputDecoration(context,'Search'),
-                                                          style: FlutterFlowTheme.of(context)
+                                                          decoration:
+                                                              CustomInputDecoration
+                                                                  .customInputDecoration(
+                                                                      context,
+                                                                      'Search'),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
                                                               .bodyMedium
                                                               .override(
-                                                            fontFamily: 'Outfit',
-                                                            color:
-                                                            FlutterFlowTheme.of(context).primaryText,
-                                                          ),
-                                                          onFieldSubmitted: (value) {
-                                                            if (value.isNotEmpty) {
-                                                              AppCubit.get(context).searchCars(word: value);
-                                                            }
-                                                            else
-                                                            {
-                                                              AppCubit.get(context).getCars();
+                                                                fontFamily:
+                                                                    'Outfit',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                              ),
+                                                          onFieldSubmitted:
+                                                              (value) {
+                                                            if (value
+                                                                .isNotEmpty) {
+                                                              AppCubit.get(
+                                                                      context)
+                                                                  .searchCars(
+                                                                      word:
+                                                                          value);
+                                                            } else {
+                                                              AppCubit.get(
+                                                                      context)
+                                                                  .getCars();
                                                             }
                                                           },
                                                         ),
-
                                                       ),
                                                     ),
-
                                                 ],
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.all(8.0),
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
                                               child: FlutterFlowIconButton(
                                                 borderColor:
-                                                FlutterFlowTheme.of(
-                                                    context)
-                                                    .lineColor,
+                                                    FlutterFlowTheme.of(context)
+                                                        .lineColor,
                                                 borderRadius: 12,
                                                 borderWidth: 1,
                                                 buttonSize: 50,
-                                                fillColor: FlutterFlowTheme
-                                                    .of(context)
-                                                    .secondaryBackground,
+                                                fillColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
                                                 icon: Icon(
                                                   Icons.refresh_rounded,
-                                                  color:
-                                                  FlutterFlowTheme.of(
-                                                      context)
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
                                                       .secondaryText,
                                                   size: 24,
                                                 ),
                                                 onPressed: () {
-                                                  AppCubit.get(context).getCars(page: AppCubit.get(context).getCarsModel!.current);
+                                                  AppCubit.get(context).getCars(
+                                                      page:
+                                                          AppCubit.get(context)
+                                                              .getCarsModel!
+                                                              .current);
                                                 },
                                               ),
                                             ),
@@ -289,53 +312,60 @@ class _CarsPageState extends State<CarsPage> {
                                                 .lineColor,
                                           ),
                                         Padding(
-                                          padding: const EdgeInsetsDirectional.fromSTEB(
-                                              0, 12, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 12, 0, 0),
                                           child: Container(
-                                            width: MediaQuery.sizeOf(context).width,
+                                            width: MediaQuery.sizeOf(context)
+                                                .width,
                                             decoration: BoxDecoration(
-                                              color: FlutterFlowTheme.of(context)
-                                                  .secondaryBackground,
-                                              borderRadius: BorderRadius.circular(8),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
                                               border: Border.all(
-                                                color: FlutterFlowTheme.of(context)
-                                                    .lineColor,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .lineColor,
                                                 width: 1,
                                               ),
                                             ),
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 12),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 12),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.center,
                                                 children: [
                                                   Padding(
-                                                    padding: const EdgeInsetsDirectional
-                                                        .fromSTEB(12, 12, 12, 0),
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                            12, 12, 12, 0),
                                                     child: Row(
-                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
                                                       children: [
                                                         Expanded(
                                                           child: AutoSizeText(
                                                             'Car',
-                                                            style:
-                                                            FlutterFlowTheme.of(
-                                                                context)
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
                                                                 .bodySmall
                                                                 .override(
-                                                              fontFamily: FlutterFlowTheme.of(
-                                                                  context)
-                                                                  .bodySmallFamily,
-                                                              letterSpacing:
-                                                              0,
-                                                              useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                                  .containsKey(
-                                                                  FlutterFlowTheme.of(context)
-                                                                      .bodySmallFamily),
-                                                            ),
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodySmallFamily,
+                                                                  letterSpacing:
+                                                                      0,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodySmallFamily),
+                                                                ),
                                                           ),
                                                         ),
                                                         if (responsiveVisibility(
@@ -346,22 +376,20 @@ class _CarsPageState extends State<CarsPage> {
                                                           Expanded(
                                                             child: AutoSizeText(
                                                               'Car Number',
-                                                              style:
-                                                              FlutterFlowTheme.of(
-                                                                  context)
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
                                                                   .bodySmall
                                                                   .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                    context)
-                                                                    .bodySmallFamily,
-                                                                letterSpacing:
-                                                                0,
-                                                                useGoogleFonts: GoogleFonts
-                                                                    .asMap()
-                                                                    .containsKey(
-                                                                    FlutterFlowTheme.of(context)
-                                                                        .bodySmallFamily),
-                                                              ),
+                                                                    fontFamily:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodySmallFamily,
+                                                                    letterSpacing:
+                                                                        0,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                            .asMap()
+                                                                        .containsKey(
+                                                                            FlutterFlowTheme.of(context).bodySmallFamily),
+                                                                  ),
                                                             ),
                                                           ),
                                                         if (responsiveVisibility(
@@ -371,53 +399,86 @@ class _CarsPageState extends State<CarsPage> {
                                                           Expanded(
                                                             child: Text(
                                                               'Owner',
-                                                              style:
-                                                              FlutterFlowTheme.of(
-                                                                  context)
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
                                                                   .bodySmall
                                                                   .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                    context)
-                                                                    .bodySmallFamily,
-                                                                letterSpacing:
-                                                                0,
-                                                                useGoogleFonts: GoogleFonts
-                                                                    .asMap()
-                                                                    .containsKey(
-                                                                    FlutterFlowTheme.of(context)
-                                                                        .bodySmallFamily),
-                                                              ),
+                                                                    fontFamily:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodySmallFamily,
+                                                                    letterSpacing:
+                                                                        0,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                            .asMap()
+                                                                        .containsKey(
+                                                                            FlutterFlowTheme.of(context).bodySmallFamily),
+                                                                  ),
                                                             ),
                                                           ),
                                                       ],
                                                     ),
                                                   ),
                                                   Padding(
-                                                    padding: const EdgeInsetsDirectional
-                                                        .fromSTEB(0, 16, 0, 0),
-                                                    child:
-                                                    ConditionalBuilder(
-                                                        condition: state is AppGetAllCarsLoadingState||state is AppSearchCarsLoadingState,
-                                                        builder: (context) => const  Center(
-                child: Padding(padding: EdgeInsets.all(40.0),
-                   child: CircularProgressIndicator(),
-                                              ),),
-
-
-                                                        fallback: (context) => ConditionalBuilder(
-                                                          condition: AppCubit.get(context).getCarsModel!.data.isEmpty,
-                                                          builder: (context) => Text('No Results',style: TextStyle(fontSize: 50,color: Colors.grey[300]),),
-                                                          fallback: (context) =>ListView.builder(
-                                                            padding: EdgeInsets.zero,
-                                                            shrinkWrap: true,
-                                                            scrollDirection: Axis.vertical,
-                                                            physics: const BouncingScrollPhysics(),
-                                                            itemBuilder: (context, index) => carItemBuilder(context, AppCubit.get(context).getCarsModel!.data[index]),
-                                                            itemCount: AppCubit.get(context).getCarsModel!.data.length,
-                                                          ) ,),
-
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                            0, 16, 0, 0),
+                                                    child: ConditionalBuilder(
+                                                      condition: state
+                                                              is AppGetAllCarsLoadingState ||
+                                                          state
+                                                              is AppSearchCarsLoadingState,
+                                                      builder: (context) =>
+                                                          const Center(
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  40.0),
+                                                          child:
+                                                              CircularProgressIndicator(),
+                                                        ),
+                                                      ),
+                                                      fallback: (context) =>
+                                                          ConditionalBuilder(
+                                                        condition: AppCubit.get(
+                                                                context)
+                                                            .getCarsModel!
+                                                            .data
+                                                            .isEmpty,
+                                                        builder: (context) =>
+                                                            Text(
+                                                          'No Results',
+                                                          style: TextStyle(
+                                                              fontSize: 50,
+                                                              color: Colors
+                                                                  .grey[300]),
+                                                        ),
+                                                        fallback: (context) =>
+                                                            ListView.builder(
+                                                          padding:
+                                                              EdgeInsets.zero,
+                                                          shrinkWrap: true,
+                                                          scrollDirection:
+                                                              Axis.vertical,
+                                                          physics:
+                                                              const BouncingScrollPhysics(),
+                                                          itemBuilder: (context,
+                                                                  index) =>
+                                                              carItemBuilder(
+                                                                  context,
+                                                                  AppCubit.get(
+                                                                          context)
+                                                                      .getCarsModel!
+                                                                      .data[index]),
+                                                          itemCount:
+                                                              AppCubit.get(
+                                                                      context)
+                                                                  .getCarsModel!
+                                                                  .data
+                                                                  .length,
+                                                        ),
+                                                      ),
                                                     ),
-
                                                   ),
                                                 ],
                                               ),
@@ -427,19 +488,39 @@ class _CarsPageState extends State<CarsPage> {
                                       ],
                                     ),
                                   ),
-                                  Center(
-                                    child: Pager(
-                                      currentPage: AppCubit.get(context).getCarsModel!.current>0?AppCubit.get(context).getCarsModel!.current:1,
-                                      totalPages: AppCubit.get(context).getCarsModel!.pages>0?AppCubit.get(context).getCarsModel!.pages:1,
-                                      onPageChanged: (page) {
-                                        setState(() {
-                                          AppCubit.get(context).getCarsModel!.current = page;
-                                          AppCubit.get(context).getCars(page: page);
-                                        });
-                                      },
-                                      numberButtonSelectedColor: const Color(0xffF68B1E),
-                                    ),
-                                  )
+                                  if (state is! AppGetAllCarsLoadingState &&
+                                      state is! AppSearchCarsLoadingState)
+                                    Center(
+                                      child: Pager(
+                                        currentPage: AppCubit.get(context)
+                                                    .getCarsModel!
+                                                    .current >
+                                                0
+                                            ? AppCubit.get(context)
+                                                .getCarsModel!
+                                                .current
+                                            : 1,
+                                        totalPages: AppCubit.get(context)
+                                                    .getCarsModel!
+                                                    .pages >
+                                                0
+                                            ? AppCubit.get(context)
+                                                .getCarsModel!
+                                                .pages
+                                            : 1,
+                                        onPageChanged: (page) {
+                                          setState(() {
+                                            AppCubit.get(context)
+                                                .getCarsModel!
+                                                .current = page;
+                                            AppCubit.get(context)
+                                                .getCars(page: page);
+                                          });
+                                        },
+                                        numberButtonSelectedColor:
+                                            const Color(0xffF68B1E),
+                                      ),
+                                    )
                                 ],
                               ),
                             ),
@@ -453,7 +534,6 @@ class _CarsPageState extends State<CarsPage> {
             ),
           ),
         );
-
       },
     );
   }

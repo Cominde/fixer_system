@@ -1001,7 +1001,7 @@ class _AddRepairScreenState extends State<AddRepairScreen> {
                                     setState(() {
                                       if (value!=null) {
                                         nextRepairDateController.text =
-                                        '${value.day.toString()}/${value.month.toString()}/${value.year.toString()}';
+                                        '${value.year.toString()}/${value.month<10?'0':''}${value.month.toString()}/${value.day<10?'0':''}${value.day.toString()}';
                                       }
                                     });
                                   });

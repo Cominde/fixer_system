@@ -52,13 +52,20 @@ class _TeamPageState extends State<TeamPage> {
         return Focus(
           onKey: (node, event) {
             FocusScopeNode currentFocus = FocusScope.of(context);
-            bool isTextFieldFocused = currentFocus.focusedChild is Focus && currentFocus.focusedChild!.context?.widget is EditableText;
+            bool isTextFieldFocused = currentFocus.focusedChild is Focus &&
+                currentFocus.focusedChild!.context?.widget is EditableText;
             if (event is RawKeyDownEvent) {
-              if (event.logicalKey == LogicalKeyboardKey.arrowUp && !isTextFieldFocused) {
-                _controller.animateTo(_controller.offset - 50, duration: const Duration(milliseconds: 300), curve: Curves.ease);
+              if (event.logicalKey == LogicalKeyboardKey.arrowUp &&
+                  !isTextFieldFocused) {
+                _controller.animateTo(_controller.offset - 50,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.ease);
                 return KeyEventResult.handled;
-              } else if (event.logicalKey == LogicalKeyboardKey.arrowDown && !isTextFieldFocused) {
-                _controller.animateTo(_controller.offset + 50, duration: const Duration(milliseconds: 300), curve: Curves.ease);
+              } else if (event.logicalKey == LogicalKeyboardKey.arrowDown &&
+                  !isTextFieldFocused) {
+                _controller.animateTo(_controller.offset + 50,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.ease);
                 return KeyEventResult.handled;
               }
             }
@@ -130,8 +137,9 @@ class _TeamPageState extends State<TeamPage> {
                                           Expanded(
                                             flex: 5,
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 12, 0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 12, 0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
                                                 crossAxisAlignment:
@@ -159,25 +167,26 @@ class _TeamPageState extends State<TeamPage> {
                                                   Padding(
                                                     padding:
                                                         const EdgeInsetsDirectional
-                                                            .fromSTEB(0, 4, 0, 0),
+                                                            .fromSTEB(
+                                                            0, 4, 0, 0),
                                                     child: Text(
                                                       'Manage your team below.',
-                                                      style: FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodySmall
-                                                          .override(
-                                                            fontFamily:
-                                                                FlutterFlowTheme.of(
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodySmall
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodySmallFamily,
-                                                            letterSpacing: 0,
-                                                            useGoogleFonts: GoogleFonts
-                                                                    .asMap()
-                                                                .containsKey(
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodySmallFamily),
-                                                          ),
+                                                                letterSpacing:
+                                                                    0,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodySmallFamily),
+                                                              ),
                                                     ),
                                                   ),
                                                 ],
@@ -225,12 +234,16 @@ class _TeamPageState extends State<TeamPage> {
                                                                 ),
                                                         onFieldSubmitted:
                                                             (value) {
-                                                          if (value.isNotEmpty) {
-                                                            AppCubit.get(context)
+                                                          if (value
+                                                              .isNotEmpty) {
+                                                            AppCubit.get(
+                                                                    context)
                                                                 .searchWorkers(
-                                                                    word: value);
+                                                                    word:
+                                                                        value);
                                                           } else {
-                                                            AppCubit.get(context)
+                                                            AppCubit.get(
+                                                                    context)
                                                                 .getWorkers();
                                                           }
                                                         },
@@ -240,13 +253,14 @@ class _TeamPageState extends State<TeamPage> {
                                                 Padding(
                                                   padding:
                                                       const EdgeInsetsDirectional
-                                                          .fromSTEB(0, 0, 12, 0),
+                                                          .fromSTEB(
+                                                          0, 0, 12, 0),
                                                   child: Container(
                                                     width: 50,
                                                     height: 50,
                                                     decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme.of(
-                                                              context)
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
                                                           .secondaryBackground,
                                                       boxShadow: const [
                                                         BoxShadow(
@@ -263,7 +277,8 @@ class _TeamPageState extends State<TeamPage> {
                                                           BorderRadius.circular(
                                                               16),
                                                     ),
-                                                    child: FlutterFlowIconButton(
+                                                    child:
+                                                        FlutterFlowIconButton(
                                                       borderColor:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -275,7 +290,8 @@ class _TeamPageState extends State<TeamPage> {
                                                               .of(context)
                                                           .secondaryBackground,
                                                       icon: Icon(
-                                                        Icons.person_add_rounded,
+                                                        Icons
+                                                            .person_add_rounded,
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -299,25 +315,28 @@ class _TeamPageState extends State<TeamPage> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: FlutterFlowIconButton(
                                               borderColor:
-                                              FlutterFlowTheme.of(
-                                                  context)
-                                                  .lineColor,
+                                                  FlutterFlowTheme.of(context)
+                                                      .lineColor,
                                               borderRadius: 12,
                                               borderWidth: 1,
                                               buttonSize: 50,
-                                              fillColor: FlutterFlowTheme
-                                                  .of(context)
-                                                  .secondaryBackground,
+                                              fillColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
                                               icon: Icon(
                                                 Icons.refresh_rounded,
                                                 color:
-                                                FlutterFlowTheme.of(
-                                                    context)
-                                                    .secondaryText,
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
                                                 size: 24,
                                               ),
                                               onPressed: () {
-                                                AppCubit.get(context).getWorkers(page: AppCubit.get(context).getWorkersModel!.current);
+                                                AppCubit.get(context)
+                                                    .getWorkers(
+                                                        page: AppCubit.get(
+                                                                context)
+                                                            .getWorkersModel!
+                                                            .current);
                                               },
                                             ),
                                           ),
@@ -346,19 +365,20 @@ class _TeamPageState extends State<TeamPage> {
                                               .lineColor,
                                         ),
                                       Padding(
-                                        padding:
-                                            const EdgeInsetsDirectional.fromSTEB(
-                                                0, 12, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 12, 0, 0),
                                         child: Container(
-                                          width: MediaQuery.sizeOf(context).width,
+                                          width:
+                                              MediaQuery.sizeOf(context).width,
                                           decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryBackground,
                                             borderRadius:
                                                 BorderRadius.circular(8),
                                             border: Border.all(
-                                              color: FlutterFlowTheme.of(context)
-                                                  .lineColor,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .lineColor,
                                               width: 1,
                                             ),
                                           ),
@@ -383,22 +403,21 @@ class _TeamPageState extends State<TeamPage> {
                                                         flex: 2,
                                                         child: Text(
                                                           'Name',
-                                                          style:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodySmall
-                                                                  .override(
-                                                                    fontFamily: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodySmallFamily,
-                                                                    letterSpacing:
-                                                                        0,
-                                                                    useGoogleFonts: GoogleFonts
-                                                                            .asMap()
-                                                                        .containsKey(
-                                                                            FlutterFlowTheme.of(context)
-                                                                                .bodySmallFamily),
-                                                                  ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodySmall
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodySmallFamily,
+                                                                letterSpacing:
+                                                                    0,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodySmallFamily),
+                                                              ),
                                                         ),
                                                       ),
                                                       if (responsiveVisibility(
@@ -407,8 +426,7 @@ class _TeamPageState extends State<TeamPage> {
                                                         tablet: false,
                                                       ))
                                                         Expanded(
-                                                          flex:2,
-
+                                                          flex: 2,
                                                           child: Text(
                                                             'National ID',
                                                             style: FlutterFlowTheme
@@ -433,7 +451,7 @@ class _TeamPageState extends State<TeamPage> {
                                                         phone: false,
                                                       ))
                                                         Expanded(
-                                                          flex:2,
+                                                          flex: 2,
                                                           child: Text(
                                                             'Phone Number',
                                                             style: FlutterFlowTheme
@@ -459,8 +477,7 @@ class _TeamPageState extends State<TeamPage> {
                                                         tablet: false,
                                                       ))
                                                         Expanded(
-                                                          flex:2,
-
+                                                          flex: 2,
                                                           child: Text(
                                                             'Job Title',
                                                             style: FlutterFlowTheme
@@ -481,7 +498,7 @@ class _TeamPageState extends State<TeamPage> {
                                                           ),
                                                         ),
                                                       Expanded(
-                                                        flex:2,
+                                                        flex: 2,
                                                         child: Align(
                                                           alignment:
                                                               const AlignmentDirectional(
@@ -572,15 +589,16 @@ class _TeamPageState extends State<TeamPage> {
                                                               .fromSTEB(
                                                               0, 16, 0, 0),
                                                       child: ListView.builder(
-                                                        padding: EdgeInsets.zero,
+                                                        padding:
+                                                            EdgeInsets.zero,
                                                         shrinkWrap: true,
                                                         scrollDirection:
                                                             Axis.vertical,
-                                                        itemCount:
-                                                            AppCubit.get(context)
-                                                                .getWorkersModel
-                                                                ?.workers
-                                                                .length,
+                                                        itemCount: AppCubit.get(
+                                                                context)
+                                                            .getWorkersModel
+                                                            ?.workers
+                                                            .length,
                                                         physics:
                                                             const BouncingScrollPhysics(),
                                                         itemBuilder: (context,
@@ -603,19 +621,39 @@ class _TeamPageState extends State<TeamPage> {
                                     ],
                                   ),
                                 ),
-                                Center(
-                                  child: Pager(
-                                    currentPage: AppCubit.get(context).getWorkersModel!.current>0?AppCubit.get(context).getWorkersModel!.current:1,
-                                    totalPages: AppCubit.get(context).getWorkersModel!.pages>0?AppCubit.get(context).getWorkersModel!.pages:1,
-                                    onPageChanged: (page) {
-                                      setState(() {
-                                        AppCubit.get(context).getWorkersModel!.current = page;
-                                        AppCubit.get(context).getWorkers(page: page);
-                                      });
-                                    },
-                                    numberButtonSelectedColor: const Color(0xffF68B1E),
-                                  ),
-                                )
+                                if (state is! AppGetWorkersLoadingState &&
+                                    state is! AppSearchWorkersLoadingState)
+                                  Center(
+                                    child: Pager(
+                                      currentPage: AppCubit.get(context)
+                                                  .getWorkersModel!
+                                                  .current >
+                                              0
+                                          ? AppCubit.get(context)
+                                              .getWorkersModel!
+                                              .current
+                                          : 1,
+                                      totalPages: AppCubit.get(context)
+                                                  .getWorkersModel!
+                                                  .pages >
+                                              0
+                                          ? AppCubit.get(context)
+                                              .getWorkersModel!
+                                              .pages
+                                          : 1,
+                                      onPageChanged: (page) {
+                                        setState(() {
+                                          AppCubit.get(context)
+                                              .getWorkersModel!
+                                              .current = page;
+                                          AppCubit.get(context)
+                                              .getWorkers(page: page);
+                                        });
+                                      },
+                                      numberButtonSelectedColor:
+                                          const Color(0xffF68B1E),
+                                    ),
+                                  )
                               ],
                             ),
                           ),
