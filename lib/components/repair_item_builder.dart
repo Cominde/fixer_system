@@ -266,7 +266,7 @@ class RepairItemBuilder extends StatelessWidget {
                           children: [
                             const Text('Updated At'),
                             Text(
-                              '${(model.updatedAt?.year) ?? 0000}-${(model.updatedAt?.month) ?? 00}/${(model.updatedAt?.day) ?? 00}',style: const TextStyle(fontWeight: FontWeight.bold),),
+                              '${(model.updatedAt?.year) ?? 0000}-${(model.updatedAt?.month) ?? 00}-${(model.updatedAt?.day) ?? 00}',style: const TextStyle(fontWeight: FontWeight.bold),),
                           ],
                         ),
                       ],
